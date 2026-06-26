@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_zacioPrHEeqFHsheHTT0Bg" confirmationNeeded="false" name="Default">
-  <contextParameter xmi:id="_IIxL0PrIEeqFHsheHTT0Bg" comment="" name="TDS_URL" prompt="TDS_URL?" promptNeeded="false" type="id_String" value="https://tds.us.cloud.talend.com/data-stewardship"/>
-  <contextParameter xmi:id="_IIxL0frIEeqFHsheHTT0Bg" comment="" name="TDS_UserName" prompt="TDS_UserName?" promptNeeded="false" type="id_String" value="artha@nfrthinkartha.com"/>
-  <contextParameter xmi:id="_IIxL0vrIEeqFHsheHTT0Bg" comment="" name="TDS_Password" prompt="TDS_Password?" promptNeeded="false" type="id_Password" value="enc:system.encryption.key.v1:T7Zd0jFRHxWNZEdfXG3PKSNFepOt27UtZOviBCYImUuQaIupQg=="/>
-</talendfile:ContextType>

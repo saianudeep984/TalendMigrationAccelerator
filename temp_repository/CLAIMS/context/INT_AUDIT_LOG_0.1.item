@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_0bOmcPiVEey9H_V6DILZ8g" confirmationNeeded="false" name="Default">
+  <contextParameter xmi:id="_0bOmcfiVEey9H_V6DILZ8g" comment="" name="IntAuditDBHost" prompt="IntAuditDBHost?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmcviVEey9H_V6DILZ8g" comment="" name="IntAuditDBPort" prompt="IntAuditDBPort?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmc_iVEey9H_V6DILZ8g" comment="" name="IntAuditDBUsr" prompt="IntAuditDBUsr?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmdPiVEey9H_V6DILZ8g" comment="" name="IntAuditDBPwd" prompt="IntAuditDBPwd?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmdfiVEey9H_V6DILZ8g" comment="" name="IntAuditDBSchema" prompt="IntAuditDBSchema?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmdviVEey9H_V6DILZ8g" comment="" name="IntAuditDBName" prompt="IntAuditDBName?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmd_iVEey9H_V6DILZ8g" comment="" name="IntAuditJobStatusTable" prompt="IntAuditJobStatusTable?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_0bOmePiVEey9H_V6DILZ8g" comment="" name="IntAuditJobLogTable" prompt="IntAuditJobLogTable?" promptNeeded="false" type="id_String" value=""/>
+</talendfile:ContextType>

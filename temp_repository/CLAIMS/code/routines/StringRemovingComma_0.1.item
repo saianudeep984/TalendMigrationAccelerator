@@ -1,0 +1,14 @@
+package routines;
+
+public class StringRemovingComma {
+
+    public static String removeComma(String message) {
+        String str = message;
+        if(message.contains(",")){
+        	if(message.length() == 5) {
+        		str = message.replace(",", "");
+        	}
+        }
+        return str.trim();
+    }
+}

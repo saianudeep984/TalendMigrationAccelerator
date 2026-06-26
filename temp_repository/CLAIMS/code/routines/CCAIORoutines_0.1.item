@@ -1,0 +1,62 @@
+package routines;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class CCAIORoutines {
+
+	public static String getFileContents(String strFilePath) {
+		StringBuffer sb = new StringBuffer();
+		BufferedReader in;
+		System.out.println("Contents of the file");
+		System.out.println();
+	    
+		try {
+			in = new BufferedReader(new FileReader(strFilePath));	
+			String line = "" ;
+			while ( (line = in.readLine()) != null) {
+				sb.append( line +"\n");
+			}
+			//System.out.println(sb.toString());
+			in.close();
+		} catch (IOException e2) {
+			System.out.println("System error");
+			e2.printStackTrace();
+			return "";
+		}
+		return sb.toString();
+	}
+
+	public static void writeFile(String fileName,String strText){
+	    try {
+	        BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+	        out.write(strText);
+	        out.close();
+	    }
+	    catch (IOException e)
+	    {
+	        System.out.println("Exception ");       
+	    }	
+	}
+}

@@ -10,9 +10,9 @@
         "severity": "HIGH"
     },
     {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
+        "component": "tFTPGet",
+        "replacement": "tFTPFileList",
+        "severity": "MEDIUM"
     },
     {
         "component": "tJava",
@@ -35,79 +35,9 @@
         "severity": "HIGH"
     },
     {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
-    },
-    {
-        "component": "tJava",
-        "replacement": "Manual Rewrite Required",
-        "severity": "HIGH"
+        "component": "tFTPGet",
+        "replacement": "tFTPFileList",
+        "severity": "MEDIUM"
     },
     {
         "component": "tJava",

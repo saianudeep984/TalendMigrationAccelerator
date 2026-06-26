@@ -1,0 +1,267 @@
+package routines;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class Country {
+
+    /**
+     * helloExample: not return value, only print "hello" + message.
+     * 
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} User Defined
+     * 
+     * {param} string("world") input: The string need to be printed.
+     * 
+     * {example} helloExemple("world") # hello world !.
+     */
+	public static String countryIsoCode(String Country) {
+        if (Country.equalsIgnoreCase("Argentina")) 
+        {
+            Country= "AR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Australia")) 
+        {
+            Country= "AU"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Austria")) 
+        {
+            Country= "AT"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Bahrain")) 
+        {
+            Country= "BH"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Belarus")) 
+        {
+            Country= "BY"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Belgium")) 
+        {
+            Country= "BE"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Brazil")) 
+        {
+            Country= "BR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Bulgaria")) 
+        {
+            Country= "BG"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Canada")) 
+        {
+            Country= "CA"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("China")) 
+        {
+            Country= "CN"; //$NON-NLS-1$
+        }
+        
+        if (Country.equalsIgnoreCase("Croatia")) 
+        {
+            Country= "HR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Czech Republic")) 
+        {
+            Country= "CZ"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Denmark")) 
+        {
+            Country= "DK"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Dominican Rep")) 
+        {
+            Country= "DO"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Egypt")) 
+        {
+            Country= "EG"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Finland")) 
+        {
+            Country= "FI"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("France")) 
+        {
+            Country= "FR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Germany")) 
+        {
+            Country= "GE"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Greece")) 
+        {
+            Country= "GR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Hong Kong")) 
+        {
+            Country= "HK"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Hungary")) 
+        {
+            Country= "HU"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("India")) 
+        {
+            Country= "IN"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Ireland")) 
+        {
+            Country= "IE"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Israel")) 
+        {
+            Country= "IL"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Italy")) 
+        {
+            Country= "IT"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Japan")) 
+        {
+            Country= "JP"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Kazakhstan")) 
+        {
+            Country= "KZ"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Korea")) 
+        {
+            Country= "KR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Latvia")) 
+        {
+            Country= "LV"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Lebanon")) 
+        {
+            Country= "LB"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Lithuania")) 
+        {
+            Country= "LT"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Luxembourg")) 
+        {
+            Country= "LU"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Malaysia")) 
+        {
+            Country= "MY"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Mexico")) 
+        {
+            Country= "MX"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Netherlands")) 
+        {
+            Country= "NL"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("New Zealand")) 
+        {
+            Country= "NZ"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Norway")) 
+        {
+            Country= "NO"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Philippines")) 
+        {
+            Country= "PH"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Poland")) 
+        {
+            Country= "PL"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Puerto Rico")) 
+        {
+            Country= "PR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Romania")) 
+        {
+            Country= "RO"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Russia")) 
+        {
+            Country= "RU"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Singapore")) 
+        {
+            Country= "SG"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Slovenia")) 
+        {
+            Country= "SI"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("South Africa")) 
+        {
+            Country= "ZA"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Spain")) 
+        {
+            Country= "ES"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Sri Lanka")) 
+        {
+            Country= "LK"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Sweden")) 
+        {
+            Country= "SE"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Switzerland")) 
+        {
+            Country= "CH"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Taiwan")) 
+        {
+            Country= "TW"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Thailand")) 
+        {
+            Country= "TH"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Tunisia")) 
+        {
+            Country= "TN"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Turkey")) 
+        {
+            Country= "TR"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Ukraine")) 
+        {
+            Country= "UA"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("United Kingdom")) 
+        {
+            Country= "UK"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("USA")) 
+        {
+            Country= "US"; //$NON-NLS-1$
+        }
+        if (Country.equalsIgnoreCase("Vietnam")) 
+        {
+            Country= "VN"; //$NON-NLS-1$
+        }
+        return Country;
+    }
+}

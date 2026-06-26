@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_eiRLEOssEeyLpfLvU1twrA" confirmationNeeded="false" name="Default">
+  <contextParameter xmi:id="_eiRLEessEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_FROM" prompt="CCA_INT_SMTP_FROM?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_eiRLEussEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_HOST" prompt="CCA_INT_SMTP_HOST?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_eiRLE-ssEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_PORT" prompt="CCA_INT_SMTP_PORT?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_eiRLFOssEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_PWD" prompt="CCA_INT_SMTP_PWD?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_eiRLFessEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_USR" prompt="CCA_INT_SMTP_USR?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_eiRLFussEeyLpfLvU1twrA" comment="" name="CCA_INT_SMTP_Exceptions_Group" prompt="CCA_INT_SMTP_Exceptions_Group?" promptNeeded="false" type="id_String" value=""/>
+</talendfile:ContextType>
