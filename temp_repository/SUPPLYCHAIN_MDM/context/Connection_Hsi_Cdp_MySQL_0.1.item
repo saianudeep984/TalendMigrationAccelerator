@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_bRgMAGt6EfCIYskJnnA2TA" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_bRgMAWt6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_Server" prompt="Connection_Hsi_Cdp_MySQL_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_bRgMAmt6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_Database" prompt="Connection_Hsi_Cdp_MySQL_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_bRgMA2t6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_Port" prompt="Connection_Hsi_Cdp_MySQL_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_bRgMBGt6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_AdditionalParams" prompt="Connection_Hsi_Cdp_MySQL_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_bRgMBWt6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_Login" prompt="Connection_Hsi_Cdp_MySQL_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_bRgMBmt6EfCIYskJnnA2TA" comment="" name="Connection_Hsi_Cdp_MySQL_Password" prompt="Connection_Hsi_Cdp_MySQL_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
+</talendfile:ContextType>

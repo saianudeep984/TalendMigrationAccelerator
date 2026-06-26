@@ -184,15 +184,34 @@ def affected_columns(data: dict, module: str) -> list[str]:
     return sorted(columns)
 
 
-def _default_module(data: dict, preferred_name: str | None = None) -> str:
+def _default_module(data: dict, preferred_name: str | None = None) -> tuple[str, bool]:
+    """Return (module_key, matched) where matched=True if preferred_name was found in the cache."""
     jobs = data.get("job_lineage", {})
     if preferred_name:
         needle = preferred_name.lower()
+        # 1. Exact key match (handles cases where cache keys are already Talend job names)
+        for module in jobs:
+            if module.lower() == needle:
+                return module, True
+        # 2. module_name field exact match (e.g. cache record has "module_name": "SC_AS400_To_DropZone_MD")
         for module, rec in jobs.items():
-            if needle in module.lower() or needle == str(rec.get("module_name", "")).lower():
-                return module
+            if str(rec.get("module_name", "")).lower() == needle:
+                return module, True
+        # 3. Talend job name embedded in path  (e.g. "process/SupplyChain_Phase6_1/SC_AS400_To_DropZone_MD_3.1")
+        for module, rec in jobs.items():
+            base = re.sub(r"_\d+\.\d+$", "", module.split("/")[-1]).lower()
+            if base == needle:
+                return module, True
+        # 4. Partial/substring match on key basename
+        for module in jobs:
+            if needle in module.lower():
+                return module, True
+        # No match found — fall back but signal the caller
+        critical = [m for m, r in jobs.items() if r.get("complexity_level") == "CRITICAL"]
+        fallback = sorted(critical or jobs.keys())[0] if jobs else ""
+        return fallback, False
     critical = [m for m, r in jobs.items() if r.get("complexity_level") == "CRITICAL"]
-    return sorted(critical or jobs.keys())[0] if jobs else ""
+    return (sorted(critical or jobs.keys())[0] if jobs else ""), True
 
 
 def _kpi(label: str, value: Any, caption: str = "") -> None:
@@ -203,7 +222,15 @@ def _module_picker(data: dict, key: str, preferred_name: str | None = None) -> s
     modules = sorted(data.get("job_lineage", {}).keys())
     if not modules:
         return ""
-    default = _default_module(data, preferred_name)
+    default, matched = _default_module(data, preferred_name)
+    if preferred_name and not matched:
+        st.warning(
+            f"⚠️ Job **{preferred_name}** was not found in the Phase 1C lineage cache. "
+            "The cache appears to contain entries for a different project or file set "
+            "(e.g. Python source files instead of Talend `.item` jobs). "
+            "Please regenerate the lineage cache from the Talend repository. "
+            "Showing all available cache entries below."
+        )
     index = modules.index(default) if default in modules else 0
     return st.selectbox("Select Job / Module", modules, index=index, key=key)
 
@@ -398,12 +425,54 @@ def _render_impact(data: dict, module: str) -> None:
         st.dataframe(_rows(risk_factors, "Risk Factor"), use_container_width=True, hide_index=True)
 
 
+def _detect_cache_source_mismatch(data: dict) -> str | None:
+    """Return an error message if the cache appears to contain Python source files
+    instead of Talend job entries, otherwise return None.
+
+    The check samples up to 20 job_lineage keys. If the majority look like Python
+    module paths (end in .py, contain typical Python package separators, or start
+    with 'app/') the cache is considered mismatched.
+    """
+    jobs = data.get("job_lineage", {})
+    if not jobs:
+        return None
+    sample = list(jobs.keys())[:20]
+    python_indicators = sum(
+        1 for k in sample
+        if k.endswith(".py")
+        or k.startswith("app/")
+        or re.search(r"/[a-z_]+/__init__", k)
+    )
+    if python_indicators >= len(sample) // 2:
+        example_keys = ", ".join(f"`{k}`" for k in sample[:3])
+        return (
+            "🚨 **Cache source mismatch detected.** "
+            "The Phase 1C lineage cache appears to have been built from "
+            "**Python source files** (TMA application code) rather than "
+            "**Talend `.item` job files**. "
+            f"Example cache keys: {example_keys}. "
+            "\n\n**To fix:** regenerate the Phase 1C lineage cache by pointing the "
+            "cache builder at your Talend repository directory "
+            "(`temp_repository/<PROJECT>/process/`) so that `job_lineage` keys "
+            "match Talend job names (e.g. `SC_AS400_To_DropZone_MD`). "
+            "Column Lineage and Lineage views will show Python module data until the cache is rebuilt."
+        )
+    return None
+
+
 def render_cached_lineage_page(preferred_job_name: str | None = None, default_view: str = "Job Lineage", widget_key: str = "_cached_lineage_module") -> None:
     try:
         data = load_cached_lineage()
     except Exception as exc:
         st.error(f"Cached lineage could not be loaded: {exc}")
         return
+
+    # ── Fix 3: sanity-check that cache contains Talend jobs, not Python files ──
+    mismatch_msg = _detect_cache_source_mismatch(data)
+    if mismatch_msg:
+        st.error(mismatch_msg)
+        # Still render below so the developer can inspect what's in the cache,
+        # but the error banner makes the problem impossible to miss.
 
     meta = data.get("metadata", {})
     st.caption(

@@ -1,0 +1,125 @@
+{
+  "itemId" : "__f-pgNM6EfCKVZ3MiutoyQ",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_Mg3fEMxgEe2-U-xC_h7qmA",
+    "parameterList" : [ {
+      "id" : "_m8om4cyaEe2-U-xC_h7qmA",
+      "name" : "where_clause_jobname"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_ZDIQ8P2SEe-NCMEzFIBSFg",
+    "parameterList" : [ {
+      "id" : "_bRgMBGt6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_AdditionalParams"
+    }, {
+      "id" : "_bRgMAmt6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_Database"
+    }, {
+      "id" : "_bRgMBWt6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_Login"
+    }, {
+      "id" : "_bRgMBmt6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_Password"
+    }, {
+      "id" : "_bRgMA2t6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_Port"
+    }, {
+      "id" : "_bRgMAWt6EfCIYskJnnA2TA",
+      "name" : "Connection_Hsi_Cdp_MySQL_Server"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_lvCPEGn_EfC47_8pY-8B5g",
+    "parameterList" : [ {
+      "id" : "_lv2ueWn_EfC47_8pY-8B5g",
+      "name" : "connection_mysql_database"
+    }, {
+      "id" : "_lv2uemn_EfC47_8pY-8B5g",
+      "name" : "connection_mysql_jdbc_parameters"
+    }, {
+      "id" : "_lv2ue2n_EfC47_8pY-8B5g",
+      "name" : "connection_mysql_port"
+    }, {
+      "id" : "_lv2ud2n_EfC47_8pY-8B5g",
+      "name" : "connection_mysql_username"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_CDJWQGlCEfC47_8pY-8B5g",
+    "parameterList" : [ {
+      "id" : "_jJiodGF4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_AdditionalParams"
+    }, {
+      "id" : "_jJiocmF4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_Database"
+    }, {
+      "id" : "_jJiodWF4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_Login"
+    }, {
+      "id" : "_jJiodmF4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_Password"
+    }, {
+      "id" : "_jJioc2F4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_Port"
+    }, {
+      "id" : "_jJiocWF4EfCvcNxQJCSRZA",
+      "name" : "Hsi_Cdp_MySQL_Server"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_aF6PUDClEfCBp_PvGmRdPw",
+    "parameterList" : [ {
+      "id" : "_9osDIEQHEe-vnuiMhdcUCg",
+      "name" : "As400_Additional_Parameters"
+    }, {
+      "id" : "_C6i0BENoEe-CYtfYjvMkpA",
+      "name" : "As400_Database"
+    }, {
+      "id" : "_C6i0A0NoEe-CYtfYjvMkpA",
+      "name" : "As400_Host"
+    }, {
+      "id" : "_C6i0AkNoEe-CYtfYjvMkpA",
+      "name" : "As400_Password"
+    }, {
+      "id" : "_C6i0AUNoEe-CYtfYjvMkpA",
+      "name" : "As400_Username"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_h2VMwDCnEfCBp_PvGmRdPw",
+    "parameterList" : [ {
+      "id" : "_HTYABUNpEe-CYtfYjvMkpA",
+      "name" : "sftp_directory"
+    }, {
+      "id" : "_HTYABENpEe-CYtfYjvMkpA",
+      "name" : "sftp_host"
+    }, {
+      "id" : "_HTYAA0NpEe-CYtfYjvMkpA",
+      "name" : "sftp_password"
+    }, {
+      "id" : "_HTYAAUNpEe-CYtfYjvMkpA",
+      "name" : "sftp_port"
+    }, {
+      "id" : "_HTYAAkNpEe-CYtfYjvMkpA",
+      "name" : "sftp_username"
+    } ]
+  }, {
+    "contextName" : "Default",
+    "repoId" : "_IxiacM4XEfCCtahY4WXyKQ",
+    "parameterList" : [ {
+      "id" : "_Ix94Qc4XEfCCtahY4WXyKQ",
+      "name" : "AS400_DB_Conn_A_Login"
+    }, {
+      "id" : "_Ix94Q84XEfCCtahY4WXyKQ",
+      "name" : "AS400_DB_Conn_A_AdditionalParams"
+    }, {
+      "id" : "_Ix94QM4XEfCCtahY4WXyKQ",
+      "name" : "AS400_DB_Conn_A_Server"
+    }, {
+      "id" : "_Ix94Qs4XEfCCtahY4WXyKQ",
+      "name" : "AS400_DB_Conn_A_Password"
+    } ]
+  } ]
+}

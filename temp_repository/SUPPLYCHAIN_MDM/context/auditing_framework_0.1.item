@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_6CKOE9kEEe-pWIelOy-PhA" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_6DJspdkEEe-pWIelOy-PhA" comment="" name="data_pipeline_id" prompt="data_pipeline_id?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_6DJsptkEEe-pWIelOy-PhA" comment="" name="start_time" prompt="start_time?" promptNeeded="false" repositoryContextId="built-in" type="id_Date" value=""/>
+  <contextParameter xmi:id="_6DJsp9kEEe-pWIelOy-PhA" comment="" name="end_time" prompt="end_time?" promptNeeded="false" repositoryContextId="built-in" type="id_Date" value=""/>
+  <contextParameter xmi:id="_6DJsqNkEEe-pWIelOy-PhA" comment="" name="sta_txt" prompt="sta_txt?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_6DJsqdkEEe-pWIelOy-PhA" comment="" name="job_exec_id" prompt="job_exec_id?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_6DJsqtkEEe-pWIelOy-PhA" comment="" name="ENVRMT_NM" prompt="ENVRMT_NM?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_6DJsq9kEEe-pWIelOy-PhA" comment="" name="soft_end_flg" prompt="soft_end_flg?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="n"/>
+</talendfile:ContextType>

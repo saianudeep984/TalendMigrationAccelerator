@@ -1,64 +1,6 @@
 {
     "nodes": [
-        "J300_B2B_Customers_Survivorship1",
-        "Copy_of_J300_NLGI_MDM_Customer_Load",
-        "J100_NLGI_LandingCustomers",
-        "J200_NLGI_Customer_Staging",
-        "J201_NLGI_Delete_all_New_TDSResolution_Tasks",
-        "J300_NLGI_MDM_Customer_Load",
-        "J302_NLGI_Customers_CreateJSONForDSMergeTasks",
-        "J301_NLGI_Delete_all_New_TDSMerge_Tasks",
-        "J400_NLGI_Process_ResolvedStewardshipTasks",
-        "sj_MDM_MASTER_MERGE",
-        "sj_MDM_MASTER_MERGE_POSTGRES",
-        "mj_ENTITY_MDM_MASTER_MATCH",
-        "sj_UPDATE_ENTITY_MDM_MASTER",
-        "sj_ENTITY_CREATE_TASK_MERGE_DS",
-        "mj_INDIVIDUAL_MDM_MASTER_MATCH",
-        "sj_INDIVIDUAL_CREATE_TASK_MERGE_DS",
-        "sj_UPDATE_INDIVIDUAL_MDM_MASTER",
-        "LOAD_MDM_STAGING",
-        "sj_PRE_LOAD_MDM_STAGING",
-        "sj_PRE_LOAD_P_STG",
-        "sj_LOAD_ENTITY_MDM_MASTER",
-        "sj_LOAD_INDIVIDUAL_MDM_MASTER"
+        "SC_AS400_To_DropZone_MD"
     ],
-    "edges": [
-        {
-            "source": "J300_NLGI_MDM_Customer_Load",
-            "target": "J300_B2B_Customers_Survivorship1"
-        },
-        {
-            "source": "J300_NLGI_MDM_Customer_Load",
-            "target": "J302_NLGI_Customers_CreateJSONForDSMergeTasks"
-        },
-        {
-            "source": "mj_ENTITY_MDM_MASTER_MATCH",
-            "target": "sj_UPDATE_ENTITY_MDM_MASTER"
-        },
-        {
-            "source": "mj_ENTITY_MDM_MASTER_MATCH",
-            "target": "sj_MDM_MASTER_MERGE"
-        },
-        {
-            "source": "mj_ENTITY_MDM_MASTER_MATCH",
-            "target": "sj_ENTITY_CREATE_TASK_MERGE_DS"
-        },
-        {
-            "source": "mj_INDIVIDUAL_MDM_MASTER_MATCH",
-            "target": "sj_MDM_MASTER_MERGE_POSTGRES"
-        },
-        {
-            "source": "mj_INDIVIDUAL_MDM_MASTER_MATCH",
-            "target": "sj_INDIVIDUAL_CREATE_TASK_MERGE_DS"
-        },
-        {
-            "source": "mj_INDIVIDUAL_MDM_MASTER_MATCH",
-            "target": "sj_UPDATE_INDIVIDUAL_MDM_MASTER"
-        },
-        {
-            "source": "LOAD_MDM_STAGING",
-            "target": "sj_PRE_LOAD_MDM_STAGING"
-        }
-    ]
+    "edges": []
 }

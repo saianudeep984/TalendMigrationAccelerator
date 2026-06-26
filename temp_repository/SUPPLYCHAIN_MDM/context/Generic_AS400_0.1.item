@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_Ix608M4XEfCCtahY4WXyKQ" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_Ix94QM4XEfCCtahY4WXyKQ" comment="" name="AS400_DB_Conn_A_Server" prompt="AS400_DB_Conn_A_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_Ix94Qc4XEfCCtahY4WXyKQ" comment="" name="AS400_DB_Conn_A_Login" prompt="AS400_DB_Conn_A_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_Ix94Qs4XEfCCtahY4WXyKQ" comment="" name="AS400_DB_Conn_A_Password" prompt="AS400_DB_Conn_A_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
+  <contextParameter xmi:id="_Ix94Q84XEfCCtahY4WXyKQ" comment="" name="AS400_DB_Conn_A_AdditionalParams" prompt="AS400_DB_Conn_A_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+</talendfile:ContextType>
