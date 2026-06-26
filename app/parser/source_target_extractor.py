@@ -640,11 +640,14 @@ def _component_query(component: dict) -> str:
 
 
 def _sql_tables(pattern: str, sql: str) -> list[str]:
-    return sorted({
-        table.strip('"[]`').split()[0]
-        for table in re.findall(pattern, str(sql or ""), flags=re.IGNORECASE)
-        if table and not table.upper().startswith(("SELECT", "WHERE", "ON"))
-    })
+    results = set()
+    for table in re.findall(pattern, str(sql or ""), flags=re.IGNORECASE):
+        if not table or table.upper().startswith(("SELECT", "WHERE", "ON")):
+            continue
+        parts = table.strip('"[]`').split()
+        if parts:
+            results.add(parts[0])
+    return sorted(results)
 
 
 def _query_source_tables(sql_ops: list[dict]) -> list[dict]:
