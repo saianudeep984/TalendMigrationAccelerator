@@ -813,21 +813,239 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
         st.markdown(
             """
             <style>
-            html, body, [class*="css"], .stApp { background:#0f172a !important; color:#e5e7eb !important; }
-            .block-container { padding-top:60px !important; }
-            div[data-testid="stHorizontalBlock"]:first-of-type { background:#0b1220 !important; border-color:#334155 !important; }
-            div[data-testid="stMetric"], .tma-kpi-grid-item, .tma-panel,
-            .tma-empty-state, [data-testid="stFileUploader"] {
-                background:#111827 !important; border-color:#334155 !important; color:#e5e7eb !important;
+            /* ── Dark mode: re-map ALL design tokens ── */
+            :root {
+                --tma-bg:           #0f172a !important;
+                --tma-surface:      #1e293b !important;
+                --tma-border:       #334155 !important;
+                --tma-text:         #f1f5f9 !important;
+                --tma-text-muted:   #94a3b8 !important;
+                --tma-primary-light:#1e3a5f !important;
+                --tma-shadow-sm:    0 1px 2px rgba(0,0,0,.4) !important;
+                --tma-shadow-md:    0 4px 14px rgba(0,0,0,.5) !important;
+                --tma-shadow-lg:    0 10px 30px rgba(0,0,0,.6) !important;
             }
-            .tma-panel-header, .stTabs [data-baseweb="tab-list"] { background:#0b1220 !important; border-color:#334155 !important; }
-            .tma-panel-title, .tma-kpi-value, .tma-nav-brand,
-            .tma-topnav-name { color:#f8fafc !important; }
-            .tma-kpi-label, .tma-kpi-caption, .tma-panel-subtitle,
-            div[data-testid="stMetricLabel"] { color:#94a3b8 !important; }
-            .stButton > button { background:#1f2937 !important; color:#e5e7eb !important; border-color:#475569 !important; }
-            .stButton > button:hover { background:#243145 !important; border-color:#60a5fa !important; color:#bfdbfe !important; }
-            .stDownloadButton > button { background:#2563eb !important; color:#fff !important; }
+
+            /* ── Base ── */
+            html, body, [class*="css"], .stApp,
+            [data-testid="stAppViewContainer"],
+            [data-testid="stMain"],
+            .main .block-container {
+                background: #0f172a !important;
+                background-image: none !important;
+                color: #f1f5f9 !important;
+            }
+
+            /* ── Top nav bar ── */
+            div.st-key-tma_topnav {
+                background: #1e293b !important;
+                border-bottom-color: #334155 !important;
+                box-shadow: 0 1px 5px rgba(0,0,0,.4) !important;
+            }
+            div.st-key-tma_topnav button {
+                background: #1e293b !important;
+                color: #cbd5e1 !important;
+                border-color: #334155 !important;
+            }
+            div.st-key-tma_topnav button:hover {
+                background: #243245 !important;
+                border-color: #60a5fa !important;
+                color: #bfdbfe !important;
+            }
+            div.st-key-tma_topnav button[kind="primary"] {
+                background: linear-gradient(135deg, #1d4ed8, #7c3aed) !important;
+                color: #fff !important;
+                border-color: transparent !important;
+            }
+            /* toggle label */
+            div.st-key-tma_topnav label { color: #cbd5e1 !important; }
+
+            /* ── Headings & text ── */
+            h1, h2, h3, h4, h5, h6 { color: #f1f5f9 !important; }
+            p, li, label, .stMarkdown, .stCaption { color: #cbd5e1 !important; }
+            hr { border-color: #334155 !important; }
+            a { color: #60a5fa !important; }
+
+            /* ── Metric cards ── */
+            div[data-testid="stMetric"] {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            div[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
+
+            /* ── Tabs ── */
+            .stTabs [data-baseweb="tab-list"] {
+                background: #0f172a !important;
+                border-color: #334155 !important;
+            }
+            .stTabs [data-baseweb="tab"] {
+                color: #94a3b8 !important;
+                background: transparent !important;
+            }
+            .stTabs [data-baseweb="tab"]:hover { color: #60a5fa !important; }
+            .stTabs [aria-selected="true"] {
+                background: #1e293b !important;
+                color: #60a5fa !important;
+                box-shadow: 0 1px 4px rgba(0,0,0,.4) !important;
+            }
+
+            /* ── All regular buttons ── */
+            .stButton > button {
+                background: #1e293b !important;
+                color: #e2e8f0 !important;
+                border-color: #475569 !important;
+            }
+            .stButton > button:hover {
+                background: #243245 !important;
+                border-color: #60a5fa !important;
+                color: #bfdbfe !important;
+            }
+            .stButton > button[kind="primary"] {
+                background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+                color: #fff !important;
+                border-color: transparent !important;
+            }
+            .stDownloadButton > button {
+                background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+                color: #fff !important;
+            }
+
+            /* ── File uploader ── */
+            [data-testid="stFileUploader"] {
+                background: #1e293b !important;
+                border-color: #475569 !important;
+            }
+            [data-testid="stFileUploader"]:hover { border-color: #60a5fa !important; }
+            [data-testid="stFileUploader"] label,
+            [data-testid="stFileUploader"] p,
+            [data-testid="stFileUploader"] span { color: #cbd5e1 !important; }
+            [data-testid="stFileUploader"] button {
+                background: #1e293b !important;
+                color: #e2e8f0 !important;
+                border-color: #475569 !important;
+            }
+
+            /* ── Inputs (select, text, textarea, number) ── */
+            .stSelectbox label, .stTextInput label, .stTextArea label,
+            .stNumberInput label, .stCheckbox label, .stSlider label {
+                color: #cbd5e1 !important;
+            }
+            .stSelectbox > div > div,
+            .stTextInput > div > div,
+            .stTextArea > div,
+            .stNumberInput > div > div {
+                background: #1e293b !important;
+                border-color: #475569 !important;
+                color: #f1f5f9 !important;
+            }
+            .stSelectbox > div > div > div,
+            .stTextInput > div > div > input,
+            .stTextArea > div > textarea,
+            .stNumberInput > div > div > input {
+                color: #f1f5f9 !important;
+                background: #1e293b !important;
+            }
+            /* Dropdown menu */
+            [data-baseweb="popover"] ul, [data-baseweb="menu"] {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            [data-baseweb="popover"] li, [data-baseweb="menu"] li { color: #f1f5f9 !important; }
+            [data-baseweb="popover"] li:hover, [data-baseweb="menu"] li:hover {
+                background: #243245 !important;
+            }
+            [data-testid="stCheckbox"] span { color: #cbd5e1 !important; }
+
+            /* ── Alerts / banners ── */
+            .stAlert {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+                color: #cbd5e1 !important;
+            }
+            [data-testid="stAlertContainer"] { background: #1e2d3d !important; }
+            /* success banner (green) */
+            [data-testid="stAlertContainer"][data-baseweb="notification"] {
+                background: #052e16 !important;
+                border-color: #166534 !important;
+                color: #bbf7d0 !important;
+            }
+
+            /* ── Expanders ── */
+            [data-testid="stExpander"] {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            [data-testid="stExpander"] summary { color: #f1f5f9 !important; }
+
+            /* ── Data tables ── */
+            [data-testid="stDataFrame"], .stDataFrame {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            [data-testid="stDataFrame"] th {
+                background: #0f172a !important;
+                color: #94a3b8 !important;
+            }
+            [data-testid="stDataFrame"] td { color: #cbd5e1 !important; }
+
+            /* ── Progress bar ── */
+            .stProgress > div > div { background: #334155 !important; }
+            .stProgress > div > div > div { background: #22c55e !important; }
+
+            /* ── Scrollbar ── */
+            ::-webkit-scrollbar-track { background: #1e293b !important; }
+            ::-webkit-scrollbar-thumb { background: #475569 !important; }
+
+            /* ── TMA custom component classes ── */
+            .tma-topnav {
+                background: #1e293b !important;
+                border-bottom-color: #334155 !important;
+            }
+            .tma-topnav-name { color: #f8fafc !important; }
+            .tma-topnav-sub, .tma-nav-sub { color: #94a3b8 !important; }
+            .tma-topnav-link { color: #94a3b8 !important; }
+            .tma-topnav-link:hover { background: #243245 !important; color: #60a5fa !important; }
+            .tma-topnav-link.active {
+                background: #1e3a5f !important;
+                color: #60a5fa !important;
+                border-color: #3b82f6 !important;
+            }
+            .tma-topnav-status {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+                color: #94a3b8 !important;
+            }
+            .tma-nav-row { background: #1e293b !important; border-bottom-color: #334155 !important; }
+            .tma-nav-brand { color: #f8fafc !important; }
+            .tma-nav-status { color: #94a3b8 !important; }
+
+            .tma-kpi-grid-item {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            .tma-kpi-label { color: #94a3b8 !important; }
+            .tma-kpi-caption { color: #64748b !important; }
+
+            .tma-panel {
+                background: #1e293b !important;
+                border-color: #334155 !important;
+            }
+            .tma-panel-header {
+                background: #0f172a !important;
+                border-bottom-color: #334155 !important;
+            }
+            .tma-panel-title { color: #f8fafc !important; }
+            .tma-panel-subtitle { color: #94a3b8 !important; }
+            .tma-panel-body { color: #cbd5e1 !important; }
+
+            /* ── Inline hardcoded colours in render_topnav HTML ── */
+            [style*="color:#0f172a"] { color: #f1f5f9 !important; }
+            [style*="color:#64748b"] { color: #94a3b8 !important; }
+            [style*="color:#475569"] { color: #94a3b8 !important; }
+            [style*="background:#fafbfc"] { background: #1e293b !important; }
+            [style*="background:#ffffff"] { background: #1e293b !important; }
+            [style*="background:#fff"] { background: #1e293b !important; }
+            [style*="border-color:#e2e8f0"] { border-color: #334155 !important; }
             </style>
             """,
             unsafe_allow_html=True,
