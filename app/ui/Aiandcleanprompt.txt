@@ -1,0 +1,886 @@
+```text
+# Talend Migration Accelerator → AI-Powered Enterprise Migration Factory
+
+## Project Context
+
+The Talend Migration Accelerator is now fully functional and capable of:
+
+- Importing Talend jobs into Talend Studio successfully
+- Preserving contexts
+- Preserving SQL queries
+- Preserving parent-child jobs (tRunJob relationships)
+- Migrating MSSQL, MySQL, JDBC, and other component types
+- Performing repository analysis
+- Generating migration-ready repositories
+- Supporting parent-child dependency migration
+
+The migration engine is stable and working.
+
+IMPORTANT:
+
+Do NOT modify or break the existing migration engine.
+
+Focus only on:
+
+- Enterprise UI/UX modernization
+- AI-powered migration intelligence
+- Repository assessment improvements
+- Executive reporting
+- Migration governance
+- Storage optimization
+- Stability improvements
+- Performance improvements
+
+Maintain full backward compatibility.
+
+---
+
+# Existing Codebase
+
+Implement changes within:
+
+app/ui/streamlit_app.py
+app/ui/preflight_dashboard.py
+app/ui/repository_summary.py
+app/ui/migration_assistant_page.py
+app/ui/version_converter_page.py
+app/ui/dashboard.py
+
+app/analysis/
+app/generators/
+app/utils/
+
+---
+
+# Navigation Simplification
+
+Current Navigation:
+
+Repository Analysis
+Enterprise Migration Factory
+Migration Assistant
+Version Converter
+Executive Dashboard
+
+Replace With:
+
+📂 Repository Analysis
+🔄 Migration Factory
+⚙️ Version Converter
+📊 Executive Dashboard
+
+---
+
+# Remove Migration Assistant
+
+Move all Migration Assistant functionality into:
+
+Migration Factory
+
+Create Section:
+
+Migration Guidance
+
+Move:
+
+- Migration Readiness
+- Recommendations
+- Validation Guidance
+- Studio Import Guide
+- Migration Checklist
+- Best Practices
+
+---
+
+# Repository Analysis Redesign
+
+Purpose:
+
+Repository Discovery & Assessment
+
+---
+
+## Repository Inventory
+
+Display KPI Cards:
+
+- Total Jobs
+- Total Components
+- Context Groups
+- Metadata Connections
+- Child Jobs
+- Custom Components
+- Deprecated Components
+- High-Risk Jobs
+- Cloud Blockers
+- Migration Readiness %
+
+---
+
+## Component Analysis
+
+Display:
+
+- Component Inventory
+- Top Components
+- Component Distribution
+- Component Usage Statistics
+
+Use Plotly interactive charts.
+
+---
+
+## Custom Component Registry
+
+Create:
+
+app/analysis/custom_component_registry.py
+
+Functions:
+
+detect_custom_components()
+categorize_custom_components()
+generate_migration_recommendations()
+
+Display:
+
+- Component Name
+- Usage Count
+- Affected Jobs
+- Risk Level
+- Migration Recommendation
+
+Example:
+
+tCustomSAPConnector
+47 Jobs
+High Risk
+Manual Migration Required
+
+---
+
+## Deprecated Component Registry
+
+Create:
+
+app/analysis/deprecated_component_registry.py
+
+Functions:
+
+detect_deprecated_components()
+suggest_replacements()
+calculate_impact_score()
+
+Display:
+
+- Deprecated Component
+- Replacement Component
+- Usage Count
+- Auto Fix Available
+- Risk Level
+
+Example:
+
+tMysqlInput → tDBInput
+
+---
+
+## Dependency Analysis
+
+Move Dependency Graph here.
+
+Display:
+
+- Parent Jobs
+- Child Jobs
+- tRunJob Relationships
+- Context Dependencies
+- Shared Routines
+- Metadata Dependencies
+
+Provide interactive visualization.
+
+---
+
+# Migration Factory Redesign
+
+Current tabs are too fragmented.
+
+Replace:
+
+Pre-Flight
+Custom Components
+Deprecated Components
+Readiness Score
+Risk Heatmap
+Auto-Fix
+Cloud Readiness
+Dependency Graph
+Validation
+
+With:
+
+---
+
+## Tab 1 – Repository Health
+
+Contains:
+
+- Custom Components
+- Deprecated Components
+- Dependency Graph
+- Cloud Readiness
+
+Purpose:
+
+Understand repository quality and migration blockers.
+
+---
+
+## Tab 2 – Migration Readiness
+
+Contains:
+
+- Readiness Score
+- Risk Heatmap
+- Validation Center
+
+Display:
+
+- Overall Readiness %
+- Component Compatibility
+- Metadata Compatibility
+- Dependency Readiness
+- Cloud Readiness
+- Custom Component Risk
+
+Validation Center:
+
+- Missing Metadata
+- Missing Contexts
+- Missing Child Jobs
+- Unsupported Components
+- Import Risks
+
+---
+
+## Tab 3 – Remediation Center
+
+Contains:
+
+- Auto Fix Recommendations
+- Migration Guidance
+- Migration Checklist
+- Best Practices
+
+Display:
+
+- Issue
+- Recommendation
+- Confidence Score
+- Estimated Effort
+- Auto Fix Available
+
+---
+
+# Migration Command Center
+
+Add a lifecycle tracker at the top.
+
+Repository Uploaded
+↓
+Assessment Complete
+↓
+Issues Found
+↓
+Ready for Migration
+↓
+Converted
+↓
+Validated
+↓
+Export Ready
+
+---
+
+# AI-Powered Migration Intelligence
+
+## AI Migration Copilot
+
+Create repository-aware AI assistant.
+
+UI:
+
+🤖 AI Migration Copilot
+
+Ask anything about this repository...
+
+Supported Questions:
+
+- Which jobs are highest risk?
+- Which jobs contain deprecated components?
+- Which jobs use Oracle?
+- Which custom components require manual migration?
+- Why is readiness only 65%?
+- Explain Job Customer_Load.
+
+Provide repository-specific answers.
+
+---
+
+## AI Repository Summary
+
+Generate repository-level executive summaries.
+
+Example:
+
+Repository contains 1,250 jobs.
+
+82% migration ready.
+
+23 custom components require remediation.
+
+Cloud readiness is 74%.
+
+Estimated migration effort:
+18 person-weeks.
+
+Display in:
+
+- Repository Analysis
+- Executive Dashboard
+- Export Reports
+
+---
+
+## AI Job Understanding
+
+For every job generate:
+
+- Business Purpose
+- Complexity Level
+- Business Criticality
+- Dependencies
+- Cloud Readiness
+
+Example:
+
+This job extracts customer data from MySQL,
+performs validation and transformation,
+and loads results into Oracle.
+
+---
+
+## AI Migration Impact Analysis
+
+Button:
+
+Analyze Impact
+
+Generate:
+
+- Parent Jobs
+- Child Jobs
+- Context Groups
+- Shared Routines
+- Risk Score
+- Migration Impact
+
+---
+
+## AI Auto-Fix Recommendations
+
+Display:
+
+- Issue
+- Recommendation
+- Confidence Score
+- Estimated Effort
+- Auto Fix Available
+
+Example:
+
+Issue:
+tMysqlInput Deprecated
+
+Recommendation:
+Replace with tDBInput
+
+Confidence:
+92%
+
+Effort:
+Low
+
+---
+
+## AI Cloud Readiness Advisor
+
+Analyze:
+
+- Local File Dependencies
+- Shell Scripts
+- Legacy JDBC Drivers
+- Unsupported Connectors
+- Custom Java Code
+
+Provide:
+
+- Blockers
+- Recommendations
+- Remediation Plan
+
+---
+
+## AI SQL Analyzer
+
+Analyze SQL queries.
+
+Detect:
+
+- SELECT *
+- Missing Indexes
+- Vendor-Specific SQL
+- Cloud Compatibility Risks
+- Performance Issues
+
+Provide optimization suggestions.
+
+---
+
+## AI Dependency Investigator
+
+Generate:
+
+- Parent Jobs
+- Child Jobs
+- Shared Routines
+- Most Critical Dependency
+- Dependency Risk
+
+---
+
+## AI Test Case Generator
+
+Generate:
+
+- Source Validation Tests
+- Target Validation Tests
+- Row Count Validation
+- Error Handling Tests
+- Context Validation Tests
+- Performance Validation Tests
+
+---
+
+## AI Executive Insights
+
+Generate:
+
+Migration readiness improved from 65% to 78%.
+
+12 deprecated components resolved.
+
+Remaining blocker:
+Custom SAP Connector used in 47 jobs.
+
+Display on Executive Dashboard.
+
+---
+
+# Version Converter Enhancements
+
+Keep current functionality.
+
+Add:
+
+## Conversion Summary
+
+Display:
+
+- Jobs Converted
+- Jobs Failed
+- Warnings
+- Custom Components
+- Deprecated Components
+
+---
+
+## Conversion Progress
+
+Display:
+
+Repository Uploaded
+↓
+Assessment Complete
+↓
+Ready for Migration
+↓
+Converted
+↓
+Validated
+↓
+Export Ready
+
+---
+
+## Download Center
+
+Provide:
+
+- Converted Repository ZIP
+- Migration Report
+- Dependency Report
+- Transformation Summary
+- Migration Patch
+- Executive Summary
+
+---
+
+# Executive Dashboard Redesign
+
+Purpose:
+
+Executive-Level Reporting
+
+Display KPI Cards:
+
+- Total Jobs
+- Migrated Jobs
+- Pending Jobs
+- Failed Jobs
+- Migration Readiness %
+- Cloud Readiness %
+- Custom Components
+- High Risk Jobs
+
+Charts:
+
+- Migration Progress
+- Risk Distribution
+- Cloud Readiness
+- Migration Trends
+- Component Distribution
+
+Include AI Executive Summary.
+
+---
+
+# Temporary File Cleanup & Storage Optimization
+
+## Upload-Time Automatic Cleanup (Highest Priority)
+
+Before processing ANY new repository upload:
+
+Automatically:
+
+1. Cleanup Previous Run
+2. Clear Cache
+3. Clear Session Repository Data
+4. Create New Workspace
+5. Extract Repository
+6. Analyze Repository
+
+New Workflow:
+
+Upload File
+↓
+Cleanup Previous Run
+↓
+Clear Cache
+↓
+Clear Session Data
+↓
+Create New Workspace
+↓
+Extract Repository
+↓
+Analyze Repository
+
+---
+
+## Create Cleanup Framework
+
+Create:
+
+app/utils/temp_cleanup_manager.py
+
+Functions:
+
+cleanup_before_new_upload()
+cleanup_temp_folders()
+cleanup_workspace()
+cleanup_uploads()
+cleanup_reports()
+cleanup_old_runs()
+cleanup_after_download()
+
+---
+
+## Cleanup Before Every Upload
+
+Automatically remove:
+
+temp/
+uploads/
+workspace/
+generated/
+output/
+reports/
+cache/
+
+Also remove:
+
+temp/run_previous/
+
+Do NOT remove:
+
+downloads/
+migration_history/
+saved_reports/
+
+unless retention policy requires it.
+
+---
+
+## Streamlit Cache Cleanup
+
+Before processing upload:
+
+st.cache_data.clear()
+st.cache_resource.clear()
+
+Also clear repository-specific session state:
+
+repository_data
+analysis_results
+job_inventory
+dependency_graph
+migration_results
+repository_summary
+
+Use safe deletion.
+
+---
+
+## Run-Based Workspace Isolation
+
+Never reuse old workspaces.
+
+Create:
+
+temp/run_001/
+temp/run_002/
+temp/run_003/
+
+Each upload gets a fresh workspace.
+
+Workflow:
+
+Cleanup Previous Run
+↓
+Create New Run Folder
+↓
+Process Repository
+
+---
+
+## Upload Cleanup Notification
+
+Display:
+
+🧹 Previous workspace cleaned successfully
+
+Files Removed: XXXX
+Folders Removed: XXX
+Freed Space: X GB
+
+Ready to process new repository.
+
+---
+
+## Cleanup After Analysis
+
+Delete:
+
+- Intermediate XML
+- Temporary Extraction
+- Workspace Copies
+- Analysis Cache
+
+Retain:
+
+- Reports
+- Export Files
+
+---
+
+## Cleanup After Conversion
+
+Delete:
+
+- Conversion Temp Files
+- Intermediate Artifacts
+- Working Repositories
+
+Retain:
+
+- Final ZIP
+- Migration Reports
+- Migration Patch
+
+---
+
+## One-Click Cleanup
+
+Add:
+
+🧹 Clean Temporary Files
+
+Display:
+
+Freed Space: X GB
+
+---
+
+## System Health Dashboard
+
+Display:
+
+- Temp Storage Size
+- Workspace Size
+- Reports Size
+- Output Size
+- Total Disk Usage
+
+Buttons:
+
+[🧹 Clean Now]
+
+[📊 View Storage Details]
+
+---
+
+## Retention Policy
+
+Add settings:
+
+Retain Temporary Files:
+
+- 1 Day
+- 7 Days
+- 30 Days
+- Never
+
+Default:
+
+1 Day
+
+---
+
+# Stability Improvements
+
+## Fix Context Group Error
+
+Current issue:
+
+TypeError: unhashable type: 'dict'
+
+Ensure:
+
+ctx.get("name")
+
+is used instead of storing entire dictionaries inside sets.
+
+Implement null-safe handling.
+
+---
+
+## Streamlit Deprecation Fix
+
+Replace globally:
+
+use_container_width=True
+
+with:
+
+width="stretch"
+
+Replace:
+
+use_container_width=False
+
+with:
+
+width="content"
+
+Remove all Streamlit deprecation warnings.
+
+---
+
+# UI Modernization
+
+Implement:
+
+- Dark Mode / Light Mode
+- Plotly Interactive Charts
+- KPI Cards
+- Search Everywhere
+- Advanced Filtering
+- Export to Excel/PDF/JSON
+- Tooltips
+- Expanders
+- Responsive Layout
+- Better spacing and typography
+- Modern enterprise dashboard design
+
+---
+
+# Success Criteria
+
+✅ Navigation reduced from 5 pages to 4 pages
+
+✅ Migration Assistant merged into Migration Factory
+
+✅ Migration Factory reduced to 3 logical tabs
+
+✅ Custom Component Registry available
+
+✅ Deprecated Component Registry available
+
+✅ AI Migration Copilot available
+
+✅ AI Repository Summary available
+
+✅ AI Job Understanding available
+
+✅ AI Executive Insights available
+
+✅ AI Auto-Fix Recommendations available
+
+✅ AI Dependency Intelligence available
+
+✅ AI Cloud Readiness Advisor available
+
+✅ AI SQL Analyzer available
+
+✅ AI Test Case Generator available
+
+✅ Automatic cleanup before every new upload
+
+✅ Temp files automatically cleaned
+
+✅ Disk usage dashboard available
+
+✅ One-click cleanup available
+
+✅ Streamlit warnings removed
+
+✅ Context group error fixed
+
+✅ No regression in migration engine functionality
+
+# Final Goal
+
+Transform the Talend Migration Accelerator into a fully AI-Powered Enterprise Migration Factory that provides migration intelligence, repository assessment, remediation guidance, executive insights, governance, validation, automated cleanup, storage management, and enterprise-grade migration operations while preserving the existing working migration engine.
+```

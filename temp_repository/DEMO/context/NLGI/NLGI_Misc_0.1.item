@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_qaQtoBV4Eeunjq1VLun_4g" confirmationNeeded="false" name="Default">
+  <contextParameter xmi:id="_qaQtoRV4Eeunjq1VLun_4g" comment="" name="Data_Folder" prompt="Data_Folder?" promptNeeded="false" type="id_String" value="&quot;C:/Users/balra/OneDrive - Artha Solutions/Documents &amp; Projects/Projects/DIP_MDM/National Life &amp; General Ins - Oman - MDM Demo/&quot;"/>
+</talendfile:ContextType>

@@ -1,0 +1,1597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMapper="http://www.talend.org/mapper" xmlns:TalendProperties="http://www.talend.org/properties" xmlns:model="http://www.talend.com/joblet.ecore">
+  <model:JobletProcess defaultContext="NON_PROD" jobType="Standard">
+    <context confirmationNeeded="false" hide="false" name="Default">
+      <contextParameter comment="" name="ROW_NUMBER" prompt="ROW_NUMBER?" promptNeeded="false" repositoryContextId="built-in" type="id_Integer" value="0" internalId="_tEuTYJJDEe6O2fitB3aNLQ"/>
+      <contextParameter comment="" name="rule_table_query_part1" prompt="rule_table_query_part1?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAwBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="table_name_tmp_ConfidentMatchesFiltered" prompt="table_name_tmp_ConfidentMatchesFiltered?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAwRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part1_2" prompt="rule_table_query_part1_2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAwhj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_order_by" prompt="rule_table_query_order_by?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAwxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="Group_Id_col" prompt="Group_Id_col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmoBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="GR_Indentifier_Col" prompt="GR_Indentifier_Col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmoRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query" prompt="rule_table_query?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ymohj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part2" prompt="rule_table_query_part2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ymoxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="hSQL_DATABASE" prompt="hSQL_DATABASE?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4Wc8YClLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_USERNAME" prompt="hSQL_USERNAME?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4Wc8YSlLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_PASSWORD" prompt="hSQL_PASSWORD?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4Wc8YilLEe-I77IElim9ug"/>
+    </context>
+    <context confirmationNeeded="false" hide="false" name="NON_PROD">
+      <contextParameter comment="" name="ROW_NUMBER" prompt="ROW_NUMBER?" promptNeeded="false" repositoryContextId="built-in" type="id_Integer" value="0" internalId="_tEuTYJJDEe6O2fitB3aNLQ"/>
+      <contextParameter comment="" name="rule_table_query_part1" prompt="rule_table_query_part1?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAxBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="table_name_tmp_ConfidentMatchesFiltered" prompt="table_name_tmp_ConfidentMatchesFiltered?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAxRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part1_2" prompt="rule_table_query_part1_2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAxhj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_order_by" prompt="rule_table_query_order_by?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAxxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="Group_Id_col" prompt="Group_Id_col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmpBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="GR_Indentifier_Col" prompt="GR_Indentifier_Col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmpRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query" prompt="rule_table_query?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ymphj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part2" prompt="rule_table_query_part2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ympxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="hSQL_DATABASE" prompt="hSQL_DATABASE?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGUClLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_USERNAME" prompt="hSQL_USERNAME?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGUSlLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_PASSWORD" prompt="hSQL_PASSWORD?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGUilLEe-I77IElim9ug"/>
+    </context>
+    <context confirmationNeeded="false" hide="false" name="PROD">
+      <contextParameter comment="" name="ROW_NUMBER" prompt="ROW_NUMBER?" promptNeeded="false" repositoryContextId="built-in" type="id_Integer" value="0" internalId="_tEuTYJJDEe6O2fitB3aNLQ"/>
+      <contextParameter comment="" name="rule_table_query_part1" prompt="rule_table_query_part1?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAyBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="table_name_tmp_ConfidentMatchesFiltered" prompt="table_name_tmp_ConfidentMatchesFiltered?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAyRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part1_2" prompt="rule_table_query_part1_2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAyhj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_order_by" prompt="rule_table_query_order_by?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_Z9lAyxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="Group_Id_col" prompt="Group_Id_col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmqBj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="GR_Indentifier_Col" prompt="GR_Indentifier_Col?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_YmqRj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query" prompt="rule_table_query?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ymqhj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="rule_table_query_part2" prompt="rule_table_query_part2?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_u_Ymqxj1Ee-wruG3Wf5g7A"/>
+      <contextParameter comment="" name="hSQL_DATABASE" prompt="hSQL_DATABASE?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGUylLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_USERNAME" prompt="hSQL_USERNAME?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGVClLEe-I77IElim9ug"/>
+      <contextParameter comment="" name="hSQL_PASSWORD" prompt="hSQL_PASSWORD?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="" internalId="_4WmGVSlLEe-I77IElim9ug"/>
+    </context>
+    <parameters>
+      <elementParameter field="CLOSED_LIST" name="LOG4J_RUN_LEVEL" value="Info" show="false"/>
+      <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="256" show="false"/>
+      <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="352" show="false"/>
+      <elementParameter field="TEXT" name="REPOSITORY_CONNECTION_ID" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_PROPERTY_TYPENAME" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_HADOOP_DISTRIBUTION" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_HADOOP_VERSION" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_ENABLE_KERBEROS" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_NAME_NODE_PRINCIPAL" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_USERNAME" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_GROUP" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_USE_KEYTAB" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_KT_PRINCIPAL" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_KEY_TAB" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_ENABLE_OO_KERBEROS" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_NAME_NODE_END_POINT" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_JOB_TRACKER_ENDPOINT" value="" show="false"/>
+      <elementParameter field="TEXT" name="OOZIE_END_POINT" value="" show="false"/>
+      <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="false" show="false"/>
+      <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="false" show="false"/>
+      <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" show="false"/>
+      <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000" show="false"/>
+      <elementParameter field="CHECK" name="STARTABLE" value="true"/>
+      <elementParameter field="ICON_SELECTION" name="ICONSELECTION" value=""/>
+      <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" show="false"/>
+      <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+      <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" show="false"/>
+      <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;C:/Users/balra/workspace8.0/in.csv&quot;" show="false"/>
+      <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" show="false"/>
+      <elementParameter field="CHECK" name="OVERRIDE_ENCODING_FLAG" value="false" show="false"/>
+      <elementParameter field="ENCODING_TYPE" name="OVERRIDE_ENCODING_IN_EXTRA" value="ISO-8859-15" show="false"/>
+      <elementParameter field="TECHNICAL" name="OVERRIDE_ENCODING_IN_EXTRA:ENCODING_TYPE" value="ISO-8859-15" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ORACLE_12" show="false"/>
+      <elementParameter field="TEXT" name="URL_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TABLE" name="DRIVER_JAR_IMPLICIT_CONTEXT" show="false"/>
+      <elementParameter field="TEXT" name="DRIVER_CLASS_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="PASSWORD" name="PASS_IMPLICIT_CONTEXT" value="enc:system.encryption.key.v1:xZ5A6sd2L5EXoF0Gp5wdKY26cWW1gjPjxHXz/BNI" show="false"/>
+      <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" show="false"/>
+      <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" show="false"/>
+      <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" show="false"/>
+      <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" show="false"/>
+      <elementParameter field="CHECK" name="DISABLE_INFO" value="true" show="false"/>
+      <elementParameter field="TEXT" name="HEADERFOOTER_HEADERID" value="" show="false"/>
+      <elementParameter field="CHECK" name="HEADER_ENABLED" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HEADER_LIBRARY" value="" show="false"/>
+      <elementParameter field="TEXT" name="HEADER_CODE" value="" show="false"/>
+      <elementParameter field="TEXT" name="HEADER_IMPORT" value="" show="false"/>
+      <elementParameter field="TEXT" name="HEADERFOOTER_FOOTERID" value="" show="false"/>
+      <elementParameter field="CHECK" name="FOOTER_ENABLED" value="false" show="false"/>
+      <elementParameter field="TEXT" name="FOOTER_LIBRARY" value="" show="false"/>
+      <elementParameter field="TEXT" name="FOOTER_CODE" value="" show="false"/>
+      <elementParameter field="TEXT" name="FOOTER_IMPORT" value="" show="false"/>
+    </parameters>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-192" posY="1440" sizeX="224" sizeY="32">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="//System.out.println(context.rule_table_query);&#xA;context.rule_table_query_part1 =&quot;&quot;; &#xA;context.rule_table_query_part2 =&quot;&quot;;&#xA;&#xA;&#xA;System.out.println(&quot;TEMP &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;_Value&quot;+&quot; TABLE FOR MERGED DATA RECORDS = &quot; + ((Integer)globalMap.get(&quot;tHSQLDbOutput_5_NB_LINE&quot;)));"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_1"/>
+    </node>
+    <node componentName="tHSQLDbInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="64">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_1" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:YTXb9MtVTSNbtHWvAyEZmOPduor9TkSOt1XAyXWfRXcWBJvQXdZd3LSK8wivfyMlOg=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC&quot;"/>
+      <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+      <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+      <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT * &#xA;FROM&#xD;&#xA;tmp_JMC&quot;"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+      <elementParameter field="TABLE" name="TRIM_COLUMN">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+      </elementParameter>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbInput_1">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="128" posY="64">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1" show="false"/>
+      <elementParameter field="EXTERNAL" name="MAP" value=""/>
+      <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+      <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+      <elementParameter field="IMAGE" name="PREVIEW" value="_dnO90BeFEe6GF4wC9RPWsg-tMap_1-PREVIEW.bmp"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+      <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LEVENSHTEIN" value="0" show="false"/>
+      <elementParameter field="TEXT" name="JACCARD" value="0" show="false"/>
+      <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+      <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="out3">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+      <nodeData xsi:type="TalendMapper:MapperData">
+        <uiProperties/>
+        <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+        <outputTables sizeState="INTERMEDIATE" name="out3">
+          <mapperTableEntries name="ORDER_NAME_PREV" expression="row1.ORDER_NAME_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" expression="row1.REF_COLUMN_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" expression="row1.FUNC_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" expression="row1.TARGET_COLUMN_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS" expression="row1.IGNORE_BLANKS_PREV " type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" expression="row1.REFCOL_DATA_TYPE_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG" expression="row1.FIRST_RULE_FLAG_PREV " type="id_Boolean" nullable="true"/>
+        </outputTables>
+        <inputTables sizeState="INTERMEDIATE" name="row1" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
+          <mapperTableEntries name="ORDER_NAME_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS_PREV" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG_PREV" type="id_Boolean" nullable="true"/>
+        </inputTables>
+      </nodeData>
+    </node>
+    <node componentName="tFlowToIterate" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="352" posY="64">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFlowToIterate_1" show="false"/>
+      <elementParameter field="CHECK" name="DEFAULT_MAP" value="true"/>
+      <elementParameter field="TABLE" name="MAP" show="false"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tFlowToIterate_1"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="64">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_5" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="if( ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) == 1){&#xA;&#x9;context.rule_table_query_part1 =&#xA;&#x9;&#x9;&quot;SELECT distinct &quot;&#xA;&#x9;&#x9;&#x9;+ context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot; + context.Group_Id_col    +&#xA;&#x9;&#x9;&#x9;&quot;, &quot; + context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+ context.GR_Indentifier_Col   +&#xA;&#x9;&#x9;&#x9;&quot;, '&quot; +((String)globalMap.get(&quot;out3.TARGET_COLUMN_PREV&quot;))+ &quot;' as COLUMN_NAME &quot; +&#xA;&#x9;&#x9;&#x9;&quot;, &quot; + context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+((String)globalMap.get(&quot;out3.TARGET_COLUMN_PREV&quot;))+ &quot; as COLUMN_VALUE &quot; +&#xA;&#x9;&#x9;&#x9;&quot;, MOST_RECENT_1.MDM_ID &quot;;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9; &#xA;&#x9;;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;context.rule_table_query_part1_2 =&quot; from &quot; + context.table_name_tmp_ConfidentMatchesFiltered;&#xA;&#xA;&#x9;context.rule_table_query_part2 =&quot;&quot;;&#x9;&#xA;&#x9;&#xA;&#x9;context.rule_table_query_order_by= &quot; ORDER BY &quot;+ context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot; + context.Group_Id_col + &quot; ASC &quot;;&#xA;&#xA;}&#xA;&#xA;//System.out.println(&quot;\n\n================================================================\nrule_table_query_part1: \n&quot;+context.rule_table_query_part1);&#xA;&#xA;//System.out.println(&quot;Column Name: &quot;+((String)globalMap.get(&quot;out3.TARGET_COLUMN_PREV&quot;)));&#xA;&#xA;//    "/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="StartSelectStatement"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_5"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="320">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_2" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="String foo = &quot;bar&quot;;&#xA;//System.out.println(&quot;**** &quot; + context.rule_table_query_part1 + context.rule_table_query_part1_2 + context.rule_table_query_part2 +context.rule_table_query_order_by+&quot;\n&quot;);&#xA;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_2"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="704">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_3" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="String foo = &quot;bar&quot;;&#xA;//System.out.println(&quot;\nCUR TARGET COLUMN is &quot;+((String)globalMap.get(&quot;CUR_TARGET_COLUMN&quot;)));"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_3"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="1280">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_4" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="System.out.println(&quot;**** &quot; + context.rule_table_query_part1 + context.rule_table_query_part1_2 + context.rule_table_query_part2 +context.rule_table_query_order_by+&quot;\n&quot;);"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_4"/>
+    </node>
+    <node componentName="tHSQLDbInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="704">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_2" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:+QgRTIQmGlH0HrHxQTz7kF6x3XXDdwuKdqQFaC1uUWaiEr9TScWoKRZNmSqIpebylw=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC&quot;"/>
+      <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+      <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+      <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT * &#xA;FROM&#x9;tmp_JMC&quot;"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+      <elementParameter field="TABLE" name="TRIM_COLUMN">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+      </elementParameter>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbInput_2">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="416" posY="704">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_2" show="false"/>
+      <elementParameter field="EXTERNAL" name="MAP" value=""/>
+      <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+      <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+      <elementParameter field="IMAGE" name="PREVIEW" value="_dnO90BeFEe6GF4wC9RPWsg-tMap_2-PREVIEW.bmp"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+      <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LEVENSHTEIN" value="0" show="false"/>
+      <elementParameter field="TEXT" name="JACCARD" value="0" show="false"/>
+      <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+      <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="out_Backup">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <nodeData xsi:type="TalendMapper:MapperData">
+        <uiProperties/>
+        <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+        <outputTables sizeState="INTERMEDIATE" name="out_Backup">
+          <mapperTableEntries name="ORDER_NAME_PREV" expression="row14.ORDER_NAME_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" expression="row14.REF_COLUMN_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" expression="row14.FUNC_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" expression="row14.FIRST_RULE_FLAG_PREV ==true ?((String)globalMap.get(&quot;CUR_TARGET_COLUMN&quot;)) :row14.TARGET_COLUMN_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS_PREV" expression="row14.IGNORE_BLANKS_PREV" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" expression="row14.REFCOL_DATA_TYPE_PREV " type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG_PREV" expression="row14.FIRST_RULE_FLAG_PREV" type="id_Boolean" nullable="true"/>
+        </outputTables>
+        <inputTables sizeState="INTERMEDIATE" name="row14" matchingMode="ALL_ROWS" lookupMode="LOAD_ONCE">
+          <mapperTableEntries name="ORDER_NAME_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS_PREV" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG_PREV" type="id_Boolean" nullable="true"/>
+        </inputTables>
+      </nodeData>
+    </node>
+    <node componentName="tHSQLDbOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="704">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbOutput_3" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:FhUDE3T/3Xqqt+2sFCC22MrvLkCwvb3OMjFEdhirSgYWp81CB3c2mcvc6nInaWqjuw=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC_backup&quot;"/>
+      <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
+      <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+      <elementParameter field="MAPPING_TYPE" name="MAPPING" value="hsqldb_id" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="TEXT" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+      <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+      <elementParameter field="TABLE" name="ADD_COLS"/>
+      <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+      <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbOutput_3">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <metadata connector="REJECT" name="REJECT">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+    </node>
+    <node componentName="tHSQLDbInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="896">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_3" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:XoHz4X9T4mQjTLkZHX3yZS2ZhE5QhHmipc+ZmFnHyntiODy/Elkz7yfYSmEWbVeaEA=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC_backup&quot;"/>
+      <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+      <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+      <elementParameter field="MEMO_SQL" name="QUERY" value="&quot;SELECT * &#xA;FROM&#x9;tmp_JMC_backup&quot;"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+      <elementParameter field="TABLE" name="TRIM_COLUMN">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="TRIM" value="false"/>
+      </elementParameter>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbInput_3">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tHSQLDbOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="896">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbOutput_4" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:7DPs6J1Su1mn6DOVfZK5pnvg5/uJrcF4Sg3L5X9QCHe26B18HUuF/SABD/+q6FMHdg=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC&quot;"/>
+      <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
+      <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+      <elementParameter field="MAPPING_TYPE" name="MAPPING" value="hsqldb_id" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="TEXT" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+      <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+      <elementParameter field="TABLE" name="ADD_COLS"/>
+      <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+      <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbOutput_4">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <metadata connector="REJECT" name="REJECT">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+    </node>
+    <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="320">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1" show="false"/>
+      <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
+      <elementParameter field="RADIO" name="USE_SINGLEMODE" value="true"/>
+      <elementParameter field="TABLE" name="VALUES">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME"/>
+        <elementValue elementRef="VALUE" value="&quot;&quot;"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN"/>
+        <elementValue elementRef="VALUE" value="&quot;&quot;"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC"/>
+        <elementValue elementRef="VALUE" value="&quot;&quot;"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN"/>
+        <elementValue elementRef="VALUE" value="&quot;&quot;"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="VALUE" value=""/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE"/>
+        <elementValue elementRef="VALUE" value=""/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG"/>
+        <elementValue elementRef="VALUE" value=""/>
+      </elementParameter>
+      <elementParameter field="RADIO" name="USE_INTABLE" value="false"/>
+      <elementParameter field="TABLE" name="INTABLE" show="false"/>
+      <elementParameter field="RADIO" name="USE_INLINECONTENT" value="false"/>
+      <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+      <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" show="false"/>
+      <elementParameter field="MEMO" name="INLINECONTENT" value="" show="false"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tFixedFlowInput_1">
+        <column comment="" key="false" length="100" name="ORDER_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="416" posY="320">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_3" show="false"/>
+      <elementParameter field="EXTERNAL" name="MAP" value=""/>
+      <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+      <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+      <elementParameter field="IMAGE" name="PREVIEW" value="_dnO90BeFEe6GF4wC9RPWsg-tMap_3-PREVIEW.bmp"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+      <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LEVENSHTEIN" value="0" show="false"/>
+      <elementParameter field="TEXT" name="JACCARD" value="0" show="false"/>
+      <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+      <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="out4">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+      <nodeData xsi:type="TalendMapper:MapperData">
+        <uiProperties/>
+        <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+        <outputTables sizeState="INTERMEDIATE" name="out4" expressionFilter="1==2" activateExpressionFilter="true">
+          <mapperTableEntries name="ORDER_NAME_PREV" expression="" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" expression="" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" expression="" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" expression="" type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS_PREV" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG_PREV" type="id_Boolean" nullable="true"/>
+        </outputTables>
+        <inputTables sizeState="INTERMEDIATE" name="row5" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
+          <mapperTableEntries name="ORDER_NAME" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN" type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG" type="id_Boolean" nullable="true"/>
+        </inputTables>
+      </nodeData>
+    </node>
+    <node componentName="tHSQLDbOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="320">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbOutput_1" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:FHbdGXkh0J/gNjV3AOzkAaWSzJQy9JwPrp3/YhH4NszevtNGQ4Co2tkVt36u3u5JAw=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC&quot;"/>
+      <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="DROP_IF_EXISTS_AND_CREATE"/>
+      <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+      <elementParameter field="MAPPING_TYPE" name="MAPPING" value="hsqldb_id" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="TEXT" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+      <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+      <elementParameter field="TABLE" name="ADD_COLS"/>
+      <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+      <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbOutput_1">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <metadata connector="REJECT" name="REJECT">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BIT" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+    </node>
+    <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="192" posY="512">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_2" show="false"/>
+      <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
+      <elementParameter field="RADIO" name="USE_SINGLEMODE" value="true"/>
+      <elementParameter field="TABLE" name="VALUES">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME"/>
+        <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;row3.ORDER_NAME&quot;))"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN"/>
+        <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;row3.REF_COLUMN&quot;))"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC"/>
+        <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;row3.FUNC&quot;))"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN"/>
+        <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;row3.TARGET_COLUMN&quot;))"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="VALUE" value="((Boolean)globalMap.get(&quot;row3.IGNORE_BLANKS&quot;))"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE"/>
+        <elementValue elementRef="VALUE" value="((String)globalMap.get(&quot;row3.REFCOL_DATA_TYPE&quot;))"/>
+      </elementParameter>
+      <elementParameter field="RADIO" name="USE_INTABLE" value="false"/>
+      <elementParameter field="TABLE" name="INTABLE" show="false"/>
+      <elementParameter field="RADIO" name="USE_INLINECONTENT" value="false"/>
+      <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+      <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" show="false"/>
+      <elementParameter field="MEMO" name="INLINECONTENT" value="" show="false"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tFixedFlowInput_2">
+        <column comment="" key="false" length="100" name="ORDER_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="50" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="30" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="25" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="30" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="416" posY="512">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_4" show="false"/>
+      <elementParameter field="EXTERNAL" name="MAP" value=""/>
+      <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+      <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+      <elementParameter field="IMAGE" name="PREVIEW" value="_dnO90BeFEe6GF4wC9RPWsg-tMap_4-PREVIEW.bmp"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+      <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LEVENSHTEIN" value="0" show="false"/>
+      <elementParameter field="TEXT" name="JACCARD" value="0" show="false"/>
+      <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+      <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="out5">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+      <nodeData xsi:type="TalendMapper:MapperData">
+        <uiProperties/>
+        <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+        <outputTables sizeState="INTERMEDIATE" name="out5">
+          <mapperTableEntries name="ORDER_NAME_PREV" expression="row6.ORDER_NAME " type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN_PREV" expression="row6.REF_COLUMN " type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC_PREV" expression="row6.FUNC " type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN_PREV" expression="row6.TARGET_COLUMN " type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS_PREV" expression="row6.IGNORE_BLANKS " type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE_PREV" expression="row6.REFCOL_DATA_TYPE " type="id_String" nullable="true"/>
+          <mapperTableEntries name="FIRST_RULE_FLAG_PREV" expression="true" type="id_Boolean" nullable="true"/>
+        </outputTables>
+        <inputTables sizeState="INTERMEDIATE" name="row6" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
+          <mapperTableEntries name="ORDER_NAME" type="id_String" nullable="true"/>
+          <mapperTableEntries name="REF_COLUMN" type="id_String" nullable="true"/>
+          <mapperTableEntries name="FUNC" type="id_String" nullable="true"/>
+          <mapperTableEntries name="TARGET_COLUMN" type="id_String" nullable="true"/>
+          <mapperTableEntries name="IGNORE_BLANKS" type="id_Boolean" nullable="true"/>
+          <mapperTableEntries name="REFCOL_DATA_TYPE" type="id_String" nullable="true"/>
+        </inputTables>
+      </nodeData>
+    </node>
+    <node componentName="tHSQLDbOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="640" posY="512">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbOutput_2" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:q+PB7ATg4KaSInvWo52qRBudV4xbvpWzXk/pAo5qqztvpaG7R+CVhVleT8u6GIpU9Q=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="&quot;tmp_JMC&quot;"/>
+      <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE"/>
+      <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+      <elementParameter field="MAPPING_TYPE" name="MAPPING" value="hsqldb_id" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="TEXT" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+      <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+      <elementParameter field="TABLE" name="ADD_COLS"/>
+      <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+      <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ORDER_NAME_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REF_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FUNC_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="TARGET_COLUMN_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbOutput_2">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <metadata connector="REJECT" name="REJECT">
+        <column comment="" key="false" length="100" name="ORDER_NAME_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="REF_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="FUNC_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="TARGET_COLUMN_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="IGNORE_BLANKS_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="20" name="REFCOL_DATA_TYPE_PREV" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="FIRST_RULE_FLAG_PREV" nullable="true" pattern="" precision="-1" sourceType="BOOLEAN" type="id_Boolean" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+    </node>
+    <node componentName="tHSQLDbInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="1280">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_4" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:m1WZGpaGgJLqpYJaRjOX0IBAeCVUVlfviCikRyoCEul+QPKu+Mwm2X4AX2vZuE7okQ=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="context.table_name_tmp_ConfidentMatchesFiltered"/>
+      <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
+      <elementParameter field="TECHNICAL" name="QUERYSTORE:QUERYSTORE_TYPE" value="BUILT_IN"/>
+      <elementParameter field="GUESS_SCHEMA" name="GUESS_SCHEMA" value="&quot;&quot;"/>
+      <elementParameter field="MEMO_SQL" name="QUERY" value=" context.rule_table_query_part1 + context.rule_table_query_part1_2 + context.rule_table_query_part2 + context.rule_table_query_order_by"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="CHECK" name="TRIM_ALL_COLUMN" value="false"/>
+      <elementParameter field="TABLE" name="TRIM_COLUMN">
+        <elementValue elementRef="SCHEMA_COLUMN" value="GID"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="MDM_ID"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="COLUMN_NAME"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="COLUMN_VALUE"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="MDM_ID_max"/>
+        <elementValue elementRef="TRIM" value="false"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="Unified_Number"/>
+        <elementValue elementRef="TRIM" value="false"/>
+      </elementParameter>
+      <elementParameter field="TEXT" name="LABEL" value="__TABLE__"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbInput_4">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="MDM_ID_max" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="Unified_Number" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tJavaFlex" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="608" posY="1280">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJavaFlex_1" show="false"/>
+      <elementParameter field="CHECK" name="DATA_AUTO_PROPAGATE" value="true"/>
+      <elementParameter field="MEMO_JAVA" name="CODE_START" value="// start part of your Java code&#xA;      String temp = &quot;&quot;;"/>
+      <elementParameter field="MEMO_JAVA" name="CODE_MAIN" value="if(temp.trim().equals(row8.GID))&#xA;&#x9;&#xA;&#x9;//globalMap.put(&quot;ROW_NUMBER&quot;,((Integer)globalMap.get(&quot;ROW_NUMBER&quot;))+1 );&#xA;&#x9;context.ROW_NUMBER=context.ROW_NUMBER+1;&#xA;else&#xA;&#x9;context.ROW_NUMBER=1 ;&#xA;temp=row8.GID;&#xA;&#xA;//System.out.println(&quot;GID - &quot;+temp+&quot;  Customer Id - &quot;+(Integer)globalMap.get(&quot;CustomerId&quot;));"/>
+      <elementParameter field="MEMO_JAVA" name="CODE_END" value="// end of the component, outside/closing the loop&#xA;      "/>
+      <elementParameter field="CHECK" name="Version_V2_0" value="false" show="false"/>
+      <elementParameter field="CHECK" name="Version_V3_2" value="false" show="false"/>
+      <elementParameter field="CHECK" name="Version_V4.0" value="true" show="false"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJavaFlex_1">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+      </metadata>
+    </node>
+    <node componentName="tMap" componentVersion="2.1" offsetLabelX="0" offsetLabelY="0" posX="864" posY="1280">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_5" show="false"/>
+      <elementParameter field="EXTERNAL" name="MAP" value=""/>
+      <elementParameter field="CLOSED_LIST" name="LINK_STYLE" value="AUTO"/>
+      <elementParameter field="DIRECTORY" name="TEMPORARY_DATA_DIRECTORY" value=""/>
+      <elementParameter field="IMAGE" name="PREVIEW" value="_dnO90BeFEe6GF4wC9RPWsg-tMap_5-PREVIEW.bmp"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" show="false"/>
+      <elementParameter field="CHECK" name="LKUP_PARALLELIZE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LEVENSHTEIN" value="0" show="false"/>
+      <elementParameter field="TEXT" name="JACCARD" value="0" show="false"/>
+      <elementParameter field="CHECK" name="ENABLE_AUTO_CONVERT_TYPE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="ROWS_BUFFER_SIZE" value="2000000"/>
+      <elementParameter field="CHECK" name="CHANGE_HASH_AND_EQUALS_FOR_BIGDECIMAL" value="true"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="out8">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="ROW_NUMBER" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+      <metadata connector="FLOW" name="out1">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="ROW_NUMBER" nullable="true" pattern="" precision="-1" sourceType="" type="id_Integer" originalLength="-1" usefulColumn="true"/>
+      </metadata>
+      <nodeData xsi:type="TalendMapper:MapperData">
+        <uiProperties/>
+        <varTables sizeState="INTERMEDIATE" name="Var" minimized="true"/>
+        <outputTables sizeState="INTERMEDIATE" name="out8">
+          <mapperTableEntries name="GID" expression="row2.GID " type="id_String" nullable="true"/>
+          <mapperTableEntries name="MDM_ID" expression="row2.MDM_ID " type="id_Integer" nullable="true"/>
+          <mapperTableEntries name="COLUMN_NAME" expression="row2.COLUMN_NAME " type="id_String" nullable="true"/>
+          <mapperTableEntries name="COLUMN_VALUE" expression="row2.COLUMN_VALUE " type="id_String" nullable="true"/>
+          <mapperTableEntries name="ROW_NUMBER" expression="context.ROW_NUMBER" type="id_Integer" nullable="true"/>
+        </outputTables>
+        <outputTables sizeState="INTERMEDIATE" name="out1">
+          <mapperTableEntries name="GID" expression="row2.GID" type="id_String" nullable="true"/>
+          <mapperTableEntries name="MDM_ID" expression="row2.MDM_ID" type="id_Integer" nullable="true"/>
+          <mapperTableEntries name="COLUMN_NAME" expression="row2.COLUMN_NAME" type="id_String" nullable="true"/>
+          <mapperTableEntries name="COLUMN_VALUE" expression="row2.COLUMN_VALUE" type="id_String" nullable="true"/>
+          <mapperTableEntries name="ROW_NUMBER" expression="context.ROW_NUMBER" type="id_Integer" nullable="true"/>
+        </outputTables>
+        <inputTables sizeState="INTERMEDIATE" name="row2" matchingMode="UNIQUE_MATCH" lookupMode="LOAD_ONCE">
+          <mapperTableEntries name="GID" type="id_String" nullable="true"/>
+          <mapperTableEntries name="MDM_ID" type="id_Integer" nullable="true"/>
+          <mapperTableEntries name="COLUMN_NAME" type="id_String" nullable="true"/>
+          <mapperTableEntries name="COLUMN_VALUE" type="id_String" nullable="true"/>
+        </inputTables>
+      </nodeData>
+    </node>
+    <node componentName="tHSQLDbOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="1120" posY="1280">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbOutput_5" show="false"/>
+      <elementParameter field="CLOSED_LIST" name="RUNNING_MODE" value="HSQLDB_IN_MEMORY"/>
+      <elementParameter field="CHECK" name="TLS" value="false" show="false"/>
+      <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="PORT" value="&quot;9001&quot;" show="false"/>
+      <elementParameter field="DIRECTORY" name="DBPATH" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="DBNAME" value="context.hSQL_DATABASE"/>
+      <elementParameter field="TEXT" name="DATABASE_ALIAS" value="&quot;&quot;" show="false"/>
+      <elementParameter field="TEXT" name="USER" value="context.hSQL_USERNAME"/>
+      <elementParameter field="PASSWORD" name="PASS" value="enc:system.encryption.key.v1:ciKTWKLSpvztanQ5SwPokIE7jM1dmvK1PKtIVfNZU5B8poMX293B5BMU11tyVLBrIg=="/>
+      <elementParameter field="DBTABLE" name="TABLE" value="context.table_name_tmp_ConfidentMatchesFiltered+&quot;_Value&quot;"/>
+      <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="CREATE_IF_NOT_EXISTS"/>
+      <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT"/>
+      <elementParameter field="TEXT" name="TYPE" value="HSQLDB" show="false"/>
+      <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true"/>
+      <elementParameter field="MAPPING_TYPE" name="MAPPING" value="hsqldb_id" show="false"/>
+      <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;"/>
+      <elementParameter field="TEXT" name="ENCODING" value="&quot;ISO-8859-15&quot;" show="false"/>
+      <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000"/>
+      <elementParameter field="TABLE" name="ADD_COLS"/>
+      <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false"/>
+      <elementParameter field="TABLE" name="FIELD_OPTIONS" show="false">
+        <elementValue elementRef="SCHEMA_COLUMN" value="GID"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="MDM_ID"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="COLUMN_NAME"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="COLUMN_VALUE"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+        <elementValue elementRef="SCHEMA_COLUMN" value="ROW_NUMBER"/>
+        <elementValue elementRef="UPDATE_KEY" value="false"/>
+        <elementValue elementRef="DELETE_KEY" value="false"/>
+        <elementValue elementRef="UPDATABLE" value="true"/>
+        <elementValue elementRef="INSERTABLE" value="true"/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="Merged_Data_Table"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tHSQLDbOutput_5">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="255" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="ROW_NUMBER" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+      <metadata connector="REJECT" name="REJECT">
+        <column comment="" key="false" length="500" name="GID" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="20" usefulColumn="true"/>
+        <column comment="" key="false" length="19" name="MDM_ID" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="19" usefulColumn="true"/>
+        <column comment="" key="false" length="100" name="COLUMN_NAME" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="255" name="COLUMN_VALUE" nullable="true" pattern="" precision="-1" sourceType="VARCHAR" type="id_String" originalLength="100" usefulColumn="true"/>
+        <column comment="" key="false" length="-1" name="ROW_NUMBER" nullable="true" pattern="" precision="-1" sourceType="INT" type="id_Integer" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="VARCHAR" type="id_String" originalLength="-1" usefulColumn="true"/>
+        <additionalProperties key="Comment" value=""/>
+      </metadata>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="-288" sizeX="64" sizeY="32">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_6" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="&#xA;&#xA;&#xA;context.rule_table_query_part2 = context.rule_table_query_part2+&#xA;&quot; left JOIN (&quot;+&#xA;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot; +&#xA;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; + &#xA;&#x9;&#x9;&quot;, max(&quot;+ ( (((String)globalMap.get(&quot;out3.REFCOL_DATA_TYPE_PREV&quot;)).equalsIgnoreCase(&quot;DATE&quot;))? &quot;TO_DATE (&quot;+  ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) +&quot;,'DD/MM/YYYY HH:MI:SS')&quot;:((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) ) +&quot;) as REF_COLUMN &quot;+&#xA;  &#x9;&quot;FROM &quot;+&#xA;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered+ &quot; &quot; +&#xA;&#x9;(&#xA;&#x9;&#x9;((Boolean)globalMap.get(&quot;out3.IGNORE_BLANKS&quot;))==true&#xA;&#x9;&#x9;&#x9;? &quot; WHERE &quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+ &quot; is not null &quot;&#xA;&#x9;&#x9;&#x9;:  &quot;&quot;&#xA;&#x9;)&#xA;&#x9;+ &quot;group by &quot;+&#xA;&#x9;&#x9;context.Group_Id_col+&#xA;  &quot;) as MOST_RECENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot;+&#xA;&#x9;&quot;MOST_RECENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &#xA;&#x9;&quot; and MOST_RECENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.MDM_ID = &quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+(context.GR_Indentifier_Col);&#xA;&#x9;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, MOST_RECENT_1.MDM_ID desc nulls LAST , &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+context.Group_Id_col + &quot; DESC&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Most Recent"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_6"/>
+    </node>
+    <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="160" posY="1440">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tWarn_1" show="false"/>
+      <elementParameter field="TEXT" name="MESSAGE" value="&quot;The Query: &quot; + context.rule_table_query"/>
+      <elementParameter field="TEXT" name="CODE" value="42"/>
+      <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tWarn_1"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1088" posY="416">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_7" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2&#xA; +&quot; left  JOIN ( &quot;&#xA; &#x9;+&quot; SELECT &quot;&#xA;&#x9;&#x9;+ context.Group_Id_col + &quot; as GID, &quot;&#xA;&#x9;&#x9;+ ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) &#xA;&#x9;&#x9;+&quot;, count(&quot; + ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+ &quot;) as ctr &quot; &#xA;&#x9;+ &quot;FROM &quot;&#xA;&#x9;&#x9;+ context.table_name_tmp_ConfidentMatchesFiltered +&#x9;&quot; AS tmp_CMF &quot; &#xA;&#x9;+   &quot;   WHERE &quot;&#xA;&#x9;&#x9;&#x9;+ ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+ &quot; IS NOT NULL &quot;   &#xA;&#x9;+ &quot;Group by &quot; &#xA;&#x9;+ &quot;&#x9;&#x9;GID, &quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))&#xA;&#x9;+&quot;) ValCount_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot;&#xA;&#x9;+ &quot;&#x9;&#x9;ValCount_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.&quot;+context.Group_Id_col+&quot; = &quot;+ context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+context.Group_Id_col&#xA;&#x9;+&quot;      and ValCount_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot; = &quot;+context.table_name_tmp_ConfidentMatchesFiltered +&#x9;&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))&#xA; +&quot; left  JOIN ( &quot;&#xA;&#x9;+&quot; SELECT &quot; &#xA;&#x9;&#x9;+ context.Group_Id_col+&quot; as GID &quot;&#xA;&#x9;&#x9;+ &quot;&#x9;, Max(Ctr) MaxCtr &quot;&#xA;    +&quot; FROM &quot;&#xA;&#x9;+ &quot;    (&quot;&#xA;&#x9;&#x9;+ &#x9;&quot;&#x9;SELECT&#x9;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;+&#x9;context.Group_Id_col+&quot; as GID &quot;&#xA;&#x9;&#x9;&#x9;&#x9;+ &quot;&#x9;, &quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))&#xA;&#x9;&#x9;&#x9;&#x9;+ &quot;&#x9;, count(&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;) as ctr &quot; &#xA;&#x9;&#x9;+&#x9;&quot;&#x9;FROM &quot;&#xA;&#x9;&#x9;&#x9;&#x9;+&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&#x9;&quot;  tmp_CMF &quot;&#xA;&#x9;&#x9;+   &quot;   WHERE &quot;&#xA;&#x9;&#x9;&#x9;&#x9;+ ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+ &quot; IS NOT NULL &quot;   &#xA;&#x9;&#x9;+&#x9;&quot;&#x9;Group by GID, &quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))&#xA;&#x9;&#x9;+&quot; ) ValCount1 &quot;&#xA;&#x9;+ &quot;group by GID &quot; &#xA; +&quot; ) as MOST_COMMON_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; &quot; &#xA; +&quot;       on MOST_COMMON_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = ValCount.GID &quot;&#xA; +&quot;        and MOST_COMMON_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.MaxCtr =  ValCount.ctr&quot;;&#xA; &#xA;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Most_Common"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_7"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1280" posY="-192" sizeX="64" sizeY="32">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_8" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2 +&#xA;&#x9;&quot; left  JOIN (&quot;+&#xA;&#x9;&#x9;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, min(&quot; + ( (((String)globalMap.get(&quot;out3.REFCOL_DATA_TYPE_PREV&quot;)).equalsIgnoreCase(&quot;DATE&quot;))? &quot;TO_DATE (&quot;+  ((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) +&quot;,'DD/MM/YYYY HH:MI:SS')&quot;:((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) ) +&quot;) as REF_COLUMN &quot;+&#xA;&#x9;&#x9;&#x9;&quot;FROM &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot; &quot;+&#xA;&#x9;&#x9;&#x9;(&#xA;&#x9;&#x9;&#x9;&#x9;((Boolean)globalMap.get(&quot;out3.IGNORE_BLANKS&quot;))==true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;? &quot; WHERE &quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+ &quot; is not null &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;:  &quot;&quot;&#xA;&#x9;&#x9;&#x9;)&#xA;&#x9;&#x9;&#x9;+ &quot;group by &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&#xA;&#x9;  &quot;) as MOST_ANCIENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot;+ &#xA;&#x9;&#x9;&#x9;&quot;MOST_ANCIENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &#xA;&#x9;  &#x9;&#x9;&quot; and MOST_ANCIENT_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.REF_COLUMN = &quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;  &#x9;&#x9;&#xA;&#x9;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) + &quot; ASC NULLS LAST&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Most_Ancient"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_8"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1312" posY="320">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_9" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2 +&#xA;&#x9;&quot; left  JOIN (&quot;+&#xA;&#x9;&#x9;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot; + &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; + &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, min(&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;) as REF_COLUMN &quot; + &#xA;&#x9;&#x9;&#x9;&quot;FROM &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered+&quot; &quot; +&#xA;&#x9;&#x9;&#x9;&quot;group by &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&#xA;&#x9;&quot;) as SMALLEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot; + &#xA;&#x9;&#x9;&#x9;&quot;SMALLEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &quot; &quot; + &#xA;&#x9;&#x9;&#x9;&quot;and SMALLEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.REF_COLUMN = &quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) + &quot; ASC NULLS LAST &quot;;&#xA;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Smallest"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_9"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1472" posY="-64" sizeX="64" sizeY="32">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_10" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2 +&#xA;&#x9;&quot; left  JOIN (&quot;+&#xA;&#x9;&#x9;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(length(trim(&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;))) as REF_COLUMN &quot; + &#xA;&#x9;&#x9;&#x9;&quot;FROM &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered+&quot; &quot; + &#xA;&#x9;&#x9;&#x9;&quot;group by &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&#xA;&#x9;&quot;) as LONGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot; + &#xA;&#x9;&#x9;&#x9;&quot;LONGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &quot; &quot; + &#xA;&#x9;&#x9;&#x9;&quot;and LONGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.REF_COLUMN = length(trim(&quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;))&quot;;&#xA;&#xA;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) + &quot; DESC NULLS LAST &quot;;&#xA;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Longest"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_10"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1504" posY="192">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_11" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2 +&#xA;&#x9;&quot; left  JOIN (&quot;+&#xA;&#x9;&#x9;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;) as REF_COLUMN &quot; + &#xA;&#x9;&#x9;&#x9;&quot;FROM &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered+&quot; &quot; + &#xA;&#x9;&#x9;&#x9;&quot;group by &quot;+&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&#xA;&#x9;&quot;) as LARGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot; + &#xA;&#x9;&#x9;&#x9;&quot;LARGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &quot; &quot; + &#xA;&#x9;&#x9;&#x9;&quot;and LARGEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.REF_COLUMN = &quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) + &quot; DESC NULLS LAST&quot;;&#xA;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Largest"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_11"/>
+    </node>
+    <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="1632" posY="64" sizeX="64" sizeY="32">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_12" show="false"/>
+      <elementParameter field="MEMO_JAVA" name="CODE" value="context.rule_table_query_part2 = context.rule_table_query_part2 +&#xA;&#x9;&quot; left  JOIN (&quot;+&#xA;&#x9;&#x9;&#x9;&quot;SELECT &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; as GID &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, max(&quot;+context.GR_Indentifier_Col+&quot;) as MDM_ID &quot; +&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;, min(length(trim(&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;))) as REF_COLUMN &quot; +&#xA;&#x9;&#x9;&#x9;&quot;FROM &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered+&quot; &quot; +&#xA;&#x9;&#x9;&#x9;&quot;group by &quot;+&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;context.Group_Id_col+&quot; &quot; +&#xA;&#x9;&quot;) as SHORTEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot; on &quot; + &#xA;&#x9;&#x9;&#x9;&quot;SHORTEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.GID = &quot;+context.table_name_tmp_ConfidentMatchesFiltered+&quot;.&quot;+context.Group_Id_col+ &quot; &quot; +&#xA;&#x9;&#x9;&#x9;&quot;and SHORTEST_&quot; + ((Integer)globalMap.get(&quot;tFlowToIterate_1_CURRENT_ITERATION&quot;)) + &quot;.REF_COLUMN = length(trim(&quot; +context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;))+&quot;))&quot;;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#xA;context.rule_table_query_order_by =context.rule_table_query_order_by + &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;)) + &quot; ASC NULLS LAST &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;context.rule_table_query_part1=context.rule_table_query_part1+ &quot;, &quot;+ &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;context.table_name_tmp_ConfidentMatchesFiltered +&quot;.&quot;+((String)globalMap.get(&quot;out3.REF_COLUMN_PREV&quot;));&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
+      <elementParameter field="MEMO_IMPORT" name="IMPORT" value="//import java.util.List;"/>
+      <elementParameter field="TEXT" name="LABEL" value="Shortest"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tJava_12"/>
+    </node>
+    <node componentName="tFixedFlowInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="1088">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_3" show="false"/>
+      <elementParameter field="TEXT" name="NB_ROWS" value="1"/>
+      <elementParameter field="RADIO" name="USE_SINGLEMODE" value="true"/>
+      <elementParameter field="TABLE" name="VALUES">
+        <elementValue elementRef="SCHEMA_COLUMN" value="ROW_NUMBER"/>
+        <elementValue elementRef="VALUE" value="0"/>
+      </elementParameter>
+      <elementParameter field="RADIO" name="USE_INTABLE" value="false"/>
+      <elementParameter field="TABLE" name="INTABLE" show="false"/>
+      <elementParameter field="RADIO" name="USE_INLINECONTENT" value="false"/>
+      <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" show="false"/>
+      <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" show="false"/>
+      <elementParameter field="MEMO" name="INLINECONTENT" value="" show="false"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" label="PARTY" name="tFixedFlowInput_3">
+        <column comment="" key="false" length="56" name="ROW_NUMBER" nullable="false" pattern="" precision="0" sourceType="INT4" type="id_Integer" usefulColumn="true">
+          <additionalField key="Comment" value=""/>
+        </column>
+      </metadata>
+    </node>
+    <node componentName="tSetGlobalVar" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="192" posY="1088">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tSetGlobalVar_1" show="false"/>
+      <elementParameter field="TABLE" name="VARIABLES">
+        <elementValue elementRef="KEY" value="&quot;ROW_NUMBER&quot;"/>
+        <elementValue elementRef="VALUE" value="row3.ROW_NUMBER"/>
+      </elementParameter>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" label="PARTY" name="tSetGlobalVar_1">
+        <column comment="" key="false" length="56" name="ROW_NUMBER" nullable="false" pattern="" precision="0" sourceType="INT4" type="id_Integer" usefulColumn="true">
+          <additionalField key="Comment" value=""/>
+        </column>
+      </metadata>
+    </node>
+    <node componentName="tWarn" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="480" posY="1440">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tWarn_2" show="false"/>
+      <elementParameter field="CHECK" name="ACTIVATE" value="false"/>
+      <elementParameter field="TEXT" name="MESSAGE" value="&quot;The Query: &quot; + context.rule_table_query"/>
+      <elementParameter field="TEXT" name="CODE" value="42"/>
+      <elementParameter field="CLOSED_LIST" name="PRIORITY" value="4"/>
+      <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
+      <metadata connector="FLOW" name="tWarn_2"/>
+    </node>
+    <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_1" offsetLabelX="0" offsetLabelY="0" source="tJava_1" target="TRIGGER_OUTPUT_1">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk2" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tHSQLDbInput_1" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_1" target="tMap_1">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tHSQLDbInput_1" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_1" target="tJava_2">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk1" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="out3" lineStyle="0" metaname="out3" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tFlowToIterate_1">
+      <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="false" show="false"/>
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="FIRST_RULE_FLAG"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="out3" show="false"/>
+    </connection>
+    <connection connectorName="ITERATE" label="Iterate" lineStyle="7" metaname="tFlowToIterate_1" offsetLabelX="0" offsetLabelY="0" source="tFlowToIterate_1" target="tJava_5">
+      <elementParameter field="CHECK" name="ENABLE_PARALLEL" value="false"/>
+      <elementParameter field="TEXT" name="NUMBER_PARALLEL" value="2" show="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="iterate1" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Most_Common" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tJava_5" target="tJava_7">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Most Common&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Most_Common" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Smallest" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tJava_5" target="tJava_9">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Smallest&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Smallest" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Largest" lineStyle="6" metaname="tJava_5" offsetLabelX="29" offsetLabelY="19" outputId="3" source="tJava_5" target="tJava_11">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Largest&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Largest" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Shortest" lineStyle="6" metaname="tJava_5" offsetLabelX="50" offsetLabelY="38" outputId="4" source="tJava_5" target="tJava_12">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Shortest&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Shortest" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Longest" lineStyle="6" metaname="tJava_5" offsetLabelX="50" offsetLabelY="-13" outputId="5" source="tJava_5" target="tJava_10">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Longest&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Longest" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Most_Ancient" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" outputId="6" source="tJava_5" target="tJava_8">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Most Ancient&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Most_Ancient" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Most_Recent" lineStyle="6" metaname="tJava_5" offsetLabelX="0" offsetLabelY="0" outputId="7" source="tJava_5" target="tJava_6">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;out3.FUNC_PREV&quot;)).equalsIgnoreCase(&quot;Most Recent&quot;)"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Most_Recent" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="not_Multi_Target" lineStyle="6" metaname="tJava_2" offsetLabelX="2" offsetLabelY="5" source="tJava_2" target="tFixedFlowInput_1">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;CUR_TARGET_COLUMN&quot;))!=null&#xA;&amp;&amp;&#xA;!((String)globalMap.get(&quot;row3.ORDER_NAME&quot;)).equalsIgnoreCase(&quot;Multi-Target&quot;) "/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="not_Multi_Target" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tJava_2" offsetLabelX="0" offsetLabelY="0" source="tJava_2" target="tJava_3">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk2" show="false"/>
+    </connection>
+    <connection connectorName="RUN_IF" label="Multi_Target" lineStyle="6" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tHSQLDbInput_2">
+      <elementParameter field="MEMO_JAVA" name="CONDITION" value="((String)globalMap.get(&quot;CUR_TARGET_COLUMN&quot;))!=null&#xA;&amp;&amp;&#xA;((String)globalMap.get(&quot;row3.ORDER_NAME&quot;)).equalsIgnoreCase(&quot;Multi-Target&quot;) "/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="Multi_Target" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tJava_3" offsetLabelX="0" offsetLabelY="0" source="tJava_3" target="tFixedFlowInput_3">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk3" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tJava_1">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5" show="false"/>
+    </connection>
+    <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tJava_4" offsetLabelX="0" offsetLabelY="0" source="tJava_4" target="tHSQLDbInput_4">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk4" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row14" lineStyle="0" metaname="tHSQLDbInput_2" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_2" target="tMap_2">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row14" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tHSQLDbInput_2" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_2" target="tHSQLDbInput_3">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk6" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="out_Backup" lineStyle="0" metaname="out_Backup" offsetLabelX="0" offsetLabelY="0" source="tMap_2" target="tHSQLDbOutput_3">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="out_Backup" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row12" lineStyle="0" metaname="tHSQLDbInput_3" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_3" target="tHSQLDbOutput_4">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row12" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row5" lineStyle="0" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tMap_3">
+      <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="false" show="false"/>
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="FIRST_RULE_FLAG"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row5" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_1" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_1" target="tFixedFlowInput_2">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk7" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="out4" lineStyle="0" metaname="out4" offsetLabelX="0" offsetLabelY="0" source="tMap_3" target="tHSQLDbOutput_1">
+      <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="false" show="false"/>
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="out4" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row6" lineStyle="0" metaname="tFixedFlowInput_2" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_2" target="tMap_4">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="REFERENCE_ACTUAL_FIELD"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="TARGET_ACTUAL_FIELD"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="VALUE"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="out5" lineStyle="0" metaname="out5" offsetLabelX="0" offsetLabelY="0" source="tMap_4" target="tHSQLDbOutput_2">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="FIRST_RULE_FLAG_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="REFCOL_DATA_TYPE_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="IGNORE_BLANKS_PREV"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="out5" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row8" lineStyle="0" metaname="tHSQLDbInput_4" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_4" target="tJavaFlex_1">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="GID"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="COLUMN_NAME"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="MDM_ID"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="MDM_ID_max"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="Unified_Number"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row8" show="false"/>
+    </connection>
+    <connection connectorName="COMPONENT_ERROR" label="OnComponentError" lineStyle="5" metaname="tHSQLDbInput_4" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_4" target="tWarn_1">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentError1" show="false"/>
+    </connection>
+    <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tHSQLDbInput_4" offsetLabelX="0" offsetLabelY="0" source="tHSQLDbInput_4" target="tWarn_2">
+      <elementParameter field="CHECK" name="ACTIVATE" value="false" show="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk6" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tJavaFlex_1" offsetLabelX="0" offsetLabelY="0" source="tJavaFlex_1" target="tMap_5">
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="out8" lineStyle="0" metaname="out8" offsetLabelX="-1" offsetLabelY="2" source="tMap_5" target="tHSQLDbOutput_5">
+      <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" show="false">
+        <elementValue elementRef="TRACE_COLUMN" value="MDM_ID"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+        <elementValue elementRef="TRACE_COLUMN" value="ROW_NUMBER"/>
+        <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+        <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      </elementParameter>
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="out8" show="false"/>
+    </connection>
+    <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="TRIGGER_INPUT_1" offsetLabelX="0" offsetLabelY="0" source="TRIGGER_INPUT_1" target="tHSQLDbInput_1">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1" show="false"/>
+    </connection>
+    <connection connectorName="FLOW" label="row3" lineStyle="0" metaname="tFixedFlowInput_3" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_3" target="tSetGlobalVar_1">
+      <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="row3" show="false"/>
+    </connection>
+    <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tFixedFlowInput_3" offsetLabelX="0" offsetLabelY="0" source="tFixedFlowInput_3" target="tJava_4">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk9" show="false"/>
+    </connection>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Reset the variable that stores the query"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_1" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Get rules stored in tmp table to process and iterate thru them to build the query"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_2" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_3" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_4" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_2" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Take a backup of the tmp_JMC table, but change the target_column_prev in first row to the current target column "/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_3" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Reload data into tmp_JMC from the backup, "/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_1" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Empty tmp Table"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_2" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Set latest Sequential rule as base rule"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tHSQLDbInput_4" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Run query built for the last set of rule rows for that column and insert the col name and value in tmp table "/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_6" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Most Recent"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tWarn_1" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_7" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Most Common"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_8" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Most Ancient"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_9" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Smallest"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_10" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Longest"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_11" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Largeset"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true"/>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_12" show="false"/>
+      <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Shortest"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="TRIGGER_INPUT_1" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="TRIGGER_OUTPUT_1" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFixedFlowInput_3" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <subjob>
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="tWarn_2" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="92;131;150" show="false"/>
+      <elementParameter field="COLOR" name="SUBJOB_COLOR" value="207;226;236"/>
+    </subjob>
+    <jobletNodes componentName="TRIGGER_INPUT" componentVersion="0.1" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="-160" input="true" trigger="true">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="TRIGGER_INPUT_1"/>
+      <elementParameter field="CHECK" name="STARTABLE" value="true" show="false"/>
+      <elementParameter field="CHECK" name="START" value="true" show="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+      <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+      <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+      <elementParameter field="MEMO" name="COMMENT" value=""/>
+    </jobletNodes>
+    <jobletNodes componentName="TRIGGER_OUTPUT" componentVersion="0.1" offsetLabelX="0" offsetLabelY="0" posX="-96" posY="1600" trigger="true">
+      <elementParameter field="TEXT" name="UNIQUE_NAME" value="TRIGGER_OUTPUT_1"/>
+      <elementParameter field="CHECK" name="STARTABLE" value="true" show="false"/>
+      <elementParameter field="CHECK" name="START" value="false" show="false"/>
+      <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
+      <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
+      <elementParameter field="CHECK" name="INFORMATION" value="false"/>
+      <elementParameter field="MEMO" name="COMMENT" value=""/>
+    </jobletNodes>
+  </model:JobletProcess>
+  <TalendProperties:ByteArray/>
+</xmi:XMI>

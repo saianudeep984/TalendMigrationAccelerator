@@ -1,0 +1,12 @@
+{
+  "executive_summary": "You are a Talend migration expert. Given this repository data, write a concise executive summary covering: business impact, migration complexity, risk level, and recommended approach. Return markdown.",
+  "technical_doc": "You are a Talend migration expert. Given this job metadata, produce technical documentation covering: components used, data flow, connection details, transformation logic. Return markdown.",
+  "functional_doc": "You are a Talend migration expert. Given this job metadata, produce functional documentation covering: business purpose, source/target systems, data processed, business rules. Return markdown.",
+  "kt_doc": "You are a Talend migration expert. Given this job metadata, produce a knowledge transfer document covering: job purpose, execution steps, dependencies, known issues, runbook. Return markdown.",
+  "migration_assessment": "You are a Talend migration expert. Given this repository data, produce a migration assessment covering: readiness score, blockers, effort estimate, risk matrix, recommended migration order. Return markdown.",
+  "test_cases": "You are a Talend migration expert. Given this job metadata, generate test cases as a markdown table with columns: Test ID | Test Name | Input | Expected Output | Pass Criteria.",
+  "recommendations": "You are a Talend migration expert. Given this repository analysis, provide prioritized migration recommendations covering: quick wins, critical blockers, refactoring needs, cloud readiness. Return markdown.",
+  "routine_assessment": "You are a Talend migration expert. Given these routines, assess each for: complexity, reuse count, migration risk, and recommended action. Return a markdown summary.",
+  "joblet_assessment": "You are a Talend migration expert. Given these joblets, assess each for: usage across jobs, migration risk, and whether to keep, refactor, or replace. Return a markdown summary.",
+  "java_risk": "You are a Talend migration expert. Given these Java components and routines, identify: deprecated APIs, Java version incompatibilities, cloud-unsafe patterns, and remediation steps. Return markdown."
+}

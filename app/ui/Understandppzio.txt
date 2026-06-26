@@ -1,0 +1,418 @@
+Use the following prompt with ChatGPT/Claude/Gemini after uploading your ZIP. This prompt is designed to help you **understand the application technically**, **explain it to clients**, **prepare demos**, and **identify architecture, workflows, strengths, gaps, and future roadmap**.
+
+---
+
+# Prompt: Analyze Talend Migration Accelerator and Explain It Technically & Functionally
+
+I have uploaded the complete source code ZIP of my project called **Talend Migration Accelerator**.
+
+Please perform a comprehensive analysis of the entire codebase and act as:
+
+1. Solution Architect
+2. Talend SME
+3. Data Engineering Architect
+4. Product Manager
+5. Client Presentation Consultant
+
+I want both technical and business explanations.
+
+---
+
+## Phase 1 – Understand the Application
+
+Analyze the complete source code and explain:
+
+### What is this application?
+
+Provide:
+
+* Purpose
+* Business problem it solves
+* Target users
+* Key value proposition
+* Why organizations would use it
+
+Explain in simple English.
+
+---
+
+## Phase 2 – Architecture Analysis
+
+Analyze the entire codebase and explain:
+
+### High-Level Architecture
+
+Show:
+
+```text
+User Uploads Repository
+        ↓
+Repository Scanner
+        ↓
+Repository Parser
+        ↓
+Dependency Analysis
+        ↓
+Risk Assessment
+        ↓
+Migration Engine
+        ↓
+Validation
+        ↓
+Export
+```
+
+Explain each layer.
+
+---
+
+### Explain All Major Modules
+
+Analyze folders and explain:
+
+```text
+app/ai
+app/ai_remediation
+app/analyzers
+app/api
+app/cloud_modernization
+app/compatibility
+app/config
+app/conversion
+app/converters
+app/dashboard
+app/dependency
+app/diff_engine
+app/emf
+app/generators
+app/parser
+app/ui
+app/utils
+```
+
+For each module provide:
+
+* Purpose
+* Inputs
+* Outputs
+* Business value
+* Technical implementation
+
+---
+
+## Phase 3 – End-to-End Workflow
+
+Explain:
+
+### What happens when a user uploads a repository?
+
+Step by step.
+
+Example:
+
+```text
+Upload ZIP
+↓
+Extract Repository
+↓
+Scan Jobs
+↓
+Parse Components
+↓
+Analyze Dependencies
+↓
+Analyze Custom Components
+↓
+Analyze Deprecated Components
+↓
+Calculate Readiness
+↓
+Generate Reports
+↓
+Convert Repository
+↓
+Export Migration Package
+```
+
+Show actual implementation flow based on code.
+
+---
+
+## Phase 4 – UI Analysis
+
+Analyze:
+
+```text
+Repository Analysis
+Migration Factory
+Version Converter
+Executive Dashboard
+```
+
+For each page explain:
+
+### Purpose
+
+### Features
+
+### Business Value
+
+### Target Audience
+
+Example:
+
+```text
+Repository Analysis
+
+Audience:
+Architects
+
+Purpose:
+Understand repository complexity and migration risks.
+```
+
+---
+
+## Phase 5 – AI Capabilities
+
+Analyze all AI-related modules.
+
+Explain:
+
+```text
+app/ai
+app/ai_remediation
+```
+
+Provide:
+
+* Current AI capabilities
+* What AI is actually doing
+* What is rule-based
+* What is LLM-driven
+* Improvement opportunities
+
+Also suggest:
+
+* AI Copilot
+* AI Migration Advisor
+* AI SQL Analyzer
+* AI Test Generator
+* AI Executive Summary
+
+---
+
+## Phase 6 – Migration Engine Deep Dive
+
+Explain technically:
+
+### Repository Parsing
+
+How jobs are parsed.
+
+### Component Detection
+
+How components are identified.
+
+### Dependency Detection
+
+How parent-child jobs are detected.
+
+### Context Migration
+
+How contexts are migrated.
+
+### XML Generation
+
+How Talend .item files are generated.
+
+### Properties Generation
+
+How Talend .properties files are generated.
+
+### Import Validation
+
+How Talend Studio compatibility is achieved.
+
+---
+
+## Phase 7 – Client Demo Narrative
+
+Create a client-friendly demo script.
+
+Explain:
+
+### 5-Minute Demo
+
+### 15-Minute Demo
+
+### Executive Demo
+
+### Technical Architect Demo
+
+Show:
+
+* What screens to show
+* What to say
+* What business benefits to highlight
+
+---
+
+## Phase 8 – Executive Explanation
+
+Explain this tool to:
+
+### CIO
+
+### CTO
+
+### Data Engineering Manager
+
+### Talend Architect
+
+### Delivery Manager
+
+### Migration Program Manager
+
+For each audience:
+
+* Benefits
+* ROI
+* Risks reduced
+* Time saved
+
+---
+
+## Phase 9 – Product Maturity Assessment
+
+Rate the application:
+
+```text
+Repository Analysis
+Migration Engine
+Dependency Analysis
+UI/UX
+AI Features
+Cloud Readiness
+Reporting
+Enterprise Readiness
+```
+
+Provide scores out of 10.
+
+Example:
+
+```text
+Migration Engine: 9/10
+Dependency Analysis: 8/10
+AI Features: 5/10
+```
+
+---
+
+## Phase 10 – Enterprise Roadmap
+
+Provide:
+
+### Current State
+
+### Short-Term Improvements (30 Days)
+
+### Medium-Term Improvements (90 Days)
+
+### Long-Term Vision (6 Months)
+
+Include:
+
+* AI Features
+* Governance
+* Security
+* Reporting
+* Migration Factory Enhancements
+* Cloud Modernization Features
+
+---
+
+## Phase 11 – Technical Documentation
+
+Generate:
+
+### System Overview
+
+### Architecture Document
+
+### Component Inventory
+
+### Module Dependency Diagram
+
+### Sequence Diagram
+
+### Data Flow Diagram
+
+### Deployment Architecture
+
+---
+
+## Phase 12 – Interview / Presentation Preparation
+
+Prepare me to present this application.
+
+Generate:
+
+### Top 25 Questions a Client May Ask
+
+### Best Answers
+
+### Technical Questions
+
+### Architecture Questions
+
+### Migration Questions
+
+### AI Questions
+
+### ROI Questions
+
+---
+
+## Phase 13 – Unique Selling Points (USP)
+
+Based on the codebase, identify:
+
+### What makes this tool unique?
+
+### Why would a client choose it?
+
+### Comparison against manual migration.
+
+### Comparison against generic migration tools.
+
+### Competitive advantages.
+
+---
+
+## Output Format
+
+Provide:
+
+1. Executive Summary
+2. Functional Overview
+3. Technical Architecture
+4. Module-by-Module Breakdown
+5. End-to-End Workflow
+6. Client Presentation Guide
+7. Demo Script
+8. Product Assessment
+9. Enterprise Roadmap
+10. Technical Documentation
+
+Use diagrams, tables, flowcharts, and simple explanations wherever possible.
+
+Goal:
+
+Help me fully understand this application technically, explain it confidently to clients, demonstrate it professionally, and position it as an enterprise-grade AI-powered Talend Migration Factory.
+
+```
+
+Based on a quick inspection of your ZIP, the application already contains modules for AI, remediation, dependency analysis, cloud modernization, compatibility scanning, conversion, diff engine, EMF fixes, dashboards, and a Streamlit UI, so this prompt will extract a very rich architecture and business explanation from the codebase.
+```

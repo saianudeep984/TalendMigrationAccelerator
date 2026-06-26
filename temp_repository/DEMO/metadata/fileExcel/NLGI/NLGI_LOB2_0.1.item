@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:FileExcelConnection xmi:id="_iQ6X0RU_Eeunjq1VLun_4g" name="NLGI_LOB2" id="_iQ6X0BU_Eeunjq1VLun_4g" dataPackage="_iQ6X0hU_Eeunjq1VLun_4g" Server="Localhost 127.0.0.1" FilePath="C:/Users/balra/OneDrive - Artha Solutions/Documents &amp; Projects/ARTHA INTERNAL PROJECTS/B2C Customer MDM Demo/UCB.xlsx" Encoding="UTF-8" UseHeader="true" HeaderValue="1" FirstLineCaption="true" SheetName="LOB-2" firstColumn="1" thousandSeparator="','" decimalSeparator="'.'" sheetList="LOB-2:w&#xA;">
+    <sheetColumns>A</sheetColumns>
+    <sheetColumns>B</sheetColumns>
+    <sheetColumns>C</sheetColumns>
+    <sheetColumns>D</sheetColumns>
+    <sheetColumns>E</sheetColumns>
+    <sheetColumns>F</sheetColumns>
+    <sheetColumns>G</sheetColumns>
+    <sheetColumns>H</sheetColumns>
+    <sheetColumns>I</sheetColumns>
+    <sheetColumns>J</sheetColumns>
+    <sheetColumns>K</sheetColumns>
+    <sheetColumns>L</sheetColumns>
+    <sheetColumns>M</sheetColumns>
+    <sheetColumns>N</sheetColumns>
+    <sheetColumns>O</sheetColumns>
+    <sheetColumns>P</sheetColumns>
+  </TalendMetadata:FileExcelConnection>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_iQ6X0hU_Eeunjq1VLun_4g" name="default" dataManager="_iQ6X0RU_Eeunjq1VLun_4g">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_iQ6X0xU_Eeunjq1VLun_4g" id="_b1J1UBU_Eeunjq1VLun_4g" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X1BU_Eeunjq1VLun_4g" label="Type_of_Insurance" length="10" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X1RU_Eeunjq1VLun_4g" label="LOB" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X1hU_Eeunjq1VLun_4g" label="Product" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X1xU_Eeunjq1VLun_4g" label="CustomerID" length="10" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X2BU_Eeunjq1VLun_4g" label="Prefix" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X2RU_Eeunjq1VLun_4g" label="First_Name" length="30" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X2hU_Eeunjq1VLun_4g" label="Second_Name" length="-1" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X2xU_Eeunjq1VLun_4g" label="Last_Name" length="-1" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X3BU_Eeunjq1VLun_4g" label="DOB" length="-1" talendType="id_Date" pattern="&quot;MM/dd/yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X3RU_Eeunjq1VLun_4g" label="Gender" length="10" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X3hU_Eeunjq1VLun_4g" label="Nationality" length="30" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X3xU_Eeunjq1VLun_4g" label="Civil_No" length="10" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X4BU_Eeunjq1VLun_4g" label="Passport_No" length="10" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X4RU_Eeunjq1VLun_4g" label="Mobile" length="10" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X4hU_Eeunjq1VLun_4g" label="Email" length="50" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_iQ6X4xU_Eeunjq1VLun_4g" label="Rules" length="100" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>

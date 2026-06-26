@@ -1,0 +1,35 @@
+{
+  "itemId" : "_bGNwcBvtEe-wruG3Wf5g7A",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_-WuNJcdJEe-KuoDAUbqR0w",
+    "parameterList" : [ {
+      "id" : "_tEuTYJJDEe6O2fitB3aNLQ",
+      "name" : "ROW_NUMBER"
+    }, {
+      "id" : "_Z9lAwBj1Ee-wruG3Wf5g7A",
+      "name" : "rule_table_query_part1"
+    }, {
+      "id" : "_Z9lAwRj1Ee-wruG3Wf5g7A",
+      "name" : "table_name_tmp_ConfidentMatchesFiltered"
+    }, {
+      "id" : "_Z9lAwhj1Ee-wruG3Wf5g7A",
+      "name" : "rule_table_query_part1_2"
+    }, {
+      "id" : "_Z9lAwxj1Ee-wruG3Wf5g7A",
+      "name" : "rule_table_query_order_by"
+    }, {
+      "id" : "_u_YmoBj1Ee-wruG3Wf5g7A",
+      "name" : "Group_Id_col"
+    }, {
+      "id" : "_u_YmoRj1Ee-wruG3Wf5g7A",
+      "name" : "GR_Indentifier_Col"
+    }, {
+      "id" : "_u_Ymohj1Ee-wruG3Wf5g7A",
+      "name" : "rule_table_query"
+    }, {
+      "id" : "_u_Ymoxj1Ee-wruG3Wf5g7A",
+      "name" : "rule_table_query_part2"
+    } ]
+  } ]
+}

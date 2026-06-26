@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_60VvAA8YEeu6PORHdIrtGg" confirmationNeeded="false" name="Default">
+  <contextParameter xmi:id="_60VvAQ8YEeu6PORHdIrtGg" comment="" name="Landing_DB_Database" prompt="Landing_DB_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="TalendLanding"/>
+  <contextParameter xmi:id="_60VvAg8YEeu6PORHdIrtGg" comment="" name="Landing_DB_AdditionalParams" prompt="Landing_DB_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="noDatetimeStringSync=true"/>
+  <contextParameter xmi:id="_60VvAw8YEeu6PORHdIrtGg" comment="" name="Landing_DB_Login" prompt="Landing_DB_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="root"/>
+  <contextParameter xmi:id="_60VvBA8YEeu6PORHdIrtGg" comment="" name="Landing_DB_Port" prompt="Landing_DB_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+  <contextParameter xmi:id="_60VvBQ8YEeu6PORHdIrtGg" comment="" name="Landing_DB_Server" prompt="Landing_DB_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="localhost"/>
+  <contextParameter xmi:id="_60VvBg8YEeu6PORHdIrtGg" comment="" name="Landing_DB_Password" prompt="Landing_DB_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:lilkk5tAzgnCbVX3LRhU8YY/HBPGUazNTjKjoYcXRyTC"/>
+  <contextParameter xmi:id="_BAWMoKFFEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Schema" prompt="SQLServerLanding_DB_Schema?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="dbo"/>
+  <contextParameter xmi:id="_67A7MKFGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Database" prompt="SQLServerLanding_DB_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="MDM_Landing"/>
+  <contextParameter xmi:id="_67A7MaFGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_AdditionalParams" prompt="SQLServerLanding_DB_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="noDatetimeStringSync=true"/>
+  <contextParameter xmi:id="_67A7MqFGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Login" prompt="SQLServerLanding_DB_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="sa"/>
+  <contextParameter xmi:id="_67A7M6FGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Port" prompt="SQLServerLanding_DB_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="1433"/>
+  <contextParameter xmi:id="_67A7NKFGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Server" prompt="SQLServerLanding_DB_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="13.127.201.233"/>
+  <contextParameter xmi:id="_67A7NaFGEeue3c06hu-vzg" comment="" name="SQLServerLanding_DB_Password" prompt="SQLServerLanding_DB_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:X7nqntDg1Hx3qSPeXnkVXbwuAYb0+a88Jm5GRb0B1l+O2+SD"/>
+  <contextParameter xmi:id="_exiScMo4EeySGOGf5rKipg" comment="" name="Landing_DB_Type" prompt="Landing_DB_Type?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+</talendfile:ContextType>

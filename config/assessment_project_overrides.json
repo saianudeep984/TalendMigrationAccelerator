@@ -1,0 +1,54 @@
+{
+  "temp_repository": {
+    "version": 2,
+    "active_profile": "Enterprise",
+    "profiles": [
+      "Conservative",
+      "Standard",
+      "Enterprise",
+      "Cloud First",
+      "Custom"
+    ],
+    "complexity": {
+      "component_weight": 30,
+      "sql_weight": 33,
+      "dependency_weight": 15,
+      "custom_code_weight": 20,
+      "risk_weight": 10,
+      "thresholds": {
+        "low": 40,
+        "medium": 80,
+        "high": 120
+      }
+    },
+    "risk": {
+      "unsupported_components_penalty": 20,
+      "custom_java_penalty": 15,
+      "external_scripts_penalty": 10,
+      "legacy_components_penalty": 15,
+      "complex_dependency_penalty": 10,
+      "thresholds": {
+        "low": 25,
+        "medium": 50,
+        "high": 75
+      }
+    },
+    "effort": {
+      "hours_per_component": 0.5,
+      "hours_per_sql_query": 1.0,
+      "hours_per_dependency": 0.5,
+      "hours_per_custom_code": 2.0
+    },
+    "cloud": {
+      "custom_java_usage": true,
+      "file_system_dependency": true,
+      "unsupported_components": true,
+      "legacy_context_variables": true,
+      "thresholds": {
+        "ready": 80,
+        "partially_ready": 50
+      }
+    },
+    "updated_at": "2026-06-14T12:13:12Z"
+  }
+}

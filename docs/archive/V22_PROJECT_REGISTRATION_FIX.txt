@@ -1,0 +1,18 @@
+V22 FIX
+
+Use a real Talend project as skeleton.
+
+Copy:
+- .project
+- .settings
+- talend.project
+
+from MIGRATIONTEMPLATE.
+
+Only replace:
+- context
+- metadata
+- process
+- code
+
+Do not generate talend.project from scratch.

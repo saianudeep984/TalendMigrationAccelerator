@@ -1,0 +1,18 @@
+
+PLACEHOLDERS = [
+    "{{EXECUTIVE_SUMMARY}}",
+    "{{REPOSITORY_OVERVIEW}}",
+    "{{REPOSITORY_STATISTICS}}",
+    "{{REPOSITORY_FLOWCHART}}",
+    "{{TECHNICAL_DOC}}",
+    "{{FUNCTIONAL_DOC}}",
+    "{{KT_DOC}}",
+    "{{MIGRATION_ASSESSMENT}}",
+    "{{TEST_CASES}}",
+    "{{ROUTINE_ASSESSMENT}}",
+    "{{JOBLET_ASSESSMENT}}",
+    "{{JAVA_RISK}}",
+    "{{DOC_READINESS}}",
+    "{{RECOMMENDATIONS}}",
+    "{{APPENDIX}}"
+]

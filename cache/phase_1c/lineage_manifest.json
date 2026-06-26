@@ -1,0 +1,119 @@
+{
+  "phase": "Phase_1C",
+  "description": "TMA Phase 1C \u2014 Lineage Cache (Job, Table, Column, Dependencies)",
+  "source": "TMA_Phase_1B_Analysis_Cache.zip",
+  "generation_prevented": true,
+  "cache_loaded": true,
+  "files": {
+    "lineage_cache.json": {
+      "description": "Full lineage cache: job_lineage (443), table_lineage (33), column_lineage (engine metadata), dependency_graph (443)",
+      "size_kb": 609,
+      "top_keys": [
+        "metadata",
+        "migration_scores",
+        "repository_summary",
+        "job_lineage",
+        "table_lineage",
+        "column_lineage",
+        "dependency_graph"
+      ]
+    },
+    "analysis_cache.db": {
+      "description": "Phase 1B SQLite DB (read-only reference, 443 modules analyzed)",
+      "size_kb": 3072,
+      "tables": [
+        "project",
+        "modules",
+        "sql_analysis",
+        "java_analysis",
+        "complexity_scores",
+        "migration_scores",
+        "repository_summary",
+        "weight_config",
+        "threshold_config",
+        "effort_config"
+      ]
+    },
+    "load_lineage_cache.py": {
+      "description": "Phase1CLineageCache class \u2014 load-from-cache utility, no re-analysis",
+      "api": [
+        "get_all_jobs()",
+        "get_jobs_by_complexity(level)",
+        "get_job(path)",
+        "get_all_tables()",
+        "get_table(name)",
+        "get_column_lineage_info()",
+        "get_dependencies(path)",
+        "get_dependents(path)",
+        "summary()"
+      ]
+    }
+  },
+  "lineage_summary": {
+    "job_lineage": {
+      "total": 443,
+      "critical": 25,
+      "high": 23,
+      "medium": 17,
+      "low": 378,
+      "with_tmap": 45,
+      "with_custom_java": 55,
+      "with_db_components": 65,
+      "packages": 71
+    },
+    "table_lineage": {
+      "total_tables": 33,
+      "tables_with_ddl": 10,
+      "core_cache_tables": [
+        "jobs",
+        "components",
+        "sources",
+        "targets",
+        "mappings"
+      ]
+    },
+    "column_lineage": {
+      "engine": "AdvancedLineageEngine (app/lineage/advanced_lineage_engine.py)",
+      "node_types": [
+        "SOURCE_TABLE",
+        "TARGET_TABLE",
+        "COMPONENT",
+        "LOOKUP_TABLE"
+      ],
+      "edge_types": [
+        "DATA_FLOW",
+        "JOIN",
+        "LOOKUP"
+      ],
+      "transformation_types": [
+        "mapping",
+        "expression",
+        "aggregation",
+        "join",
+        "lookup",
+        "filter"
+      ],
+      "cross_job_bridging": true,
+      "physical_resolution": true
+    },
+    "dependency_graph": {
+      "total_modules": 443,
+      "modules_with_deps": 221,
+      "packages": 71
+    }
+  },
+  "migration_status": {
+    "readiness_score": 81,
+    "rag": "GREEN",
+    "status": "READY",
+    "dimension_scores": {
+      "Component Compatibility": 97,
+      "Cloud Readiness": 75,
+      "Custom Component Risk": 91,
+      "Risk Findings": 92,
+      "Deprecated Component Risk": 98,
+      "Dependency Complexity": 0,
+      "Analysis Coverage": 100
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Phase 2 template engine scaffold added: template manager, placeholder registry, DOCX renderer, export manager and template engine.

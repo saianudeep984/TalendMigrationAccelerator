@@ -1,0 +1,16 @@
+
+SAFE IMPORT STRATEGY
+
+This accelerator now uses a safe enterprise migration approach:
+
+1. Preserve .properties metadata files exactly
+2. Preserve Talend Context items exactly
+3. Avoid modifying EMF metadata references
+4. Apply modernization only to compatible job XML
+5. Allow Talend Studio to perform final migration tasks
+
+This reduces:
+- invalid context item errors
+- repository corruption
+- broken EMF references
+- metadata synchronization failures

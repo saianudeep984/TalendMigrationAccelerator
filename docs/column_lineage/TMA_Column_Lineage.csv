@@ -1,0 +1,206 @@
+Job,Source Table,Source Column,Transformation Component,Rule,Expression,Target Table,Target Column
+Test_Plugin_Max_values,tMysqlInput_1,companyid,tMysqlInput_1,Direct Copy,row1.companyid,tUnpivotRow_1,companyid
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visits_to_Website,tUnpivotRow_1,Mean_P1
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Visits_to_Website,tUnpivotRow_1,Max_P1
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Views,tUnpivotRow_1,Mean_P2
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Page_Views,tUnpivotRow_1,Max_P2
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Page_Views_Per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Views_Per_Visit,tUnpivotRow_1,Mean_P3
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Page_Views_Per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Views_Per_Visit,tUnpivotRow_1,Max_P3
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Time_On_Page,tUnpivotRow_1,Mean_P4
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Time_On_Page,tUnpivotRow_1,Max_P4
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Total_Time_Spent_Per_Session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Time_Spent_Per_Session,tUnpivotRow_1,Mean_P5
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Total_Time_Spent_Per_Session,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Time_Spent_Per_Session,tUnpivotRow_1,Max_P5
+Test_Plugin_Max_values,tMysqlInput_1,AVG_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Bounce_Rate,tUnpivotRow_1,Mean_P6
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Bounce_Rate,tUnpivotRow_1,Max_P6
+Test_Plugin_Max_values,tMysqlInput_1,AVG_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Checkout_Abandonment_Rate,tUnpivotRow_1,Mean_P7
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Checkout_Abandonment_Rate,tUnpivotRow_1,Max_P7
+Test_Plugin_Max_values,tMysqlInput_1,AVG_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Task_Completion_Rate,tUnpivotRow_1,Mean_P8
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Task_Completion_Rate,tUnpivotRow_1,Max_P8
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Number_of_Clickable_events,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_Clickable_events,tUnpivotRow_1,Mean_P9
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Number_of_Clickable_events,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_of_Clickable_events,tUnpivotRow_1,Max_P9
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Number_Of_Product_Pages_Viewed,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_Of_Product_Pages_Viewed,tUnpivotRow_1,Mean_P10
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Number_Of_Product_Pages_Viewed,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_Of_Product_Pages_Viewed,tUnpivotRow_1,Max_P10
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Page_Load_Per_Refresh_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Load_Per_Refresh_Time,tUnpivotRow_1,Mean_P11
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Page_Load_Per_Refresh_Time,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Load_Per_Refresh_Time,tUnpivotRow_1,Max_P11
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Avg_Page_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg_Page_Time,tUnpivotRow_1,Mean_P12
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Avg_Page_Time,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Avg_Page_Time,tUnpivotRow_1,Max_P12
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Number_of_scrolls_per_session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_scrolls_per_session,tUnpivotRow_1,Mean_P13
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Number_of_scrolls_per_session,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_of_scrolls_per_session,tUnpivotRow_1,Max_P13
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Search,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Search,tUnpivotRow_1,Mean_P14
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Search,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Search,tUnpivotRow_1,Max_P14
+Test_Plugin_Max_values,tMysqlInput_1,AVG_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Visitor_Loyalty,tUnpivotRow_1,Mean_P15
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Visitor_Loyalty,tUnpivotRow_1,Max_P15
+Test_Plugin_Max_values,tMysqlInput_1,Mean_Top_Exit_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Top_Exit_Pages,tUnpivotRow_1,Mean_P16
+Test_Plugin_Max_values,tMysqlInput_1,MAX_Top_Exit_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Top_Exit_Pages,tUnpivotRow_1,Max_P16
+Test_Plugin_Max_values,tUnpivotRow_1,companyid,tUnpivotRow_1,Direct Copy,row2.companyid,tAggregateRow_1,companyid
+Test_Plugin_Max_values,—,2,—,Expression Mapping,2,tAggregateRow_1,datasetgroup
+Test_Plugin_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",tAggregateRow_1,paramid
+Test_Plugin_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,mean_value
+Test_Plugin_Max_values,COUNT(row2,"pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,max_value
+Test_Plugin_Max_values,TalendDate,getCurrentDate(),TalendDate,Function Transform,TalendDate.getCurrentDate(),tAggregateRow_1,Process_Date
+Test_Plugin_Max_values,tMysqlInput_2,id,tMysqlInput_2,Direct Copy,row3.id,tMysqlOutput_1,id
+Test_Plugin_Max_values,tMysqlInput_2,companyid,tMysqlInput_2,Direct Copy,row3.companyid,tMysqlOutput_1,companyid
+Test_Plugin_Max_values,tMysqlInput_2,parameterid,tMysqlInput_2,Direct Copy,row3.parameterid,tMysqlOutput_1,parameterid
+Test_Plugin_Max_values,tMysqlInput_2,type,tMysqlInput_2,Direct Copy,row3.type,tMysqlOutput_1,type
+Test_Plugin_Max_values,tMysqlInput_2,catagory,tMysqlInput_2,Direct Copy,row3.catagory,tMysqlOutput_1,catagory
+Test_Plugin_Max_values,equals(row3,type)?row4.max_value :0,"""Input""",Conditional Expression,"""Input"".equals(row3.type)?row4.max_value :0",tMysqlOutput_1,max_Value
+Test_Plugin_Max_values,tAggregateRow_1,mean_value,tAggregateRow_1,Direct Copy,row4.mean_value,tMysqlOutput_1,mean_Value
+GA_Max_values,context,companyid,context,Context Variable,context.companyid,tUnpivotRow_1,companyid
+GA_Max_values,context,companyid,context,Context Variable,context.companyid,tUnpivotRow_2,companyid
+GA_Max_values,tMysqlInput_1,Mean_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visits_to_Website,tUnpivotRow_1,Mean_P1
+GA_Max_values,tMysqlInput_1,Mean_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visits_to_Website,tUnpivotRow_2,P1
+GA_Max_values,tMysqlInput_1,MAX_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Visits_to_Website,tUnpivotRow_1,Max_P1
+GA_Max_values,tMysqlInput_1,Mean_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Views,tUnpivotRow_1,Mean_P2
+GA_Max_values,tMysqlInput_1,Mean_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Views,tUnpivotRow_2,P2
+GA_Max_values,tMysqlInput_1,MAX_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Page_Views,tUnpivotRow_1,Max_P2
+GA_Max_values,tMysqlInput_1,Mean_Page_Views_per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Views_per_Visit,tUnpivotRow_1,Mean_P3
+GA_Max_values,tMysqlInput_1,Mean_Page_Views_per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Views_per_Visit,tUnpivotRow_2,P3
+GA_Max_values,tMysqlInput_1,MAX_Page_Views_per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Views_per_Visit,tUnpivotRow_1,Max_P3
+GA_Max_values,tMysqlInput_1,Mean_Total_Time_on_all_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Time_on_all_Pages,tUnpivotRow_1,Mean_P4
+GA_Max_values,tMysqlInput_1,Mean_Total_Time_on_all_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Time_on_all_Pages,tUnpivotRow_2,P4
+GA_Max_values,tMysqlInput_1,MAX_Total_Time_on_all_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Time_on_all_Pages,tUnpivotRow_1,Max_P4
+GA_Max_values,tMysqlInput_1,Mean_Avg_Visit_Duration,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg_Visit_Duration,tUnpivotRow_1,Mean_P5
+GA_Max_values,tMysqlInput_1,Mean_Avg_Visit_Duration,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg_Visit_Duration,tUnpivotRow_2,P5
+GA_Max_values,tMysqlInput_1,MAX_Avg_Visit_Duration,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Avg_Visit_Duration,tUnpivotRow_1,Max_P5
+GA_Max_values,tMysqlInput_1,AVG_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Bounce_Rate,tUnpivotRow_1,Mean_P6
+GA_Max_values,tMysqlInput_1,AVG_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Bounce_Rate,tUnpivotRow_2,P6
+GA_Max_values,tMysqlInput_1,MAX_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Bounce_Rate,tUnpivotRow_1,Max_P6
+GA_Max_values,tMysqlInput_1,AVG_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Checkout_Abandonment_Rate,tUnpivotRow_1,Mean_P7
+GA_Max_values,tMysqlInput_1,AVG_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Checkout_Abandonment_Rate,tUnpivotRow_2,P7
+GA_Max_values,tMysqlInput_1,MAX_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Checkout_Abandonment_Rate,tUnpivotRow_1,Max_P7
+GA_Max_values,tMysqlInput_1,Mean_Total_Repeat_Users,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Repeat_Users,tUnpivotRow_1,Mean_P8
+GA_Max_values,tMysqlInput_1,Mean_Total_Repeat_Users,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Repeat_Users,tUnpivotRow_2,P8
+GA_Max_values,tMysqlInput_1,MAX_Total_Repeat_Users,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Repeat_Users,tUnpivotRow_1,Max_P8
+GA_Max_values,tMysqlInput_1,Mean_New_Vs_Returned_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_New_Vs_Returned_Visitors,tUnpivotRow_1,Mean_P9
+GA_Max_values,tMysqlInput_1,Mean_New_Vs_Returned_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_New_Vs_Returned_Visitors,tUnpivotRow_2,P9
+GA_Max_values,tMysqlInput_1,MAX_New_Vs_Returned_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_New_Vs_Returned_Visitors,tUnpivotRow_1,Max_P9
+GA_Max_values,tMysqlInput_1,Mean_Page_Exits,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Exits,tUnpivotRow_1,Mean_P10
+GA_Max_values,tMysqlInput_1,Mean_Page_Exits,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Exits,tUnpivotRow_2,P10
+GA_Max_values,tMysqlInput_1,MAX_Page_Exits,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Exits,tUnpivotRow_1,Max_P10
+GA_Max_values,tMysqlInput_1,AVG_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Task_Completion_Rate,tUnpivotRow_1,Mean_P11
+GA_Max_values,tMysqlInput_1,AVG_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Task_Completion_Rate,tUnpivotRow_2,P11
+GA_Max_values,tMysqlInput_1,MAX_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Task_Completion_Rate,tUnpivotRow_1,Max_P11
+GA_Max_values,tMysqlInput_1,Mean_Percent_Visitors_who_view_product_pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Percent_Visitors_who_view_product_pages,tUnpivotRow_1,Mean_P12
+GA_Max_values,tMysqlInput_1,Mean_Percent_Visitors_who_view_product_pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Percent_Visitors_who_view_product_pages,tUnpivotRow_2,P12
+GA_Max_values,tMysqlInput_1,MAX_Percent_Visitors_who_view_product_pages,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Percent_Visitors_who_view_product_pages,tUnpivotRow_1,Max_P12
+GA_Max_values,tMysqlInput_1,Mean_Total_Page_Load_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Load_Time,tUnpivotRow_1,Mean_P13
+GA_Max_values,tMysqlInput_1,Mean_Total_Page_Load_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Load_Time,tUnpivotRow_2,P13
+GA_Max_values,tMysqlInput_1,MAX_Total_Page_Load_Time,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Page_Load_Time,tUnpivotRow_1,Max_P13
+GA_Max_values,tMysqlInput_1,Mean_Visits_Per_User,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Visits_Per_User,tUnpivotRow_1,Mean_P14
+GA_Max_values,tMysqlInput_1,Mean_Visits_Per_User,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Visits_Per_User,tUnpivotRow_2,P14
+GA_Max_values,tMysqlInput_1,MAX_Visits_Per_User,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Visits_Per_User,tUnpivotRow_1,Max_P14
+GA_Max_values,tMysqlInput_1,Mean_Total_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visitors,tUnpivotRow_1,Mean_P15
+GA_Max_values,tMysqlInput_1,Mean_Total_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visitors,tUnpivotRow_2,P15
+GA_Max_values,tMysqlInput_1,MAX_Total_Visitors,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Visitors,tUnpivotRow_1,Max_P15
+GA_Max_values,tMysqlInput_1,Mean_Avg__Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg__Time_On_Page,tUnpivotRow_1,Mean_P16
+GA_Max_values,tMysqlInput_1,Mean_Avg__Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg__Time_On_Page,tUnpivotRow_2,P16
+GA_Max_values,tMysqlInput_1,MAX_Avg__Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Avg__Time_On_Page,tUnpivotRow_1,Max_P16
+GA_Max_values,tMysqlInput_1,AVG_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Visitor_Loyalty,tUnpivotRow_1,Mean_P17
+GA_Max_values,tMysqlInput_1,AVG_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Visitor_Loyalty,tUnpivotRow_2,P17
+GA_Max_values,tMysqlInput_1,MAX_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Visitor_Loyalty,tUnpivotRow_1,Max_P17
+GA_Max_values,tMysqlInput_1,Mean_Percent_of_people_who_search_on_your_site,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Percent_of_people_who_search_on_your_site,tUnpivotRow_1,Mean_P18
+GA_Max_values,tMysqlInput_1,Mean_Percent_of_people_who_search_on_your_site,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Percent_of_people_who_search_on_your_site,tUnpivotRow_2,P18
+GA_Max_values,tMysqlInput_1,MAX_Percent_of_people_who_search_on_your_site,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Percent_of_people_who_search_on_your_site,tUnpivotRow_1,Max_P18
+GA_Max_values,tMysqlInput_1,Mean_Total_New_Users,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_New_Users,tUnpivotRow_1,Mean_P19
+GA_Max_values,tMysqlInput_1,Mean_Total_New_Users,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_New_Users,tUnpivotRow_2,P19
+GA_Max_values,tMysqlInput_1,MAX_Total_New_Users,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_New_Users,tUnpivotRow_1,Max_P19
+GA_Max_values,tUnpivotRow_1,companyid,tUnpivotRow_1,Direct Copy,row2.companyid,tAggregateRow_1,companyid
+GA_Max_values,—,3,—,Expression Mapping,3,tAggregateRow_1,datasetgroup
+GA_Max_values,—,3,—,Expression Mapping,3,tMysqlOutput_2,datasetgroup
+GA_Max_values,—,,—,Expression Mapping,,tMysqlOutput_2,id
+GA_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",tAggregateRow_1,paramid
+GA_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,mean_value
+GA_Max_values,COUNT(row2,"pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,max_value
+GA_Max_values,TalendDate,getCurrentDate(),TalendDate,Function Transform,TalendDate.getCurrentDate(),tAggregateRow_1,Process_Date
+GA_Max_values,TalendDate,getCurrentDate(),TalendDate,Function Transform,TalendDate.getCurrentDate(),tMysqlOutput_2,Process_Date
+GA_Max_values,tMysqlInput_2,id,tMysqlInput_2,Direct Copy,row3.id,tMysqlOutput_1,id
+GA_Max_values,tMysqlInput_2,companyid,tMysqlInput_2,Direct Copy,row3.companyid,tMysqlOutput_1,companyid
+GA_Max_values,tMysqlInput_2,paramId,tMysqlInput_2,Direct Copy,row3.paramId,tMysqlOutput_1,paramId
+GA_Max_values,tMysqlInput_2,Type,tMysqlInput_2,Direct Copy,row3.Type,tMysqlOutput_1,Type
+GA_Max_values,tMysqlInput_2,Catagory,tMysqlInput_2,Direct Copy,row3.Catagory,tMysqlOutput_1,Catagory
+GA_Max_values,equals(row3,Type)?row4.max_value :0,"""Input""",Conditional Expression,"""Input"".equals(row3.Type)?row4.max_value :0",tMysqlOutput_1,max_Value
+GA_Max_values,tAggregateRow_1,mean_value,tAggregateRow_1,Direct Copy,row4.mean_value,tMysqlOutput_1,mean_Value
+GA_Max_values,tUnpivotRow_2,companyid,tUnpivotRow_2,Direct Copy,row6.companyid,tMysqlOutput_2,companyid
+GA_Max_values,parseInt(StringHandling,"EREPLACE(row6.pivot_key,""P"",""""))",Integer,Function Transform,"Integer.parseInt(StringHandling.EREPLACE(row6.pivot_key,""P"",""""))",tMysqlOutput_2,paramid
+GA_Max_values,parseDouble(row6,pivot_value),Double,Function Transform,Double.parseDouble(row6.pivot_value),tMysqlOutput_2,mean_value
+Plugin_Max_values,tMysqlInput_1,companyid,tMysqlInput_1,Direct Copy,row1.companyid,tUnpivotRow_1,companyid
+Plugin_Max_values,tMysqlInput_1,companyid,tMysqlInput_1,Direct Copy,row1.companyid,tUnpivotRow_2,companyid
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visits_to_Website,tUnpivotRow_1,Mean_P1
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Visits_to_Website,tUnpivotRow_2,P1
+Plugin_Max_values,tMysqlInput_1,MAX_Total_Visits_to_Website,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Visits_to_Website,tUnpivotRow_1,Max_P1
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Views,tUnpivotRow_1,Mean_P2
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Page_Views,tUnpivotRow_2,P2
+Plugin_Max_values,tMysqlInput_1,MAX_Total_Page_Views,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Page_Views,tUnpivotRow_1,Max_P2
+Plugin_Max_values,tMysqlInput_1,Mean_Page_Views_Per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Views_Per_Visit,tUnpivotRow_1,Mean_P3
+Plugin_Max_values,tMysqlInput_1,Mean_Page_Views_Per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Views_Per_Visit,tUnpivotRow_2,P3
+Plugin_Max_values,tMysqlInput_1,MAX_Page_Views_Per_Visit,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Views_Per_Visit,tUnpivotRow_1,Max_P3
+Plugin_Max_values,tMysqlInput_1,Mean_Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Time_On_Page,tUnpivotRow_1,Mean_P4
+Plugin_Max_values,tMysqlInput_1,Mean_Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Time_On_Page,tUnpivotRow_2,P4
+Plugin_Max_values,tMysqlInput_1,MAX_Time_On_Page,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Time_On_Page,tUnpivotRow_1,Max_P4
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Time_Spent_Per_Session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Time_Spent_Per_Session,tUnpivotRow_1,Mean_P5
+Plugin_Max_values,tMysqlInput_1,Mean_Total_Time_Spent_Per_Session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Total_Time_Spent_Per_Session,tUnpivotRow_2,P5
+Plugin_Max_values,tMysqlInput_1,MAX_Total_Time_Spent_Per_Session,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Total_Time_Spent_Per_Session,tUnpivotRow_1,Max_P5
+Plugin_Max_values,tMysqlInput_1,AVG_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Bounce_Rate,tUnpivotRow_1,Mean_P6
+Plugin_Max_values,tMysqlInput_1,AVG_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Bounce_Rate,tUnpivotRow_2,P6
+Plugin_Max_values,tMysqlInput_1,MAX_Bounce_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Bounce_Rate,tUnpivotRow_1,Max_P6
+Plugin_Max_values,tMysqlInput_1,AVG_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Checkout_Abandonment_Rate,tUnpivotRow_1,Mean_P7
+Plugin_Max_values,tMysqlInput_1,AVG_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Checkout_Abandonment_Rate,tUnpivotRow_2,P7
+Plugin_Max_values,tMysqlInput_1,MAX_Checkout_Abandonment_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Checkout_Abandonment_Rate,tUnpivotRow_1,Max_P7
+Plugin_Max_values,tMysqlInput_1,AVG_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Task_Completion_Rate,tUnpivotRow_1,Mean_P8
+Plugin_Max_values,tMysqlInput_1,AVG_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Task_Completion_Rate,tUnpivotRow_2,P8
+Plugin_Max_values,tMysqlInput_1,MAX_Task_Completion_Rate,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Task_Completion_Rate,tUnpivotRow_1,Max_P8
+Plugin_Max_values,tMysqlInput_1,Mean_Number_of_Clickable_events,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_Clickable_events,tUnpivotRow_1,Mean_P9
+Plugin_Max_values,tMysqlInput_1,Mean_Number_of_Clickable_events,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_Clickable_events,tUnpivotRow_2,P9
+Plugin_Max_values,tMysqlInput_1,MAX_Number_of_Clickable_events,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_of_Clickable_events,tUnpivotRow_1,Max_P9
+Plugin_Max_values,tMysqlInput_1,Mean_Number_Of_Product_Pages_Viewed,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_Of_Product_Pages_Viewed,tUnpivotRow_1,Mean_P10
+Plugin_Max_values,tMysqlInput_1,Mean_Number_Of_Product_Pages_Viewed,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_Of_Product_Pages_Viewed,tUnpivotRow_2,P10
+Plugin_Max_values,tMysqlInput_1,MAX_Number_Of_Product_Pages_Viewed,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_Of_Product_Pages_Viewed,tUnpivotRow_1,Max_P10
+Plugin_Max_values,tMysqlInput_1,Mean_Page_Load_Per_Refresh_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Load_Per_Refresh_Time,tUnpivotRow_1,Mean_P11
+Plugin_Max_values,tMysqlInput_1,Mean_Page_Load_Per_Refresh_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Page_Load_Per_Refresh_Time,tUnpivotRow_2,P11
+Plugin_Max_values,tMysqlInput_1,MAX_Page_Load_Per_Refresh_Time,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Page_Load_Per_Refresh_Time,tUnpivotRow_1,Max_P11
+Plugin_Max_values,tMysqlInput_1,Mean_Avg_Page_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg_Page_Time,tUnpivotRow_1,Mean_P12
+Plugin_Max_values,tMysqlInput_1,Mean_Avg_Page_Time,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Avg_Page_Time,tUnpivotRow_2,P12
+Plugin_Max_values,tMysqlInput_1,MAX_Avg_Page_Time,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Avg_Page_Time,tUnpivotRow_1,Max_P12
+Plugin_Max_values,tMysqlInput_1,Mean_Number_of_scrolls_per_session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_scrolls_per_session,tUnpivotRow_1,Mean_P13
+Plugin_Max_values,tMysqlInput_1,Mean_Number_of_scrolls_per_session,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Number_of_scrolls_per_session,tUnpivotRow_2,P13
+Plugin_Max_values,tMysqlInput_1,MAX_Number_of_scrolls_per_session,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Number_of_scrolls_per_session,tUnpivotRow_1,Max_P13
+Plugin_Max_values,tMysqlInput_1,Mean_Search,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Search,tUnpivotRow_1,Mean_P14
+Plugin_Max_values,tMysqlInput_1,Mean_Search,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Search,tUnpivotRow_2,P14
+Plugin_Max_values,tMysqlInput_1,MAX_Search,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Search,tUnpivotRow_1,Max_P14
+Plugin_Max_values,tMysqlInput_1,AVG_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Visitor_Loyalty,tUnpivotRow_1,Mean_P15
+Plugin_Max_values,tMysqlInput_1,AVG_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.AVG_Visitor_Loyalty,tUnpivotRow_2,P15
+Plugin_Max_values,tMysqlInput_1,MAX_Visitor_Loyalty,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Visitor_Loyalty,tUnpivotRow_1,Max_P15
+Plugin_Max_values,tMysqlInput_1,Mean_Top_Exit_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Top_Exit_Pages,tUnpivotRow_1,Mean_P16
+Plugin_Max_values,tMysqlInput_1,Mean_Top_Exit_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.Mean_Top_Exit_Pages,tUnpivotRow_2,P16
+Plugin_Max_values,tMysqlInput_1,MAX_Top_Exit_Pages,tMysqlInput_1,Direct Copy (Nullable),row1.MAX_Top_Exit_Pages,tUnpivotRow_1,Max_P16
+Plugin_Max_values,tUnpivotRow_1,companyid,tUnpivotRow_1,Direct Copy,row2.companyid,tAggregateRow_1,companyid
+Plugin_Max_values,—,2,—,Expression Mapping,2,tAggregateRow_1,datasetgroup
+Plugin_Max_values,—,2,—,Expression Mapping,2,tMysqlOutput_2,datasetgroup
+Plugin_Max_values,—,,—,Expression Mapping,,tMysqlOutput_2,id
+Plugin_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Mean_P"","""")):
+Integer.parseInt(StringHandling.EREPLACE(row2.pivot_key,""Max_P"",""""))",tAggregateRow_1,paramid
+Plugin_Max_values,COUNT(row2,"pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Mean_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,mean_value
+Plugin_Max_values,COUNT(row2,"pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",StringHandling,Conditional Expression,"StringHandling.COUNT(row2.pivot_key,""Max_P"")>0?Double.parseDouble(row2.pivot_value):null",tAggregateRow_1,max_value
+Plugin_Max_values,TalendDate,getCurrentDate(),TalendDate,Function Transform,TalendDate.getCurrentDate(),tAggregateRow_1,Process_Date
+Plugin_Max_values,TalendDate,getCurrentDate(),TalendDate,Function Transform,TalendDate.getCurrentDate(),tMysqlOutput_2,Process_Date
+Plugin_Max_values,tMysqlInput_2,id,tMysqlInput_2,Direct Copy,row3.id,tMysqlOutput_1,id
+Plugin_Max_values,tMysqlInput_2,companyid,tMysqlInput_2,Direct Copy,row3.companyid,tMysqlOutput_1,companyid
+Plugin_Max_values,tMysqlInput_2,parameterid,tMysqlInput_2,Direct Copy,row3.parameterid,tMysqlOutput_1,parameterid
+Plugin_Max_values,tMysqlInput_2,type,tMysqlInput_2,Direct Copy,row3.type,tMysqlOutput_1,type
+Plugin_Max_values,tMysqlInput_2,catagory,tMysqlInput_2,Direct Copy,row3.catagory,tMysqlOutput_1,catagory
+Plugin_Max_values,equals(row3,type)?row4.max_value :0,"""Input""",Conditional Expression,"""Input"".equals(row3.type)?row4.max_value :0",tMysqlOutput_1,max_Value
+Plugin_Max_values,mean_value==0?0,01:row4.mean_value,tAggregateRow_1,Conditional Expression,row4.mean_value==0?0.01:row4.mean_value,tMysqlOutput_1,mean_Value
+Plugin_Max_values,tUnpivotRow_2,companyid,tUnpivotRow_2,Direct Copy,row6.companyid,tMysqlOutput_2,companyid
+Plugin_Max_values,parseInt(StringHandling,"EREPLACE(row6.pivot_key,""P"",""""))",Integer,Function Transform,"Integer.parseInt(StringHandling.EREPLACE(row6.pivot_key,""P"",""""))",tMysqlOutput_2,paramid
+Plugin_Max_values,parseDouble(row6,pivot_value)==0?0.01:Double.parseDouble(row6.pivot_value),Double,Conditional Expression,Double.parseDouble(row6.pivot_value)==0?0.01:Double.parseDouble(row6.pivot_value),tMysqlOutput_2,mean_value

@@ -1,0 +1,152 @@
+{
+  "keywords": {
+    "if": {
+      "business_term": "Decision",
+      "explanation": "A business rule that checks a condition and takes different actions depending on whether it is true or false."
+    },
+    "else": {
+      "business_term": "Alternative Path",
+      "explanation": "The fallback action taken when a business condition is not met."
+    },
+    "for": {
+      "business_term": "Loop",
+      "explanation": "A process that repeats a set of steps a specific number of times, such as processing each record in a list."
+    },
+    "while": {
+      "business_term": "Repeat",
+      "explanation": "A process that keeps running a set of steps for as long as a certain condition remains true."
+    },
+    "try": {
+      "business_term": "Attempt",
+      "explanation": "The system attempts a business operation and is prepared to handle any failures gracefully."
+    },
+    "catch": {
+      "business_term": "Error Handler",
+      "explanation": "When an unexpected failure occurs, this rule intercepts the error to prevent data loss or pipeline crash."
+    },
+    "return": {
+      "business_term": "Output Value",
+      "explanation": "The final result produced by a computation or lookup, passed forward to the next step."
+    },
+    "throw": {
+      "business_term": "Raise Alert",
+      "explanation": "The system raises a business error, stopping the current operation and signalling a data or process problem."
+    },
+    "switch": {
+      "business_term": "Multi-way Decision",
+      "explanation": "A rule that selects one of several possible actions based on the value of a field or condition."
+    },
+    "break": {
+      "business_term": "Stop Processing",
+      "explanation": "Processing of the current batch or loop stops early, typically because a result has been found or a condition met."
+    },
+    "continue": {
+      "business_term": "Skip Record",
+      "explanation": "The current record does not satisfy business criteria and is skipped; processing continues with the next."
+    },
+    "import": {
+      "business_term": "External Capability",
+      "explanation": "The component relies on an external software library to perform a specialised business function."
+    }
+  },
+  "types": {
+    "String": {
+      "business_term": "Text",
+      "explanation": "A field that holds readable text, such as a customer name, address, or product description."
+    },
+    "int": {
+      "business_term": "Whole Number",
+      "explanation": "A field that holds a whole number, such as a quantity, count, or ID with no decimal places."
+    },
+    "long": {
+      "business_term": "Large Number",
+      "explanation": "A numeric field capable of holding very large whole numbers, such as transaction IDs or timestamps in milliseconds."
+    },
+    "double": {
+      "business_term": "Decimal Number",
+      "explanation": "A field holding a number with decimal places, such as a price, percentage, or measurement."
+    },
+    "float": {
+      "business_term": "Approximate Decimal",
+      "explanation": "A numeric field with decimal places used when exact precision is not required, such as scientific measurements."
+    },
+    "boolean": {
+      "business_term": "Yes / No Flag",
+      "explanation": "A field that holds only two possible values: true (yes) or false (no), such as an active/inactive status."
+    },
+    "Date": {
+      "business_term": "Calendar Date",
+      "explanation": "A field holding a specific date, such as a transaction date, birth date, or reporting period."
+    },
+    "List": {
+      "business_term": "Collection of Items",
+      "explanation": "A group of values held together, such as a list of product codes, customer IDs, or error messages."
+    },
+    "Map": {
+      "business_term": "Lookup Table",
+      "explanation": "A key-value store used to quickly look up a value given a known identifier, such as mapping a country code to a country name."
+    },
+    "HashMap": {
+      "business_term": "Fast Lookup Table",
+      "explanation": "An in-memory lookup store used to rapidly match records to reference values during processing."
+    },
+    "ArrayList": {
+      "business_term": "Ordered Item List",
+      "explanation": "An ordered collection of items that can be added to or iterated over during record processing."
+    },
+    "StringBuilder": {
+      "business_term": "Text Builder",
+      "explanation": "A mechanism for assembling text piece by piece, such as constructing a formatted message or concatenated field value."
+    },
+    "ResultSet": {
+      "business_term": "Query Result",
+      "explanation": "The set of records returned from a database query, iterated over to process each matching row."
+    },
+    "Connection": {
+      "business_term": "Database Session",
+      "explanation": "An active connection to a database, allowing the component to send queries and receive data."
+    },
+    "File": {
+      "business_term": "File Reference",
+      "explanation": "A reference to a file on the local system, used to read input data or write output results."
+    },
+    "Exception": {
+      "business_term": "Error Condition",
+      "explanation": "An unexpected business or technical error that the system must handle to avoid pipeline failure."
+    },
+    "Object": {
+      "business_term": "Generic Data Item",
+      "explanation": "A general-purpose data holder used when the exact type of data is determined at runtime."
+    },
+    "byte[]": {
+      "business_term": "Binary Data",
+      "explanation": "Raw binary content such as file contents, encoded values, or data read from a stream."
+    }
+  },
+  "patterns": {
+    "null_check": {
+      "business_term": "Missing Value Check",
+      "explanation": "The rule checks whether a field is empty or absent before attempting to use it, preventing processing errors."
+    },
+    "string_compare": {
+      "business_term": "Text Match Rule",
+      "explanation": "The rule compares a text field to an expected value to decide which processing path to follow."
+    },
+    "numeric_compare": {
+      "business_term": "Threshold Rule",
+      "explanation": "The rule evaluates whether a numeric field is above, below, or equal to a business threshold."
+    },
+    "date_compare": {
+      "business_term": "Date Range Rule",
+      "explanation": "The rule checks whether a date falls within an expected period, such as a reporting window or validity period."
+    },
+    "regex_match": {
+      "business_term": "Format Validation Rule",
+      "explanation": "The rule validates that a field value matches a required format, such as an email address, postcode, or identifier pattern."
+    },
+    "trim_normalize": {
+      "business_term": "Data Cleansing Rule",
+      "explanation": "The rule removes extra whitespace or normalises capitalisation to ensure consistent data quality."
+    }
+  }
+}

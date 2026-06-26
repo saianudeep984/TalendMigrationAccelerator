@@ -1,0 +1,491 @@
+package routines;
+
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import routines.system.FastDateParser;
+import routines.system.TalendTimestampWithTZ;
+
+
+public class DQ_Rules {
+
+	//Remove all special characters in the phone number
+		public static String fixPhone_No_AlphaNumeric(String PhoneNo){
+			if(PhoneNo == null || PhoneNo.trim().isEmpty()){
+			return null;
+			}
+			else {
+				return PhoneNo.trim().replaceAll("[^a-zA-Z0-9]+","");
+			}
+		}
+		
+		//Remove all special characters in the SSN format it to XXX-XX-XXXX
+		public static String fixSSN(String SSN){
+			if(SSN == null || SSN.trim().isEmpty()){
+			return null;
+			}
+			else {
+				SSN = SSN.trim().replaceAll("[^a-zA-Z0-9]+","");
+				if(SSN.trim().length()<9) {
+					return null;
+				}
+				SSN = SSN.trim().substring(0,3)+"-"+SSN.trim().substring(3,5)+"-"+SSN.trim().substring(5,9);
+				return SSN;
+			}
+		}
+		
+		//Trim Country Code from Phone Number
+		public static String fixPhone_No_TrimCountryCode(String PhoneNo, String Country){
+			if(PhoneNo == null || PhoneNo.trim().isEmpty() || PhoneNo.trim().equalsIgnoreCase("NULL")){
+				return null;
+				}
+			else if(Country != null && Country.trim().equalsIgnoreCase("US")&& PhoneNo.length()>10&&(PhoneNo.substring(0,1).equals("1")||PhoneNo.substring(0,1).equals("0"))){
+				return PhoneNo.substring(1);
+			}else{
+				return PhoneNo;
+			}
+		}
+		
+		//Validate Phone No:
+		public static boolean validatePhone(String PhoneNo, String Country){
+			if(PhoneNo==null || PhoneNo.trim().isEmpty() || PhoneNo.trim().equalsIgnoreCase("NULL")){
+				PhoneNo=null;
+				return true;
+			}
+			PhoneNo = PhoneNo.trim().toUpperCase();
+			//if(!PhoneNo.matches("[0-9]+") || (Country != null && PhoneNo.length()>10 && Country.trim().equalsIgnoreCase("US")))
+			if(!PhoneNo.matches("[0-9]+") )
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		//Validate Phone No:
+				public static boolean validatePhone(String PhoneNo){
+					if(PhoneNo==null || PhoneNo.trim().isEmpty() || PhoneNo.trim().equalsIgnoreCase("NULL")){
+						PhoneNo=null;
+						return true;
+					}
+					PhoneNo = PhoneNo.trim().toUpperCase();
+					if(!PhoneNo.matches("[0-9]+") )
+					{
+						return false;
+					}
+					return true;
+				}
+		
+		//Convert Unix Date to Normal Date
+		public static Date ConvertBirthDate(String BirthDate){
+			if(BirthDate == null||BirthDate.trim().isEmpty() || BirthDate.trim().equalsIgnoreCase("NULL")){
+				return null;
+			}
+			
+			return new java.util.Date((long)Integer.parseInt(BirthDate.trim())*1000);
+		}
+		
+		//Fix BirthDate
+		public static Date fixBirthDate(String BirthYear,String BirthMonth, String BirthDay){
+			int current_year = Integer.parseInt(TalendDate.formatDate("YYYY", TalendDate.getCurrentDate()));
+			if(BirthYear!=null && !BirthYear.matches("[0-9]+")){
+				BirthYear= null;
+			}
+		
+			if(BirthMonth!=null && !BirthMonth.matches("[0-9]+")){
+				BirthMonth = null;
+			}
+			
+			if(BirthDay!=null && !BirthDay.matches("[0-9]+")){
+				BirthDay = null;
+			}
+			
+			
+			if(BirthYear == null || BirthYear.trim().isEmpty() || Integer.parseInt(BirthYear)<1753 || Integer.parseInt(BirthYear)>current_year){
+				return null;
+			}else if(BirthMonth == null||BirthMonth.trim().isEmpty() || Integer.parseInt( BirthMonth)<1 || Integer.parseInt( BirthMonth)>12){
+				return parseDate("yyyy-MM-dd",String.format("%04d", Integer.parseInt(BirthYear))+"-01-01",false);
+			}else if(BirthDay == null || BirthDay.trim().isEmpty()|| Integer.parseInt( BirthDay)<1 || Integer.parseInt( BirthDay)>31){
+			return parseDate("yyyy-MM-dd",String.format("%04d", Integer.parseInt(BirthYear))+"-"+String.format("%02d", Integer.parseInt( BirthMonth))+"-01",false);	
+			}
+			else{
+					try{			
+				Date d = parseDate("yyyy-MM-dd",String.format("%04d", Integer.parseInt(BirthYear))+"-"+String.format("%02d", Integer.parseInt(BirthMonth))+"-"+String.format("%02d", Integer.parseInt(BirthDay)),false);
+				if(d!=null){
+				return d;
+				}else{
+				return parseDate("yyyy-MM-dd",String.format("%04d", Integer.parseInt(BirthYear))+"-"+String.format("%02d", Integer.parseInt( BirthMonth))+"-01",false);
+				}
+					}catch(Exception e){
+						return null;
+					}
+			}
+			
+			
+			 
+		}
+		
+		//Assumed Date
+		public static boolean assumedDate(String BirthYear,String BirthMonth, String BirthDay){
+			int current_year = Integer.parseInt(TalendDate.formatDate("YYYY", TalendDate.getCurrentDate()));
+			
+			if(BirthYear!=null && !BirthYear.matches("[0-9]+")){
+				BirthYear= null;
+			}
+		
+			if(BirthMonth!=null && !BirthMonth.matches("[0-9]+")){
+				BirthMonth = null;
+			}
+			
+			if(BirthDay!=null && !BirthDay.matches("[0-9]+")){
+				BirthDay = null;
+			}
+			
+			
+			try{
+			if(BirthYear == null || BirthYear.trim().isEmpty() || Integer.parseInt(BirthYear)<1753|| Integer.parseInt(BirthYear)>current_year){
+				return false;
+			}else if(BirthMonth == null||BirthMonth.trim().isEmpty()|| Integer.parseInt( BirthMonth)<1  || Integer.parseInt( BirthMonth)>12){
+				return true;
+			}else if(BirthDay == null || BirthDay.trim().isEmpty()|| Integer.parseInt( BirthDay)<1 || Integer.parseInt( BirthDay)>31){
+			return true;	
+			}
+			}catch(Exception e){
+				
+			}
+			try{
+				 Date d = parseDate("yyyy-MM-dd",String.format("%04d", Integer.parseInt(BirthYear))+"-"+String.format("%02d", Integer.parseInt(BirthMonth))+"-"+String.format("%02d", Integer.parseInt(BirthDay)),false);
+				 if(d==null){
+					 System.out.println(String.format("%04d", Integer.parseInt(BirthYear))+"-"+String.format("%02d", Integer.parseInt(BirthMonth))+"-"+String.format("%02d", Integer.parseInt(BirthDay)));
+					return true;
+				 }
+			}
+			catch(Exception e){
+				return false;
+			}
+			
+
+			return false;
+			
+			 
+		}
+		
+		//Fix State
+		public static String fixState(String State){
+			if(State == null || State.trim().isEmpty()|| State.trim().equalsIgnoreCase("NULL")){
+				return null;
+			}
+			State=State.trim().substring(0,1).toUpperCase()+State.trim().substring(1).toLowerCase();
+			
+			String[] list = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "North Carolina", "South Carolina", 
+	                "Colorado", "Connecticut", "North Dakota", "South Dakota", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", 
+	                "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", 
+	                "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", 
+	                "New Jersey", "New Mexico", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", 
+	                "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "West Virginia", "Washington", "Wisconsin", "Wyoming" }; 
+			
+			String[] abbr_list = { "AL", "AK", "AZ", "AR", "CA", "NC", "SC", "CO", "CT", "ND", "SD", "DE", "FL", "GA", "HI", "ID", "IL", 
+	                "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", 
+	                "OH", "OK", "OR", "PA", "RI", "TN", "TX", "UT", "VT", "VA", "WV", "WA", "WI", "WY" }; 
+			
+			int index = java.util.Arrays.asList(list).indexOf(State);
+			
+			if(index>=0){
+			return abbr_list[index];
+			}
+			
+			return State.trim().toUpperCase();
+		}
+		
+		//Fix Gender
+		public static String fixGender(String Gender){
+			
+			if(Gender!=null){
+				if(Gender.trim().equalsIgnoreCase("M") || Gender.trim().equalsIgnoreCase("MALE")){
+					return "M";
+				}
+				if(Gender.trim().equalsIgnoreCase("F") || Gender.trim().equalsIgnoreCase("FEMALE")){
+					return "F";
+				}
+			}
+				
+			return "U";
+			
+		}
+		
+		
+		//Validate Email
+		public static boolean validateEmailAddress(String Email){
+			if(Email==null || Email.trim().isEmpty() || Email.trim().equalsIgnoreCase("NULL")){
+				Email = null;
+				return true;
+			}
+			Email = Email.trim().toUpperCase();
+			String Email1=Email.replace(".@", "@");
+			if(Email.contains("@")&&!Email.substring(Email.indexOf("@")).contains("'"))
+			{
+				Email1 = Email.replace("'", "");
+			}
+//			return Email.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+			return Email1.matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+		}
+		
+		//Validate Name
+		public static boolean validateName(String Name){
+			if(Name==null || Name.trim().isEmpty() || Name.trim().equalsIgnoreCase("NULL")){
+				Name=null;
+				return true;
+			}
+			
+	//old code - commented 9/18/2017 - Saro - CHG#	
+	//Removing the 'Uppercase' logic from this place (before staging) to Match merge process		
+//			Name = Name.trim().toUpperCase();
+	//old code
+			Name = Name.trim();
+			
+			String Name1 =Name.replace(".", "").replace("'", "").replace("\\s", "").replace("-", "").replace("/", "").replace("&", "").replace(",", "").replace("(", "").replace(")", "");
+			// System.out.println("NAME = "+Name1);
+			if(Name1.matches("[0-9]+")){
+				System.out.println("ERROR IN NAME = "+Name1);
+				return false;
+			}
+			Name1 = Name1.replaceAll("\\p{Lu}", "");
+			if(Name1.trim().isEmpty()){
+				System.out.println("ERROR--> Empty NAME = ");
+				return true;
+			}
+			return Name1.matches("[A-Z0-9\\s]+");
+
+		}
+		
+		//Validate Company Name
+		public static boolean validateCompanyName(String CompanyName){
+			if(CompanyName==null || CompanyName.trim().isEmpty() || CompanyName.trim().equalsIgnoreCase("NULL")){
+				CompanyName=null;
+				return true;
+			}
+			CompanyName = CompanyName.trim().toUpperCase();
+			return !CompanyName.matches("[0-9]+");
+			
+		}
+		
+		//Check Company Name has Birth Year
+			public static boolean isBirthYear(String CompanyName){
+				if(CompanyName==null || CompanyName.trim().isEmpty() || CompanyName.trim().equalsIgnoreCase("NULL")){
+					CompanyName=null;
+					return true;
+				}
+				CompanyName = CompanyName.trim().toUpperCase();
+				if(CompanyName.matches("[0-9]+") && CompanyName.length()==4)
+				{
+					int number = Integer.parseInt(CompanyName);
+					if(number>1783 && number<=Integer.parseInt(TalendDate.formatDate("YYYY", TalendDate.getCurrentDate()))){
+					return true;
+					}
+				}
+					return false;
+				
+			}
+		
+		//fix Email
+		public static String fixEmail(String Email){
+			if(Email == null || Email.trim().isEmpty() || Email.trim().equalsIgnoreCase("NULL")||Email.trim().equalsIgnoreCase("0")){
+				return null;
+			}
+			if(Email.trim().length()>5 && (Email.substring(0,5).equalsIgnoreCase("null@")|| Email.substring(0,3).equalsIgnoreCase("nul@")))
+			{
+				return null;
+			}
+			
+			//System.out.println("Original Email = "+Email);
+			Email=Email.trim().toUpperCase().replace("MAILTO:", "");
+			Email = Email.replace(",", ".").replace("C0M", "COM").replace("@@", "@").replace("@.", "@").replace("\"", "");
+			int i = Email.indexOf("@");
+			if(i>0){
+				
+				String Domain = Email.substring(i);
+				//System.out.println("DOMAIN = "+Domain);
+				Domain = Domain.replace("..", ".").replace(";","").replace("'","").replace("!", "").replace("/", "").replace("-", "").replace(".COMCOM", ".COM").replace("_", "");
+				while(Domain.contains(". ")){
+					Domain = Domain.replace(". ", ".");	
+				}
+				
+				while(Domain.contains(" .")){
+					Domain = Domain.replace(" .", ".");	
+					}
+				
+				String[] tld = {".COM", ".ORG", ".NET", ".INT", ".INFO", ".EDU", ".BIZ", ".GOV", ".MIL", ".ART", ".CO", ".CC", ".SITE", ".LIVE", ".NEWS" , ".MOBI", ".TEL", ".JOBS"};
+				for(int j=0;j< tld.length;j++){
+					if(Domain.contains(tld[j])){
+						int k = Domain.indexOf(tld[j]);
+						Domain = Domain.substring(0,k).replace(" ", "")+tld[j];
+						break;
+					}
+					if(!Domain.endsWith(tld[j]) && Domain.endsWith(tld[j].substring(1))){
+						int k = Domain.indexOf(tld[j].substring(1));
+						Domain = Domain.substring(0,k).replace(" ", "")+"."+Domain.substring(k);
+						break;
+					}
+					
+				}
+				
+				Domain = Domain.replace("..", ".");
+				Email = Email.substring(0,i).replace("..", ".").replace(" ", "").replaceAll("\\s","")+Domain;
+				
+			}
+			
+			while(Email.length()>1 && Email.substring(0, 1).equalsIgnoreCase(".")){
+				Email=Email.substring(1).trim();
+			}
+			while(Email.length()>0 && Email.endsWith(".")){
+				Email=Email.substring(0,Email.length()-1).trim();
+			}
+			
+			 
+			//if(Email.endsWith("_DISABLED")){
+				//Email=Email.substring(0, Email.indexOf("_DISABLED"));
+			//}
+			//System.out.println("Converted Email = "+Email);
+			return Email;
+		}
+		
+		//fix Country
+			public static String fixCountry(String Country){
+				if(Country == null || Country.trim().isEmpty() || Country.trim().equalsIgnoreCase("NULL") || Country.matches("[0-9]+")){
+					return null;
+				}
+				if(Country.trim().equalsIgnoreCase("USPHONE1="))
+				{
+					return "US";
+				}
+				Country=Country.trim().toUpperCase();
+				return Country;
+			}
+		
+			//fix Name
+					public static String fixName(String Name){
+						if(Name == null || Name.trim().isEmpty() || Name.trim().equalsIgnoreCase("NULL") ){
+							return null;
+						}
+						
+	//old code - commented 9/18/2017 - Saro - CHG#
+	//Removing the 'Uppercase' logic from this place (before staging) to Match merge process					
+//						Name=Name.replace("\"", "").trim().toUpperCase().replace("%26AMP;", "&").replace("%26AMP", "&").replace("_", " ").replace("", "");
+	//old code
+						Name=Name.replace("\"", "").trim().replace("%26AMP;", "&").replace("%26AMP", "&").replace("_", " ").replace("", "");					
+						
+						while(Name.length()>1 && Name.substring(0, 1).equalsIgnoreCase("*")){
+							Name=Name.substring(1).trim();
+						}
+						
+						while(Name.length()>0 && !Name.substring(Name.length()-1).matches("[A-Z0-9\\p{L}\\p{M}]+"))
+						{
+							Name=Name.substring(0,Name.length()-1).trim();
+						}
+						
+						if(Name.trim().isEmpty() ){
+							return null;
+						}
+						
+						return Name;
+					}
+					
+					//fix Address
+					public static String fixAddress(String Address){
+						if(Address == null || Address.trim().isEmpty() || Address.trim().equalsIgnoreCase("NULL") ){
+							return null;
+						}
+						
+						Address=Address.replace("\"", "").trim().toUpperCase().replace("%26AMP;", "&").replace("%26AMP", "&").replace("_", " ").replace("", "").replace("<"," ").replace(">"," ");
+						
+						while(Address.length()>1 && Address.substring(0, 1).equalsIgnoreCase("*")){
+							Address=Address.substring(1).trim();
+						}
+						
+						while(Address.length()>0 && !Address.substring(Address.length()-1).matches("[A-Z0-9\\p{L}\\p{M}]+"))
+						{
+							Address=Address.substring(0,Address.length()-1).trim();
+						}
+						
+						if(Address.trim().isEmpty() ){
+							return null;
+						}
+						
+						return Address;
+					}
+
+
+					
+					
+					
+			//get ZipCode
+			public static String getZipCode(String Zip, String Country){
+				if(Zip == null ||Zip.trim().isEmpty()||Zip.trim().equalsIgnoreCase("Null"))
+				{
+					return null;
+				}
+				
+				Zip = Zip.trim().toUpperCase().split("-", 2)[0];
+				
+				if(Country != null && Country.equalsIgnoreCase("US") && Zip.length()>=5){
+				Zip = Zip.substring(0,5);
+				}
+				return Zip;
+			}
+			
+			//get Zip Extn
+			public static String getZipExtn(String Zip){
+				if(Zip == null ||Zip.trim().isEmpty()||Zip.trim().equalsIgnoreCase("Null"))
+				{
+					return null;
+				}
+				if(Zip.trim().toUpperCase().split("-", 2).length>1){
+				Zip = Zip.trim().toUpperCase().split("-", 2)[1];
+				}else{
+				return null;
+				}
+				return Zip;
+			}
+		
+			
+			
+		 public static Date parseDate(String pattern, String stringDate, boolean isLenient) {
+		        try {
+		            boolean hasZone = false;
+		            boolean inQuote = false;
+		            char[] ps = pattern.toCharArray();
+		            for (char p : ps) {
+		                if (p == '\'') {
+		                    inQuote = !inQuote;
+		                } else if (!inQuote && (p == 'Z' || p == 'z')) {
+		                    hasZone = true;
+		                    break;
+		                }
+		            }
+		            DateFormat df = FastDateParser.getInstance(pattern);
+		            df.setLenient(isLenient);
+		            Date d = df.parse(stringDate);
+		            if (hasZone) {
+		                int offset = df.getCalendar().get(Calendar.ZONE_OFFSET);
+		                char sign = offset >= 0 ? '+' : '-';
+		                int hour = Math.abs(offset) / 1000 / 60 / 60;
+		                int min = Math.abs(offset) / 1000 / 60 % 60;
+		                String minStr = min < 10 ? "0" + min : min + "";
+		                TalendTimestampWithTZ tstz = new TalendTimestampWithTZ(new java.sql.Timestamp(d.getTime()),
+		                        TimeZone.getTimeZone("GMT" + sign + hour + ":" + minStr));
+		                return tstz;
+		            } else {
+		                return d;
+		            }
+		        } catch (Exception e) {
+		         return null;   
+		        }
+		    }
+		
+	//End of Class	
+}

@@ -1,0 +1,1453 @@
+{
+  "cache_version": "1B.0",
+  "generated_at": "2026-06-25T09:23:11Z",
+  "db_path": "/home/claude/TMA_Phase_1B/analysis_cache.db",
+  "project": {
+    "base_path": "/home/claude/TMA_Phase_1A/TMA_Phase_1A_Output",
+    "project_hash": "a9e9499c8fe4683ca71ee7bb1ef2c82f19eb4d099977a4efc9b843304bb75292",
+    "scan_timestamp": 1782379262.0399883,
+    "total_py_files": 443,
+    "total_py_lines": 61623,
+    "total_classes": 278,
+    "total_functions": 1920
+  },
+  "sql_analysis": {
+    "total_rows": 408,
+    "ddl_tables": [
+      "components",
+      "jobs",
+      "mappings",
+      "sources",
+      "targets"
+    ],
+    "dml_operations": 50,
+    "pragma_usages": 3,
+    "schema_refs": 345,
+    "cache_schema": {
+      "tables": [
+        "jobs",
+        "components",
+        "sources",
+        "targets",
+        "mappings"
+      ],
+      "description": "SQLite-backed metadata cache tables in CacheManager (app/cache/cache_manager.py)"
+    }
+  },
+  "java_analysis": {
+    "total_entries": 136,
+    "critical_risk": 17,
+    "high_risk": 21,
+    "medium_risk": 0,
+    "low_risk": 98,
+    "top_entries": [
+      {
+        "rel_path": "app/ui/job_analysis_page.py",
+        "component_type": "tJava",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 569,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/ui/job_analysis_page.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 569,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/ui/job_analysis_page.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 569,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/ui/job_analysis_page.py",
+        "component_type": "tJavaInput",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 569,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/analyzers/java_logic_analyzer.py",
+        "component_type": "tJava",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 8,
+        "external_jars": [
+          "org.apache.",
+          "com.google.",
+          "net.sf.",
+          "io.spring.",
+          "org.springframework.",
+          "com.fasterxml.",
+          "org.joda.",
+          "com.amazonaws.",
+          "org.slf4j.",
+          "org.json.",
+          "com.opencsv.",
+          "org.apache.poi",
+          "org.apache.commons",
+          "org.apache.http"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., com.google., net.sf."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/analyzers/java_logic_analyzer.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 8,
+        "external_jars": [
+          "org.apache.",
+          "com.google.",
+          "net.sf.",
+          "io.spring.",
+          "org.springframework.",
+          "com.fasterxml.",
+          "org.joda.",
+          "com.amazonaws.",
+          "org.slf4j.",
+          "org.json.",
+          "com.opencsv.",
+          "org.apache.poi",
+          "org.apache.commons",
+          "org.apache.http"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., com.google., net.sf."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/analyzers/java_logic_analyzer.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 8,
+        "external_jars": [
+          "org.apache.",
+          "com.google.",
+          "net.sf.",
+          "io.spring.",
+          "org.springframework.",
+          "com.fasterxml.",
+          "org.joda.",
+          "com.amazonaws.",
+          "org.slf4j.",
+          "org.json.",
+          "com.opencsv.",
+          "org.apache.poi",
+          "org.apache.commons",
+          "org.apache.http"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., com.google., net.sf."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/analyzers/cloud_readiness.py",
+        "component_type": "tJava",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 32,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/cloud_readiness.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 32,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/cloud_readiness.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 32,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/cloud_readiness.py",
+        "component_type": "tBeanShell",
+        "complexity_label": "CRITICAL",
+        "risk_overall": "CRITICAL",
+        "loc": 32,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/routine_analyzer.py",
+        "component_type": "tJava",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 14,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/routine_analyzer.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 14,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/routine_analyzer.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 14,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/java_risk_analyzer.py",
+        "component_type": "tJava",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 9,
+        "external_jars": [
+          "org.apache.",
+          "org.apache.commons"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., org.apache.commons"
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/java_risk_analyzer.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 9,
+        "external_jars": [
+          "org.apache.",
+          "org.apache.commons"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., org.apache.commons"
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/analyzers/java_risk_analyzer.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "HIGH",
+        "risk_overall": "CRITICAL",
+        "loc": 9,
+        "external_jars": [
+          "org.apache.",
+          "org.apache.commons"
+        ],
+        "risk_findings": [
+          {
+            "risk": "CRITICAL",
+            "reason": "Runtime.exec/ProcessBuilder \u2014 blocked in cloud."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "HIGH",
+            "reason": "System env/properties \u2014 unreliable in containers."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "External JARs: org.apache., org.apache.commons"
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 0,
+        "has_runtime_exec": 1,
+        "has_system_env": 1
+      },
+      {
+        "rel_path": "app/tiap/refactoring/java_refactor.py",
+        "component_type": "tJava",
+        "complexity_label": "MEDIUM",
+        "risk_overall": "HIGH",
+        "loc": 11,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 0,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/tiap/refactoring/java_refactor.py",
+        "component_type": "tJavaFlex",
+        "complexity_label": "MEDIUM",
+        "risk_overall": "HIGH",
+        "loc": 11,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 0,
+        "has_system_env": 0
+      },
+      {
+        "rel_path": "app/tiap/refactoring/java_refactor.py",
+        "component_type": "tJavaRow",
+        "complexity_label": "MEDIUM",
+        "risk_overall": "HIGH",
+        "loc": 11,
+        "external_jars": [],
+        "risk_findings": [
+          {
+            "risk": "HIGH",
+            "reason": "Local file I/O \u2014 FS access may be restricted."
+          },
+          {
+            "risk": "MEDIUM",
+            "reason": "Direct JDBC \u2014 replace with Talend DB components."
+          }
+        ],
+        "has_file_ops": 1,
+        "has_jdbc": 1,
+        "has_runtime_exec": 0,
+        "has_system_env": 0
+      }
+    ]
+  },
+  "complexity_scores": {
+    "total_modules_scored": 443,
+    "distribution": {
+      "LOW": 378,
+      "MEDIUM": 17,
+      "HIGH": 23,
+      "CRITICAL": 25
+    },
+    "thresholds": {
+      "LOW": 50,
+      "MEDIUM": 100,
+      "HIGH": 200
+    },
+    "effort_hours": {
+      "manual": 8,
+      "auto": 2
+    },
+    "top_30_modules": [
+      {
+        "rel_path": "app/analyzers/complexity_analyzer.py",
+        "package": "app.analyzers",
+        "score": 3566,
+        "level": "CRITICAL",
+        "component_count": 261,
+        "custom_java_count": 12,
+        "db_component_count": 50,
+        "tmap_count": 4,
+        "risk_factors": [
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Job Dependency",
+          "Dynamic Schema \u2014 Needs Review",
+          "Stored Procedure",
+          "Bulk DB Execution",
+          "Hive / Hadoop SQL",
+          "HDFS / Hadoop",
+          "Spark Execution",
+          "Streaming \u2014 Kafka",
+          "Message Queue",
+          "Message Queue \u2014 JMS",
+          "Message Queue \u2014 ActiveMQ",
+          "Message Queue \u2014 RabbitMQ",
+          "REST Integration",
+          "SOAP/Web Service Integration",
+          "Salesforce CRM",
+          "ServiceNow Integration",
+          "Data Quality \u2014 Matching",
+          "Data Masking / PII",
+          "Data Quality",
+          "Data Quality Report",
+          "ELT Mapping",
+          "SAP Integration",
+          "SAP iDoc Integration",
+          "SAP BAPI Integration",
+          "Context Variable Load",
+          "Context Variable Dump",
+          "Joblet Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/config/component_rules.py",
+        "package": "app.config",
+        "score": 2727,
+        "level": "CRITICAL",
+        "component_count": 209,
+        "custom_java_count": 11,
+        "db_component_count": 64,
+        "tmap_count": 5,
+        "risk_factors": [
+          "Context Variable Load",
+          "Context Variable Dump",
+          "Hive / Hadoop SQL",
+          "HDFS / Hadoop",
+          "Spark Execution",
+          "SAP Integration",
+          "Salesforce CRM",
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Job Dependency",
+          "Streaming \u2014 Kafka",
+          "Message Queue \u2014 ActiveMQ",
+          "Message Queue \u2014 RabbitMQ",
+          "Message Queue \u2014 JMS",
+          "REST Integration",
+          "SOAP/Web Service Integration",
+          "Data Masking / PII",
+          "Data Quality",
+          "Data Quality Report",
+          "Data Quality \u2014 Matching"
+        ]
+      },
+      {
+        "rel_path": "app/ui/job_analysis_page.py",
+        "package": "app.ui",
+        "score": 1509,
+        "level": "CRITICAL",
+        "component_count": 121,
+        "custom_java_count": 13,
+        "db_component_count": 21,
+        "tmap_count": 8,
+        "risk_factors": [
+          "Job Dependency",
+          "Custom Java Code",
+          "REST Integration",
+          "OS Command Execution"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/unsupported_migration_components_analyzer.py",
+        "package": "app.analyzers",
+        "score": 681,
+        "level": "CRITICAL",
+        "component_count": 31,
+        "custom_java_count": 9,
+        "db_component_count": 9,
+        "tmap_count": 2,
+        "risk_factors": [
+          "Custom Java Code",
+          "Hive / Hadoop SQL",
+          "ELT Mapping",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Deprecated BeanShell Scripting",
+          "REST Integration",
+          "SOAP/Web Service Integration",
+          "Bulk DB Execution",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/unsupported_component_analyzer.py",
+        "package": "app.analyzers",
+        "score": 565,
+        "level": "CRITICAL",
+        "component_count": 13,
+        "custom_java_count": 4,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/upgrade_advisor/upgrade_inventory.py",
+        "package": "app.upgrade_advisor",
+        "score": 550,
+        "level": "CRITICAL",
+        "component_count": 23,
+        "custom_java_count": 12,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "REST Integration",
+          "SOAP/Web Service Integration",
+          "Context Variable Load",
+          "Context Variable Dump",
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/unsupported_components_analyzer.py",
+        "package": "app.analyzers",
+        "score": 515,
+        "level": "CRITICAL",
+        "component_count": 12,
+        "custom_java_count": 4,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/tiap/documentation/tdd_export.py",
+        "package": "app.tiap.documentation",
+        "score": 504,
+        "level": "CRITICAL",
+        "component_count": 48,
+        "custom_java_count": 3,
+        "db_component_count": 10,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Salesforce CRM",
+          "Streaming \u2014 Kafka",
+          "Custom Java Code",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/ui/quick_insights_panel.py",
+        "package": "app.ui",
+        "score": 500,
+        "level": "CRITICAL",
+        "component_count": 16,
+        "custom_java_count": 8,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "Deprecated BeanShell Scripting",
+          "External Library Dependency",
+          "Dynamic Schema \u2014 Needs Review",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/parser/source_target_extractor.py",
+        "package": "app.parser",
+        "score": 439,
+        "level": "CRITICAL",
+        "component_count": 45,
+        "custom_java_count": 0,
+        "db_component_count": 23,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Hive / Hadoop SQL",
+          "Salesforce CRM",
+          "SAP Integration",
+          "ELT Mapping"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/cloud_readiness.py",
+        "package": "app.analyzers",
+        "score": 435,
+        "level": "CRITICAL",
+        "component_count": 14,
+        "custom_java_count": 7,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Job Dependency",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/ui/preflight_dashboard.py",
+        "package": "app.ui",
+        "score": 410,
+        "level": "CRITICAL",
+        "component_count": 11,
+        "custom_java_count": 6,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "OS Command Execution",
+          "External Library Dependency",
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "tests/test_upgrade_path_analyzer.py",
+        "package": "tests",
+        "score": 395,
+        "level": "CRITICAL",
+        "component_count": 22,
+        "custom_java_count": 7,
+        "db_component_count": 0,
+        "tmap_count": 9,
+        "risk_factors": [
+          "Custom Java Code"
+        ]
+      },
+      {
+        "rel_path": "app/tiap/documentation/tdd_sections.py",
+        "package": "app.tiap.documentation",
+        "score": 283,
+        "level": "CRITICAL",
+        "component_count": 23,
+        "custom_java_count": 3,
+        "db_component_count": 0,
+        "tmap_count": 4,
+        "risk_factors": [
+          "Job Dependency",
+          "Custom Java Code"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/qlik_readiness_analyzer.py",
+        "package": "app.analyzers",
+        "score": 263,
+        "level": "CRITICAL",
+        "component_count": 15,
+        "custom_java_count": 2,
+        "db_component_count": 2,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Stored Procedure",
+          "Bulk DB Execution",
+          "Salesforce CRM",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/architecture/anti_pattern_detector.py",
+        "package": "app.architecture",
+        "score": 262,
+        "level": "CRITICAL",
+        "component_count": 14,
+        "custom_java_count": 6,
+        "db_component_count": 0,
+        "tmap_count": 3,
+        "risk_factors": [
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting",
+          "ELT Mapping"
+        ]
+      },
+      {
+        "rel_path": "app/risk_engine/risk_analyzer.py",
+        "package": "app.risk_engine",
+        "score": 255,
+        "level": "CRITICAL",
+        "component_count": 9,
+        "custom_java_count": 4,
+        "db_component_count": 0,
+        "tmap_count": 2,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Deprecated BeanShell Scripting",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/ai/llm_engine.py",
+        "package": "app.ai",
+        "score": 252,
+        "level": "CRITICAL",
+        "component_count": 9,
+        "custom_java_count": 3,
+        "db_component_count": 2,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Job Dependency",
+          "Hive / Hadoop SQL",
+          "ELT Mapping"
+        ]
+      },
+      {
+        "rel_path": "app/precheck/migration_blockers.py",
+        "package": "app.precheck",
+        "score": 232,
+        "level": "CRITICAL",
+        "component_count": 11,
+        "custom_java_count": 3,
+        "db_component_count": 4,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Hive / Hadoop SQL",
+          "Custom Java Code",
+          "ELT Mapping",
+          "SOAP/Web Service Integration"
+        ]
+      },
+      {
+        "rel_path": "app/ui/executive_flow_layout.py",
+        "package": "app.ui",
+        "score": 227,
+        "level": "CRITICAL",
+        "component_count": 23,
+        "custom_java_count": 0,
+        "db_component_count": 2,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Job Dependency",
+          "HDFS / Hadoop",
+          "Salesforce CRM"
+        ]
+      },
+      {
+        "rel_path": "app/framework_analyzer/framework_detector.py",
+        "package": "app.framework_analyzer",
+        "score": 224,
+        "level": "CRITICAL",
+        "component_count": 25,
+        "custom_java_count": 0,
+        "db_component_count": 2,
+        "tmap_count": 0,
+        "risk_factors": [
+          "REST Integration",
+          "Job Dependency",
+          "Context Variable Load",
+          "Context Variable Dump"
+        ]
+      },
+      {
+        "rel_path": "app/generators/ai_flowchart_generator.py",
+        "package": "app.generators",
+        "score": 224,
+        "level": "CRITICAL",
+        "component_count": 13,
+        "custom_java_count": 3,
+        "db_component_count": 0,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Custom Java Code",
+          "Job Dependency"
+        ]
+      },
+      {
+        "rel_path": "app/architecture/architecture_assessor.py",
+        "package": "app.architecture",
+        "score": 215,
+        "level": "CRITICAL",
+        "component_count": 9,
+        "custom_java_count": 6,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/estimators/migration_estimator.py",
+        "package": "app.estimators",
+        "score": 215,
+        "level": "CRITICAL",
+        "component_count": 6,
+        "custom_java_count": 4,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Custom Java Code",
+          "OS Command Execution",
+          "External Library Dependency",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/migration_intelligence/complexity_engine.py",
+        "package": "app.migration_intelligence",
+        "score": 212,
+        "level": "CRITICAL",
+        "component_count": 8,
+        "custom_java_count": 5,
+        "db_component_count": 0,
+        "tmap_count": 3,
+        "risk_factors": [
+          "ELT Mapping",
+          "Custom Java Code"
+        ]
+      },
+      {
+        "rel_path": "tests/test_portfolio_platform.py",
+        "package": "tests",
+        "score": 181,
+        "level": "HIGH",
+        "component_count": 11,
+        "custom_java_count": 3,
+        "db_component_count": 2,
+        "tmap_count": 4,
+        "risk_factors": [
+          "Custom Java Code"
+        ]
+      },
+      {
+        "rel_path": "app/tiap/documentation/migration_doc_generator.py",
+        "package": "app.tiap.documentation",
+        "score": 180,
+        "level": "HIGH",
+        "component_count": 5,
+        "custom_java_count": 3,
+        "db_component_count": 0,
+        "tmap_count": 0,
+        "risk_factors": [
+          "OS Command Execution",
+          "External Library Dependency",
+          "Custom Java Code",
+          "Deprecated BeanShell Scripting"
+        ]
+      },
+      {
+        "rel_path": "app/tiap/refactoring/java_refactor.py",
+        "package": "app.tiap.refactoring",
+        "score": 176,
+        "level": "HIGH",
+        "component_count": 13,
+        "custom_java_count": 3,
+        "db_component_count": 3,
+        "tmap_count": 1,
+        "risk_factors": [
+          "Custom Java Code"
+        ]
+      },
+      {
+        "rel_path": "tests/test_cloud_readiness_canonical_engine.py",
+        "package": "tests",
+        "score": 170,
+        "level": "HIGH",
+        "component_count": 5,
+        "custom_java_count": 0,
+        "db_component_count": 0,
+        "tmap_count": 2,
+        "risk_factors": [
+          "OS Command Execution"
+        ]
+      },
+      {
+        "rel_path": "app/analyzers/deprecated_components_analyzer.py",
+        "package": "app.analyzers",
+        "score": 151,
+        "level": "HIGH",
+        "component_count": 13,
+        "custom_java_count": 2,
+        "db_component_count": 9,
+        "tmap_count": 0,
+        "risk_factors": [
+          "Deprecated BeanShell Scripting",
+          "Custom Java Code"
+        ]
+      }
+    ],
+    "top_weights": {
+      "tSystem": {
+        "weight": 50,
+        "risk_label": "OS Command Execution",
+        "category": "flow_control"
+      },
+      "tJava": {
+        "weight": 40,
+        "risk_label": "Custom Java Code",
+        "category": "custom_java"
+      },
+      "tJavaRow": {
+        "weight": 35,
+        "risk_label": "Custom Java Code",
+        "category": "custom_java"
+      },
+      "tJavaFlex": {
+        "weight": 35,
+        "risk_label": "Custom Java Code",
+        "category": "custom_java"
+      },
+      "tJavaInput": {
+        "weight": 35,
+        "risk_label": "Custom Java Code",
+        "category": "custom_java"
+      },
+      "tJavaOutput": {
+        "weight": 35,
+        "risk_label": "Custom Java Code",
+        "category": "custom_java"
+      },
+      "tLibraryLoad": {
+        "weight": 30,
+        "risk_label": "External Library Dependency",
+        "category": "flow_control"
+      },
+      "tBeanShell": {
+        "weight": 25,
+        "risk_label": "Deprecated BeanShell Scripting",
+        "category": "custom_java"
+      },
+      "tRESTClient": {
+        "weight": 25,
+        "risk_label": "REST Integration",
+        "category": "api"
+      },
+      "tRESTRequest": {
+        "weight": 25,
+        "risk_label": "REST Integration",
+        "category": "api"
+      },
+      "tHTTPRow": {
+        "weight": 25,
+        "risk_label": "REST Integration",
+        "category": "api"
+      },
+      "tHTTPRequest": {
+        "weight": 25,
+        "risk_label": "REST Integration",
+        "category": "api"
+      },
+      "tSOAP": {
+        "weight": 25,
+        "risk_label": "SOAP/Web Service Integration",
+        "category": "api"
+      },
+      "tWebService": {
+        "weight": 25,
+        "risk_label": "SOAP/Web Service Integration",
+        "category": "api"
+      },
+      "tWebServiceInput": {
+        "weight": 25,
+        "risk_label": "SOAP/Web Service Integration",
+        "category": "api"
+      },
+      "tWebServiceOutput": {
+        "weight": 25,
+        "risk_label": "SOAP/Web Service Integration",
+        "category": "api"
+      },
+      "tSAPIDocInput": {
+        "weight": 25,
+        "risk_label": "SAP iDoc Integration",
+        "category": "flow_control"
+      },
+      "tSAPIDocOutput": {
+        "weight": 25,
+        "risk_label": "SAP iDoc Integration",
+        "category": "flow_control"
+      },
+      "tSAPBapiInput": {
+        "weight": 25,
+        "risk_label": "SAP BAPI Integration",
+        "category": "flow_control"
+      },
+      "tSAPBapiOutput": {
+        "weight": 25,
+        "risk_label": "SAP BAPI Integration",
+        "category": "flow_control"
+      },
+      "tRunJob": {
+        "weight": 20,
+        "risk_label": "Job Dependency",
+        "category": "flow_control"
+      },
+      "tHiveLoad": {
+        "weight": 20,
+        "risk_label": "Hive / Hadoop SQL",
+        "category": "database"
+      },
+      "tSparkSubmit": {
+        "weight": 20,
+        "risk_label": "Spark Execution",
+        "category": "cloud"
+      },
+      "tSAPInput": {
+        "weight": 20,
+        "risk_label": "SAP Integration",
+        "category": "flow_control"
+      },
+      "tSAPOutput": {
+        "weight": 20,
+        "risk_label": "SAP Integration",
+        "category": "flow_control"
+      },
+      "tDynamicSchema": {
+        "weight": 15,
+        "risk_label": "Dynamic Schema \u2014 Needs Review",
+        "category": "flow_control"
+      },
+      "tDBSP": {
+        "weight": 15,
+        "risk_label": "Stored Procedure",
+        "category": "database"
+      },
+      "tDBBulkExec": {
+        "weight": 15,
+        "risk_label": "Bulk DB Execution",
+        "category": "database"
+      },
+      "tMysqlBulkExec": {
+        "weight": 15,
+        "risk_label": "Bulk DB Execution",
+        "category": "database"
+      },
+      "tOracleBulkExec": {
+        "weight": 15,
+        "risk_label": "Bulk DB Execution",
+        "category": "database"
+      }
+    }
+  },
+  "migration_scores": {
+    "overall_score": 81,
+    "overall_rag": "GREEN",
+    "status": "READY",
+    "dimension_weights": {
+      "component_compatibility": 0.2,
+      "deprecated_component_risk": 0.1,
+      "custom_component_risk": 0.15,
+      "cloud_readiness": 0.2,
+      "dependency_complexity": 0.1,
+      "analysis_coverage": 0.1,
+      "risk_findings": 0.15
+    },
+    "dimensions": [
+      {
+        "dimension": "Component Compatibility",
+        "score": 97,
+        "rag": "GREEN",
+        "weight": 0.2,
+        "detail": "39 deprecated usages across 1288 total"
+      },
+      {
+        "dimension": "Cloud Readiness",
+        "score": 75,
+        "rag": "GREEN",
+        "weight": 0.2,
+        "detail": "40 cloud component usages, 245 DB, 33 messaging"
+      },
+      {
+        "dimension": "Custom Component Risk",
+        "score": 91,
+        "rag": "GREEN",
+        "weight": 0.15,
+        "detail": "55 modules use tJava/tJavaRow/tJavaFlex components"
+      },
+      {
+        "dimension": "Risk Findings",
+        "score": 92,
+        "rag": "GREEN",
+        "weight": 0.15,
+        "detail": "38 HIGH/CRITICAL Java risk findings"
+      },
+      {
+        "dimension": "Deprecated Component Risk",
+        "score": 98,
+        "rag": "GREEN",
+        "weight": 0.1,
+        "detail": "19 of 443 modules reference deprecated components"
+      },
+      {
+        "dimension": "Dependency Complexity",
+        "score": 0,
+        "rag": "RED",
+        "weight": 0.1,
+        "detail": "62 orchestration/dependency component usages"
+      },
+      {
+        "dimension": "Analysis Coverage",
+        "score": 100,
+        "rag": "GREEN",
+        "weight": 0.1,
+        "detail": "All 443 modules analyzed"
+      }
+    ]
+  },
+  "repository_summary": {
+    "id": 1,
+    "project_id": 1,
+    "total_jobs": 443,
+    "total_components": 1288,
+    "total_java_comps": 191,
+    "total_db_comps": 245,
+    "total_tmap_comps": 104,
+    "total_cloud_comps": 40,
+    "total_messaging_comps": 33,
+    "complexity_low": 378,
+    "complexity_medium": 17,
+    "complexity_high": 23,
+    "complexity_critical": 25,
+    "avg_complexity_score": 79.0,
+    "migration_readiness_score": 81,
+    "migration_rag": "GREEN",
+    "migration_status": "READY",
+    "component_compat_score": 97,
+    "deprecated_risk_score": 98,
+    "custom_risk_score": 91,
+    "cloud_readiness_score": 75,
+    "dependency_complexity_score": 0,
+    "analysis_coverage_score": 100,
+    "risk_findings_score": 92,
+    "unique_component_types": 196,
+    "unique_db_types": 40,
+    "top_components": {
+      "tMap": 88,
+      "tJavaFlex": 57,
+      "tJava": 55,
+      "tRunJob": 54,
+      "tSystem": 49,
+      "tJavaRow": 44,
+      "tBeanShell": 26,
+      "tMysqlInput": 24,
+      "tLogRow": 24,
+      "tFileInputDelimited": 22
+    },
+    "sql_tables_detected": 33,
+    "sqlite_cache_tables": [
+      "jobs",
+      "components",
+      "sources",
+      "targets",
+      "mappings"
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "phase": "Phase_1D",
+  "description": "TMA Phase 1D \u2014 SQLite Search Index (Jobs, Tables, Columns, SQL, Java, Components)",
+  "files": {
+    "search_index.db": {
+      "description": "SQLite search index with B-tree + FTS5 indexes",
+      "size_kb": 560,
+      "index_tables": {
+        "idx_jobs": "443 rows \u2014 modules with complexity, risk, imports",
+        "idx_tables": "63 rows \u2014 table references (DDL/DML/SCHEMA_REF)",
+        "idx_columns": "40 rows \u2014 column-level source/target/expression",
+        "idx_sql": "408 rows \u2014 full SQL statements",
+        "idx_java": "136 rows \u2014 Java component risk analysis",
+        "idx_components": "203 rows \u2014 component types with weights/categories"
+      },
+      "fts_tables": {
+        "fts_jobs": "FTS5 over rel_path, module_name, package, complexity_level, risk_factors",
+        "fts_sql": "FTS5 over rel_path, sql_type, statement, table_name, db_component",
+        "fts_java": "FTS5 over rel_path, component_type, risk_overall, risk_findings",
+        "fts_components": "FTS5 over rel_path, component_type, category, risk_label"
+      },
+      "btree_indexes": 18,
+      "no_repo_scan": true
+    },
+    "search.py": {
+      "description": "TMASearchIndex class \u2014 search without repository scan",
+      "api": [
+        "search_jobs(query)",
+        "get_jobs_by_level(level)",
+        "get_jobs_by_package(pkg)",
+        "search_tables(query)",
+        "get_table_ddl()",
+        "get_distinct_tables()",
+        "search_columns(source_table, target_table, column_name)",
+        "get_columns_for_job(path)",
+        "search_sql(query)",
+        "get_sql_by_type(type)",
+        "sql_type_summary()",
+        "search_java(query)",
+        "get_java_by_risk(risk)",
+        "get_java_with_jdbc()",
+        "java_risk_summary()",
+        "search_components(query)",
+        "top_components(n)",
+        "component_category_summary()",
+        "summary()"
+      ]
+    }
+  },
+  "index_stats": {
+    "total_modules": 443,
+    "complexity": {
+      "CRITICAL": 25,
+      "HIGH": 23,
+      "MEDIUM": 17,
+      "LOW": 378
+    },
+    "sql_types": {
+      "DDL": 10,
+      "DML": 50,
+      "PRAGMA": 3,
+      "SCHEMA_REF": 345
+    },
+    "java_risk": {
+      "CRITICAL": 17,
+      "HIGH": 21,
+      "LOW": 98
+    },
+    "top_5_components": [
+      "tMap(88)",
+      "tRunJob(54)",
+      "tSystem(49)",
+      "tJava(42)",
+      "tJavaFlex(41)"
+    ],
+    "ddl_tables": [
+      "jobs",
+      "components",
+      "sources",
+      "targets",
+      "mappings",
+      "idx_jobs_file_path",
+      "idx_components_job",
+      "idx_sources_job",
+      "idx_targets_job",
+      "idx_mappings_job"
+    ]
+  },
+  "migration": {
+    "readiness": 81,
+    "rag": "GREEN",
+    "status": "READY"
+  }
+}

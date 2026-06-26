@@ -1,0 +1,17 @@
+{
+  "itemId" : "_gkbsAMr_EeySGOGf5rKipg",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_o5aeoA_VEeuJZ_pRplTjPg",
+    "parameterList" : [ {
+      "id" : "_IIxL0PrIEeqFHsheHTT0Bg",
+      "name" : "TDS_URL"
+    }, {
+      "id" : "_IIxL0frIEeqFHsheHTT0Bg",
+      "name" : "TDS_UserName"
+    }, {
+      "id" : "_IIxL0vrIEeqFHsheHTT0Bg",
+      "name" : "TDS_Password"
+    } ]
+  } ]
+}

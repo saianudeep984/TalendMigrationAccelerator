@@ -1,0 +1,51 @@
+V24 — Project Skeleton Fix
+===========================
+
+ROOT CAUSE (from Phase 9/10 analysis):
+---------------------------------------
+1. talend.project used WRONG namespace:
+   ❌ xmlns:org.talend.core.model.properties="org.talend.core.model.properties"
+   ✅ xmlns:TalendProperties="http://www.talend.org/properties"
+
+2. .project (Eclipse project descriptor) was MISSING entirely.
+   Talend Studio requires this file to register the project.
+   Without it the project folder is created but never shown in the startup list.
+
+3. Missing skeleton folders: TDQ_Libraries, Databases, Maps, Reports,
+   Structures, sqlPatterns, documentations.
+   These are required even if empty.
+
+FIXES IN V24:
+-------------
+A. talend8_repository_builder.py:
+   - Fixed TALEND_PROJECT_TEMPLATE to use TalendProperties namespace
+   - Added ECLIPSE_DOT_PROJECT_TEMPLATE — generates .project with correct
+     Talend/Java natures and builders
+   - Added all missing skeleton folders to _REQUIRED_SKELETON_FOLDERS
+   - NEW Mode A: if a skeleton ZIP (MIGRATIONTEMPLATE) is provided, copy all
+     files verbatim and only overlay context/metadata/process/code
+   - Mode B (no skeleton): auto-generate .project + talend.project with
+     correct namespaces + all required empty folders
+
+B. version_converter_page.py UI:
+   - Added second file uploader for MIGRATIONTEMPLATE skeleton ZIP
+   - Mode A/B selection is automatic (skeleton provided → A, else → B)
+   - Build log shows which mode was used
+   - Import guide updated with project-visibility verification step
+
+HOW TO USE:
+-----------
+Recommended (Mode A):
+  1. Export MIGRATIONTEMPLATE from Talend 8 Studio:
+     File → Export → Talend Items → MIGRATIONTEMPLATE → ZIP
+  2. Upload your Open Studio repository ZIP
+  3. Upload the MIGRATIONTEMPLATE ZIP as skeleton
+  4. Click Generate
+  5. Import migrated_repository.zip into Talend 8 via File → Import → Talend Items
+
+Fallback (Mode B — no skeleton available):
+  1. Upload your Open Studio repository ZIP only
+  2. Click Generate
+  3. Import as above
+  4. If project still not visible: use Mode A
+

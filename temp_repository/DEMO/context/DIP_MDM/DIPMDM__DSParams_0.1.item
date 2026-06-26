@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_TTWF0YxIEeybPNZK5dLeTA" name="Default">
+  <contextParameter xmi:id="_TVlhgIxIEeybPNZK5dLeTA" comment="" name="DS_TaskType" prompt="DS_TaskType?" promptNeeded="false" type="id_String" value="&quot;Validation&quot;"/>
+  <contextParameter xmi:id="_TVlhgYxIEeybPNZK5dLeTA" comment="" name="DS_BusAppName" prompt="DS_BusAppName?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter xmi:id="_TVlhgoxIEeybPNZK5dLeTA" comment="" name="DS_FinalJSON" prompt="DS_FinalJSON?" promptNeeded="false" type="id_String" value="&quot;&quot;"/>
+</talendfile:ContextType>
