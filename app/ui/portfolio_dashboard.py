@@ -85,7 +85,7 @@ def render_portfolio_dashboard():
             labels={"x": "Risk", "y": "Findings"},
         )
         fig2.update_layout(height=280, margin=dict(t=10, b=0, l=0, r=0), showlegend=False)
-        st.plotly_chart(fig2, width="stretch")
+        st.plotly_chart(fig2, use_container_width=True)
     else:
         st.caption("Risk Distribution — run analysis first.")
 
@@ -111,7 +111,7 @@ def render_portfolio_dashboard():
             by=["_rank", "High/Critical Findings", "Score"],
             ascending=False,
         ).drop(columns="_rank").reset_index(drop=True)
-        styled_dataframe(df, "top_risk_jobs", width="stretch", hide_index=True)
+        styled_dataframe(df, "top_risk_jobs", use_container_width=True, hide_index=True)
     else:
         st.caption("Top Risk Jobs — run analysis first.")
 
@@ -132,7 +132,7 @@ def render_portfolio_dashboard():
     if wave1_rows:
         wave1_df = pd.DataFrame(wave1_rows).sort_values(by="Score").reset_index(drop=True)
         wave1_names = set(wave1_df["Job Name"])
-        styled_dataframe(wave1_df, "migration_wave_1", width="stretch", hide_index=True)
+        styled_dataframe(wave1_df, "migration_wave_1", use_container_width=True, hide_index=True)
     else:
         st.caption("Migration Wave 1 — run analysis first.")
 
@@ -154,7 +154,7 @@ def render_portfolio_dashboard():
     if wave2_rows:
         wave2_df = pd.DataFrame(wave2_rows).sort_values(by="Score").reset_index(drop=True)
         wave2_names = set(wave2_df["Job Name"])
-        styled_dataframe(wave2_df, "migration_wave_2", width="stretch", hide_index=True)
+        styled_dataframe(wave2_df, "migration_wave_2", use_container_width=True, hide_index=True)
     else:
         st.caption("Migration Wave 2 — run analysis first.")
 
@@ -179,7 +179,7 @@ def render_portfolio_dashboard():
             })
     if wave3_rows:
         wave3_df = pd.DataFrame(wave3_rows).sort_values(by="Score").reset_index(drop=True)
-        styled_dataframe(wave3_df, "migration_wave_3", width="stretch", hide_index=True)
+        styled_dataframe(wave3_df, "migration_wave_3", use_container_width=True, hide_index=True)
     else:
         st.caption("Migration Wave 3 — run analysis first.")
 

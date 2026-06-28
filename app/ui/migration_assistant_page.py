@@ -227,11 +227,11 @@ def _show_migration_readiness(all_jobs: list):
     readiness = readiness_engine.evaluate(all_jobs)
     status = readiness["status"]
     if status in ("GREEN", "Ready", "LOW"):
-        st.success("### Cloud Readiness Status: GREEN")
+        st.success("### 🟢 Readiness Status (Green)")
     elif status in ("AMBER", "Partially Ready", "MEDIUM"):
-        st.warning("### Cloud Readiness Status: AMBER")
+        st.warning("### 🟡 Readiness Status (Amber)")
     else:
-        st.error("### Cloud Readiness Status: RED")
+        st.error("### 🔴 Readiness Status (Red)")
 
     col1, col2 = st.columns(2)
 

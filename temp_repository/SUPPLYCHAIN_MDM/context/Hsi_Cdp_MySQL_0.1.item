@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd">
+  <talendfile:ContextType xmi:id="_jJiocGF4EfCvcNxQJCSRZA" confirmationNeeded="false" hide="false" name="Default">
+    <contextParameter xmi:id="_jJiocWF4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_Server" prompt="Hsi_Cdp_MySQL_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_jJiocmF4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_Database" prompt="Hsi_Cdp_MySQL_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_jJioc2F4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_Port" prompt="Hsi_Cdp_MySQL_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_jJiodGF4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_AdditionalParams" prompt="Hsi_Cdp_MySQL_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_jJiodWF4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_Login" prompt="Hsi_Cdp_MySQL_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_jJiodmF4EfCvcNxQJCSRZA" comment="" name="Hsi_Cdp_MySQL_Password" prompt="Hsi_Cdp_MySQL_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
+  </talendfile:ContextType>
+  <talendfile:ContextType xmi:id="_d9vUUP2TEe-NCMEzFIBSFg" confirmationNeeded="false" hide="true" name="Dev">
+    <contextParameter xmi:id="_d9vUUf2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Server" prompt="Hsi_Cdp_MySQL_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="172.20.120.15"/>
+    <contextParameter xmi:id="_d9vUUv2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Database" prompt="Hsi_Cdp_MySQL_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="GEP_Metadata"/>
+    <contextParameter xmi:id="_d9vUU_2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Port" prompt="Hsi_Cdp_MySQL_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+    <contextParameter xmi:id="_d9vUVP2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_AdditionalParams" prompt="Hsi_Cdp_MySQL_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_d9vUVf2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Login" prompt="Hsi_Cdp_MySQL_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="tmetadata"/>
+    <contextParameter xmi:id="_d9vUVv2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Password" prompt="Hsi_Cdp_MySQL_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:bh9kdSu3Vt0Ll6hQX4rcesDyLzkCdcmspdEPsFVnWssDmKf3Zcc+aXg="/>
+  </talendfile:ContextType>
+  <talendfile:ContextType xmi:id="_d9vUV_2TEe-NCMEzFIBSFg" confirmationNeeded="false" hide="true" name="Prod">
+    <contextParameter xmi:id="_d9vUWP2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Server" prompt="Hsi_Cdp_MySQL_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="172.20.121.90"/>
+    <contextParameter xmi:id="_d9vUWf2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Database" prompt="Hsi_Cdp_MySQL_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="CDH_METADATA"/>
+    <contextParameter xmi:id="_d9vUWv2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Port" prompt="Hsi_Cdp_MySQL_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+    <contextParameter xmi:id="_d9vUW_2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_AdditionalParams" prompt="Hsi_Cdp_MySQL_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_d9vUXP2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Login" prompt="Hsi_Cdp_MySQL_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="tmetadata"/>
+    <contextParameter xmi:id="_d9vUXf2TEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Password" prompt="Hsi_Cdp_MySQL_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:3r+K+NyfxVG5pfQwWCTAbjkvvSRckygnA5Yty86W4rCfxvz9BIht4pEY"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType xmi:id="_ZDak0P2SEe-NCMEzFIBSFg" confirmationNeeded="false" hide="false" name="Qa">
+    <contextParameter xmi:id="_ZDak0f2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Server" prompt="Hsi_Cdp_MySQL_Server?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="172.20.121.90"/>
+    <contextParameter xmi:id="_ZDak0v2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Database" prompt="Hsi_Cdp_MySQL_Database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="CDH_METADATA"/>
+    <contextParameter xmi:id="_ZDak0_2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Port" prompt="Hsi_Cdp_MySQL_Port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+    <contextParameter xmi:id="_ZDak1P2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_AdditionalParams" prompt="Hsi_Cdp_MySQL_AdditionalParams?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+    <contextParameter xmi:id="_ZDak1f2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Login" prompt="Hsi_Cdp_MySQL_Login?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="tmetadata"/>
+    <contextParameter xmi:id="_ZDak1v2SEe-NCMEzFIBSFg" comment="" name="Hsi_Cdp_MySQL_Password" prompt="Hsi_Cdp_MySQL_Password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value="enc:system.encryption.key.v1:y4mfHptWqk7adt67dFc0iPle4UYrI0qq39xAqq7uZ5RiyiblcRUiVZkV"/>
+  </talendfile:ContextType>
+</xmi:XMI>

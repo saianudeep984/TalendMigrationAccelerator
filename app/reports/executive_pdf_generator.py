@@ -122,6 +122,11 @@ def generate_executive_pdf(
     qlik_partial = sum(1 for r in qlik_results if r.get("qlik_path") == "QLIK_PARTIAL")
     qlik_manual  = sum(1 for r in qlik_results if r.get("qlik_path") == "MANUAL_REWRITE")
 
+    # ── Health Score — read from shared session cache (never recompute here) ──
+    _hs = session_state.get("repository_health_score") or {}
+    repo_health_score  = _hs.get("overall_score",  _hs.get("health_score",  None))
+    repo_health_status = _hs.get("overall_status", _hs.get("risk_level",    "—"))
+
     # ── HEADER BAND ──────────────────────────────────────────────────────────
     c.setFillColor(_NAVY)
     c.rect(0, PAGE_H - HEADER_H, PAGE_W, HEADER_H, fill=1, stroke=0)
@@ -192,11 +197,24 @@ def generate_executive_pdf(
     c.setStrokeColor(_NAVY)
     c.line(S2_X, S2_Y - 3, S2_X + S2_W, S2_Y - 3)
 
+    # Health Score KPI — sourced from shared session cache
+    # overall_status is now GREEN / AMBER / RED matching the required thresholds.
+    _hs_kpi_value = f"{repo_health_score}/100" if repo_health_score is not None else "—"
+    _hs_kpi_color = (
+        _GREEN if repo_health_status == "GREEN" else
+        _AMBER if repo_health_status == "AMBER" else
+        _RED
+    ) if repo_health_score is not None else _DGRAY
+
+    # Migration Readiness KPI uses its own independent score & status from the health model.
+    _mr_score_pdf  = _hs.get("migration_readiness_score", mrs_score)
+    _mr_status_pdf = _hs.get("migration_readiness_status", mrs_rag or "AMBER")
+
     kpis = [
-        ("Migration Readiness", str(mrs_score) + ("%" if str(mrs_score).isdigit() else ""), _rag_color(mrs_rag)),
-        ("Cloud Readiness",     cloud_status,                                                 _rag_color(cloud_status)),
-        ("Total Effort",        f"{est_weeks} wks",                                          _effort_rag(est_weeks)),
-        ("Risk Level",          str(risk_label),                                              _risk_rag(str(risk_label))),
+        ("Migration Readiness", f"{_mr_score_pdf}/100", _rag_color(_mr_status_pdf)),
+        ("Cloud Readiness",     cloud_status,           _rag_color(cloud_status)),
+        ("Repository Health",   _hs_kpi_value,          _hs_kpi_color),
+        ("Overall Status",      repo_health_status or "—", _hs_kpi_color),
     ]
 
     box_positions = [

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendProperties="http://www.talend.org/properties">
+  <TalendProperties:Project xmi:id="_YwjtATbnEfC7wc17hyWLNA" label="SupplyChain_MDM" description="" language="java" technicalLabel="SUPPLYCHAIN_MDM" author="_YwjtAjbnEfC7wc17hyWLNA" productVersion="Talend Cloud Data Fabric-8.0.1.20241203_0647-patch" url="{&quot;commitLogPattern&quot;:&quot;{0}&quot;,&quot;location&quot;:&quot;https://github.com/HenrySchein-C/Supplychain_New.git&quot;,&quot;settings&quot;:&quot;000&quot;,&quot;storage&quot;:&quot;git&quot;}" type="DQ" itemsRelationVersion="1.3" bigData="false">
+    <componentsSettings xmi:id="_NQmBsNByEfCR5fl-B9Vghw" name="DI|tHashOutput" family="Technical"/>
+    <componentsSettings xmi:id="_NQnP0NByEfCR5fl-B9Vghw" name="DI|tHashInput" family="Technical"/>
+    <migrationTask xmi:id="_YyJocDbnEfC7wc17hyWLNA" id="org.talend.repository.model.migration.CheckProductVersionMigrationTask" breaks="7.1.0" version="7.1.1"/>
+  </TalendProperties:Project>
+  <TalendProperties:User xmi:id="_YwjtAjbnEfC7wc17hyWLNA" login="anilkumar.parnapalli@henryschein.com" firstName="Anilkumar" lastName="Parnapalli" type="DQ"/>
+  <TalendProperties:User xmi:id="_krcKoTbnEfCfCLk1MiYlyQ" login="saianudeep.chevalakesava@henryschein.com" firstName="Saianudeep" lastName="Chevalakesava" type="DQ"/>
+  <TalendProperties:User xmi:id="_krcKojbnEfCfCLk1MiYlyQ" login="trilok.meenampally@henryschein.com" firstName="Trilok" lastName="Meenampally" type="DQ"/>
+  <TalendProperties:User xmi:id="_krcKozbnEfCfCLk1MiYlyQ" login="satishkumar.gajjala@henryschein.com" firstName="satishkumar" lastName="gajjala" type="DQ"/>
+  <TalendProperties:User xmi:id="_89Ej2DbnEfCfCLk1MiYlyQ" login="sabineni.venkataramana@henryschein.com" firstName="Venkat" lastName="ramana" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPS8ADcDEfCsZoJROybXRQ" login="cbaes@henryschein.com" firstName="Carlos" lastName="Baes" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjEDcDEfCsZoJROybXRQ" login="kjain@henryschein.com" firstName="Kishore" lastName="Jain" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjETcDEfCsZoJROybXRQ" login="sjampana@henryschein.com" firstName="Sashank" lastName="Jampana" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjEjcDEfCsZoJROybXRQ" login="talendadmin@henryschein.com" firstName="talend" lastName="admin" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjEzcDEfCsZoJROybXRQ" login="chennakrishna.tumpiri@henryschein.com" firstName="Chennakrishna" lastName="Thumpiri" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjFDcDEfCsZoJROybXRQ" login="saisumanth.kollipara@henryschein.com" firstName="SaiSumanth" lastName="Kollipara" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjFTcDEfCsZoJROybXRQ" login="venkata.rameshbabu@henryschein.com" firstName="VenkataRameshbabu" lastName="Sambaturu" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjFjcDEfCsZoJROybXRQ" login="prasad.gadaputi@henryschein.com" firstName="Prasad" lastName="Gadaputi" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjFzcDEfCsZoJROybXRQ" login="prabhakar.konakala@henryschein.com" firstName="Prabhakar" lastName="Konakala" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjGDcDEfCsZoJROybXRQ" login="badarinadh.gelli@henryschein.com" firstName="VenkataBadarinadh" lastName="Gelli" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjGTcDEfCsZoJROybXRQ" login="harika.padmalatha@henryschein.com" firstName="harika" lastName="padmalatha" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjGjcDEfCsZoJROybXRQ" login="shashi.dubey@henryschein.com" firstName="shashi" lastName="dubey" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjGzcDEfCsZoJROybXRQ" login="jasdeep.kaur@henryschein.com" firstName="Jasdeep" lastName="Kaur" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjHDcDEfCsZoJROybXRQ" login="varun.gurram@henryschein.com" firstName="Varun" lastName="Gurram" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjHTcDEfCsZoJROybXRQ" login="janardhan.pottipalli@henryschein.com" firstName="janardhan" lastName="pottipalli" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjHjcDEfCsZoJROybXRQ" login="lakshmisowjanya.dommeti@henryschein.com" firstName="Lakshmi Sowjanya" lastName="Dommeti" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjHzcDEfCsZoJROybXRQ" login="hemalatha.k@henryschein.com" firstName="hemalatha" lastName="karthireddy" type="DQ"/>
+  <TalendProperties:User xmi:id="_VPTjIDcDEfCsZoJROybXRQ" login="vamshikrishna.gundapu@henryschein.com" firstName="vamshi" lastName="gundapu" type="DQ"/>
+  <TalendProperties:User xmi:id="_kYX_cGE-EfCXZIdI7Em_Jg" login="kalluru.sivan@henryschein.com" firstName="Kalluru" lastName="Sivan" type="DQ"/>
+  <TalendProperties:User xmi:id="_dppS0GkvEfC0mcTzw_AW3g" login="parvinder.singh@henryschein.com" firstName="Parvinder" lastName="Singh" type="DQ"/>
+</xmi:XMI>

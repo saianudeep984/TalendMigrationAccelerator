@@ -890,7 +890,6 @@ _SECTIONS = [
     ("🔗", "Source-To-Target Mapping",      "Column-level mapping: source column, transformation, target column, data type conversion, default values — from existing tMap parser output."),
     ("⚙️", "Transformation Architecture",  "tMap logic, tJava/tJavaRow, aggregations, surrogate keys, context variables, data conversions, filters."),
     ("🔀", "Job Flow Architecture",         "End-to-end flow, component sequence, trigger links, subjobs, and execution order."),
-    ("🔍", "Column Lineage",               "Source column → transformation → target column lineage, searchable lineage table."),
     ("✅", "Validation",                   "Data validation rules, reconciliation checks, and acceptance criteria."),
     ("🚨", "Error Handling",               "Exception flows, dead-letter queues, retry strategies, and alerting."),
     ("📝", "Audit",                        "Audit trail design, logging standards, lineage tracking, and compliance metadata."),
@@ -991,7 +990,7 @@ def _render_tdd_download_section(_key_suffix: str = ""):
                                 break
                     filtered_md = "\n".join(filtered)
 
-                    out_dir = os.path.join("/tmp", "tma_tdd_exports", _safe_job_name(job_name))
+                    out_dir = os.path.join("/tmp", "tma_tdd_exports", _safe_job_name(job_name) + _key_suffix)
                     os.makedirs(out_dir, exist_ok=True)
                     title = f"{job_name} — Technical Design Document"
                     sel_keys = [fmt_keys[fmt_options.index(f)] for f in selected_fmts]
@@ -1108,7 +1107,6 @@ def render_tdd_page():
         _render_mapping,
         _render_transformation_architecture,
         _render_job_flow_architecture,
-        _render_column_lineage_tdd,
         _render_validation,
         _render_error_handling,
         _render_audit_monitoring,

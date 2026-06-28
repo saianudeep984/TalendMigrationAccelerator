@@ -58,11 +58,11 @@ def render_ai_report_pack_generator() -> None:
     active_template = st.session_state.get(TEMPLATE_SESSION_KEY, DEFAULT_TEMPLATE_PATH)
     status_cols = st.columns(3)
     with status_cols[0]:
-        if st.button("Use Default Template", width="stretch", key="rp_use_default_tmpl"):
+        if st.button("Use Default Template", use_container_width=True, key="rp_use_default_tmpl"):
             st.session_state[TEMPLATE_SESSION_KEY] = DEFAULT_TEMPLATE_PATH
             active_template = DEFAULT_TEMPLATE_PATH
     with status_cols[1]:
-        if st.button("Restore Default Template", width="stretch", key="rp_restore_default_tmpl"):
+        if st.button("Restore Default Template", use_container_width=True, key="rp_restore_default_tmpl"):
             st.session_state[TEMPLATE_SESSION_KEY] = restore_default_template()
             active_template = st.session_state[TEMPLATE_SESSION_KEY]
     with status_cols[2]:
@@ -84,7 +84,7 @@ def render_ai_report_pack_generator() -> None:
         st.warning("Default template is missing. Add templates/default_template.docx before using the default option.")
 
     generated = st.session_state.get(REPORT_PACK_SESSION_KEY)
-    if st.button("Generate Complete AI Pack", type="primary", width="stretch", key="rp_gen_pack"):
+    if st.button("Generate Complete AI Pack", type="primary", use_container_width=True, key="rp_gen_pack"):
         with st.spinner("Generating complete AI report pack..."):
             generated = build_report_pack(
                 all_jobs=all_jobs,
@@ -110,7 +110,7 @@ def render_ai_report_pack_generator() -> None:
         st.markdown("### Generated Sections")
         st.dataframe(
             [{"Section": title, "Characters": len(str(content))} for title, content in sections.items()],
-            width="stretch",
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -121,7 +121,7 @@ def render_ai_report_pack_generator() -> None:
                     data=handle,
                     file_name=REPORT_PACK_FILENAME,
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    width="stretch",
+                    use_container_width=True,
                 )
         else:
             st.warning("The generated DOCX path is not available. Generate the pack again.")
@@ -135,7 +135,7 @@ def render_ai_report_pack_generator() -> None:
                     data=handle,
                     file_name="Complete_Assessment.html",
                     mime="text/html",
-                    width="stretch",
+                    use_container_width=True,
                 )
         pdf_path = generated.get("pdf_path")
         if pdf_path and os.path.exists(pdf_path):
@@ -145,7 +145,7 @@ def render_ai_report_pack_generator() -> None:
                     data=handle,
                     file_name="Complete_Assessment.pdf",
                     mime="application/pdf",
-                    width="stretch",
+                    use_container_width=True,
                 )
         excel_path = generated.get("excel_path")
         if excel_path and os.path.exists(excel_path):
@@ -155,7 +155,7 @@ def render_ai_report_pack_generator() -> None:
                     data=handle,
                     file_name="Complete_Assessment.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    width="stretch",
+                    use_container_width=True,
                 )
         json_path = generated.get("json_path")
         if json_path and os.path.exists(json_path):
@@ -165,7 +165,7 @@ def render_ai_report_pack_generator() -> None:
                     data=handle,
                     file_name="Complete_Assessment.json",
                     mime="application/json",
-                    width="stretch",
+                    use_container_width=True,
                 )
 
 

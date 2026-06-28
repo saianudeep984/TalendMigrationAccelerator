@@ -97,169 +97,7 @@ graph LR
 # 1. Pre-Flight Assessment Dashboard  (OPTIMIZED)
 # ---------------------------------------------------------------
 
-def render_preflight_dashboard(all_jobs, custom_analysis, deprecated_rows,
-                                readiness_score, effort_estimate):
-    # ── Compact global CSS ──────────────────────────────────────
-    st.markdown("""
-    <style>
-    /* Remove default top padding */
-    .block-container { padding-top: 52px !important; padding-bottom: 0.5rem !important; }
-    /* Compact metric cards */
-    [data-testid="metric-container"] {
-        background: #1e2433;
-        border: 1px solid #2d3748;
-        border-radius: 8px;
-        padding: 8px 12px !important;
-        min-height: unset !important;
-        max-height: 90px !important;
-    }
-    [data-testid="metric-container"] label { font-size: 0.70rem !important; color: #a0aec0; }
-    [data-testid="metric-container"] [data-testid="stMetricValue"] { font-size: 1.35rem !important; line-height: 1.2 !important; }
-    [data-testid="metric-container"] [data-testid="stMetricDelta"] { display: none; }
-    /* Remove banner/header gap */
-    header[data-testid="stHeader"] { display: none !important; }
-    .stApp > header { display: none !important; }
-    /* Tight section spacing */
-    hr { margin: 6px 0 !important; border-color: #2d3748 !important; }
-    h2, h3 { margin-top: 6px !important; margin-bottom: 4px !important; font-size: 0.95rem !important; }
-    /* Compact tabs */
-    button[data-baseweb="tab"] { padding: 0.3rem 0.7rem !important; font-size: 0.82rem !important; }
-    </style>
-    """, unsafe_allow_html=True)
 
-    # ── Compute KPIs ────────────────────────────────────────────
-    total_jobs = len(all_jobs)
-    automation_pct = effort_estimate.get("auto_pct", 0) if effort_estimate else 0
-    est_hours = round(effort_estimate.get("estimated_days", 0) * 8, 1) if effort_estimate else 0
-    cloud_blockers = sum(
-        1 for j in all_jobs if j["cloud_readiness"]["readiness"] == "LOW"
-    )
-    overall_rag = readiness_score.get("overall", "RED")
-    if overall_rag == "GREEN":
-        risk_label = "🟢 LOW"
-    elif overall_rag == "AMBER":
-        risk_label = "🟡 MEDIUM"
-    else:
-        risk_label = "🔴 HIGH"
-
-    # ── 5-KPI Row (≤100px) ──────────────────────────────────────
-    drill_filter = render_clickable_kpi_row([
-        {"label": "Jobs", "value": total_jobs, "caption": "Repository scope", "filter": "Jobs"},
-        {"label": "Status", "value": overall_rag, "caption": "Readiness", "filter": "Status"},
-        {"label": "Automation", "value": f"{automation_pct}%", "caption": "Auto-migratable", "filter": "Automation"},
-        {"label": "Est. Hours", "value": est_hours, "caption": "Migration effort", "filter": "Hours"},
-        {"label": "Risk", "value": risk_label, "caption": f"{cloud_blockers} blockers", "filter": "Risk"},
-    ], "kpi_filter", "preflight_kpi")
-
-    render_insights_row([
-        {"icon": "🤖", "label": "Auto-Migration Potential", "value": f"{automation_pct}% of jobs can be auto-migrated", "sub": "AI-assisted migration reduces manual effort significantly", "color": "#15803d" if automation_pct >= 70 else "#b45309"},
-        {"icon": "⏱️", "label": "Estimated Migration Effort", "value": f"{est_hours}h total across {total_jobs} jobs", "sub": "Includes analysis, remediation, and validation phases", "color": "#2563eb"},
-        {"icon": "🚦", "label": "Repository Readiness", "value": f"Overall status: {overall_rag}", "sub": f"{cloud_blockers} cloud blockers detected — see Component Risk Matrix below", "color": "#15803d" if overall_rag == "GREEN" else "#b45309" if overall_rag == "AMBER" else "#be123c"},
-    ])
-
-
-
-    # ── Business Flow ───────────────────────────────────────────
-    render_business_flow()
-
-    st.markdown("---")
-
-    # ── Component Risk Matrix ────────────────────────────────────
-    st.subheader("🎯 Component Risk Matrix")
-    risk_data = {"CRITICAL": [], "HIGH": [], "MEDIUM": [], "LOW": []}
-    for comp in custom_analysis["custom_components"]:
-        risk_data[comp["risk"]].append(f"Custom: {comp['component']} ({comp['usage_count']} uses)")
-    for row in deprecated_rows:
-        risk_data[row["risk"]].append(f"Deprecated: {row['component']} → {row['replacement']}")
-    for j in all_jobs:
-        for r in j.get("enterprise_risk_report", []):
-            lvl = r.get("risk", "LOW")
-            if lvl in risk_data and r.get("component"):
-                risk_data[lvl].append(r["component"])
-
-    col_a, col_b = st.columns(2)
-    with col_a:
-        st.markdown("**🔴 Critical / 🟠 High**")
-        for item in risk_data["CRITICAL"][:8]:
-            st.markdown(f"- {item}")
-        for item in risk_data["HIGH"][:8]:
-            st.markdown(f"- {item}")
-        if not risk_data["CRITICAL"] and not risk_data["HIGH"]:
-            st.success("No critical/high risk components")
-    if drill_filter == "Risk":
-        st.caption("Filtered by KPI: **Risk** — showing Critical/High only")
-    else:
-        with col_b:
-            st.markdown("**🟡 Medium / 🟢 Low**")
-            for item in risk_data["MEDIUM"][:8]:
-                st.markdown(f"- {item}")
-            for item in risk_data["LOW"][:8]:
-                st.markdown(f"- {item}")
-
-    st.markdown("---")
-
-    # ── KPI / Risk / Readiness Export ────────────────────────────
-    with st.expander("📄 Export KPI, Risk & Readiness (PDF)", expanded=False):
-        kpi_df = pd.DataFrame([
-            {"KPI": "Jobs", "Value": str(total_jobs)},
-            {"KPI": "Status", "Value": overall_rag},
-            {"KPI": "Automation", "Value": f"{automation_pct}%"},
-            {"KPI": "Est. Hours", "Value": str(est_hours)},
-            {"KPI": "Risk", "Value": str(risk_label)},
-        ])
-        styled_dataframe(kpi_df, "preflight_kpi_summary", width="stretch", hide_index=True)
-
-        risk_rows = []
-        for level in ("CRITICAL", "HIGH", "MEDIUM", "LOW"):
-            for item in risk_data[level]:
-                risk_rows.append({"Risk Level": level, "Item": item})
-        risk_table_df = pd.DataFrame(risk_rows)
-        if drill_filter == "Risk":
-            risk_table_df = risk_table_df[risk_table_df["Risk Level"].isin(["CRITICAL", "HIGH"])]
-        styled_dataframe(risk_table_df, "preflight_risk_table", width="stretch", hide_index=True)
-
-        readiness_df = pd.DataFrame([
-            {"Metric": "Status", "Value": readiness_score.get("status") or _score_to_rag(readiness_score.get("overall", 0))}
-        ])
-        styled_dataframe(readiness_df, "preflight_readiness_metrics", width="stretch", hide_index=True)
-
-        pdf_download_button(
-            "Preflight KPI & Risk Summary",
-            [
-                ("KPI Summary", kpi_df),
-                ("Risk Table", risk_table_df),
-                ("Readiness Metrics", readiness_df),
-            ],
-            "preflight_kpi_risk_readiness",
-            "Preflight_KPI_Risk_Readiness.pdf",
-        )
-
-    st.markdown("---")
-
-    # ── Effort Summary ──────────────────────────────────────────
-    st.subheader("⏱️ Migration Effort Estimate")
-    if effort_estimate:
-        e1, e2, e3, e4, e5 = st.columns(5)
-        e1.metric("Total Jobs", effort_estimate["total_jobs"])
-        e2.metric("Auto-Migratable", f"{effort_estimate['auto_pct']}%")
-        e3.metric("Manual Required", f"{effort_estimate['manual_pct']}%")
-        e4.metric("Est. Days", effort_estimate["estimated_days"])
-        e5.metric("Est. Weeks", effort_estimate["estimated_weeks"])
-
-        by_c = effort_estimate["by_complexity"]
-        if sum(by_c.values()) > 0:
-            fig = px.pie(
-                names=list(by_c.keys()),
-                values=list(by_c.values()),
-                color=list(by_c.keys()),
-                color_discrete_map={
-                    "LOW": "#38a169", "MEDIUM": "#d69e2e",
-                    "HIGH": "#dd6b20", "CRITICAL": "#e53e3e"
-                },
-                title="Jobs by Complexity"
-            )
-            fig.update_layout(height=220, margin=dict(t=30, b=0, l=0, r=0))
-            st.plotly_chart(fig, width="stretch")
 
 
 # ---------------------------------------------------------------
@@ -274,8 +112,8 @@ def render_custom_component_analyzer(custom_analysis):
         return
 
     st.info(
-        f"**{custom_analysis['total_custom']}** custom/unknown components found "
-        f"across **{custom_analysis['impacted_jobs']}** jobs."
+        f"**{custom_analysis.get('total_custom', len(data))}** custom/unknown components found "
+        f"across **{custom_analysis.get('impacted_jobs', '—')}** jobs."
     )
     ai_recommendation = custom_analysis.get("ai_recommendation")
     if ai_recommendation:
@@ -292,7 +130,7 @@ def render_custom_component_analyzer(custom_analysis):
             "Recommendation": item["recommendation"]
         })
     df = pd.DataFrame(rows)
-    styled_dataframe(df, "custom_component_analyzer", width="stretch")
+    styled_dataframe(df, "custom_component_analyzer", use_container_width=True)
 
     st.subheader("🔍 Drill-Down by Component")
     for item in data:
@@ -326,7 +164,7 @@ def render_deprecated_dashboard(deprecated_rows):
             "Risk": r["risk"]
         })
     df = pd.DataFrame(rows)
-    styled_dataframe(df, "deprecated_component_dashboard", width="stretch")
+    styled_dataframe(df, "deprecated_component_dashboard", use_container_width=True)
 
     fig = px.bar(
         df, x="Component", y="Count", color="Risk",
@@ -334,7 +172,7 @@ def render_deprecated_dashboard(deprecated_rows):
                              "HIGH": "#dd6b20", "CRITICAL": "#e53e3e"},
         title="Deprecated Component Usage"
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("🔍 Drill-Down")
     for r in deprecated_rows:
@@ -350,21 +188,6 @@ def render_deprecated_dashboard(deprecated_rows):
 # ---------------------------------------------------------------
 # 4. Migration Readiness Status
 # ---------------------------------------------------------------
-
-def render_readiness_score(readiness_score):
-    st.header("🎯 Migration Readiness Status")
-    status = readiness_score.get("status") or _score_to_rag(readiness_score.get("overall", 0))
-
-    st.metric("Migration Readiness", status)
-
-    st.subheader("Status Breakdown")
-    breakdown = readiness_score.get("breakdown", [])
-    if breakdown:
-        for dim in breakdown:
-            dim_status = dim.get("status") or dim.get("rag") or _score_to_rag(dim.get("score", 0))
-            color = {"GREEN": "🟢", "AMBER": "🟡", "RED": "🔴"}.get(dim_status, "⚪")
-            st.markdown(f"{color} **{dim['dimension']}**: {dim_status}")
-            st.caption(dim["detail"])
 
 
 # ---------------------------------------------------------------
@@ -425,7 +248,7 @@ def render_risk_heatmap(all_jobs):
     for job in all_jobs:
         jname = job["job_data"]["job_name"]
         comp_count = len(job["job_data"]["components"])
-        cloud_readiness = job["cloud_readiness"]
+        cloud_readiness = job.get("cloud_readiness", {})
         readiness_level = cloud_readiness.get("readiness", "LOW")
         cloud_status = cloud_readiness.get("rag", "—")
         est = job.get("estimation", {})
@@ -453,7 +276,7 @@ def render_risk_heatmap(all_jobs):
         })
 
     df = pd.DataFrame(rows)
-    styled_dataframe(df, "risk_heatmap", width="stretch", height=400)
+    styled_dataframe(df, "risk_heatmap", use_container_width=True, height=400)
     pdf_download_button("Repository Risk Heatmap", [("Risk Heatmap", df)], "risk_heatmap", "Repository_Risk_Heatmap.pdf")
 
     fig = px.scatter(
@@ -462,7 +285,7 @@ def render_risk_heatmap(all_jobs):
         color_discrete_map={"🔴 High": "#e53e3e", "🟡 Medium": "#d69e2e", "🟢 Low": "#38a169"},
         title="Risk Scatter: Component Complexity vs Cloud Status"
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 
 # ---------------------------------------------------------------
@@ -503,7 +326,7 @@ def render_auto_fix_recommendations(recommendations):
                 "Auto-Fix": "✅" if r["auto_fix"] else "❌"
             })
         if rows:
-            styled_dataframe(pd.DataFrame(rows), table_key, width="stretch")
+            styled_dataframe(pd.DataFrame(rows), table_key, use_container_width=True)
         else:
             st.success("None in this category.")
 
@@ -525,7 +348,7 @@ def render_auto_fix_recommendations(recommendations):
             title="Recommendations by Effort"
         )
         st.session_state["_autofix_chart_counter"] = st.session_state.get("_autofix_chart_counter", 0) + 1
-        st.plotly_chart(fig, width="stretch", key=f"autofix_effort_chart_{st.session_state['_autofix_chart_counter']}")
+        st.plotly_chart(fig, use_container_width=True, key=f"autofix_effort_chart_{st.session_state['_autofix_chart_counter']}")
 
 
 # ---------------------------------------------------------------
@@ -549,9 +372,9 @@ def render_cloud_readiness_analyzer(all_jobs):
                 cloud_blockers[ct].append(jname)
 
     c1, c2, c3 = st.columns(3)
-    _high_count = sum(1 for j in all_jobs if j["cloud_readiness"]["readiness"] == "HIGH")
-    _med_count = sum(1 for j in all_jobs if j["cloud_readiness"]["readiness"] == "MEDIUM")
-    _low_count = sum(1 for j in all_jobs if j["cloud_readiness"]["readiness"] == "LOW")
+    _high_count = sum(1 for j in all_jobs if j.get("cloud_readiness", {}).get("readiness") == "HIGH")
+    _med_count = sum(1 for j in all_jobs if j.get("cloud_readiness", {}).get("readiness") == "MEDIUM")
+    _low_count = sum(1 for j in all_jobs if j.get("cloud_readiness", {}).get("readiness") == "LOW")
     _total = max(len(all_jobs), 1)
     with c1:
         render_progress_metric("High Readiness Jobs", str(_high_count), round(_high_count/_total*100), f"{round(_high_count/_total*100)}% of portfolio", "#15803d")
@@ -578,13 +401,13 @@ def render_cloud_readiness_analyzer(all_jobs):
             })
 
     if blocker_rows:
-        styled_dataframe(pd.DataFrame(blocker_rows), "cloud_blockers", width="stretch")
+        styled_dataframe(pd.DataFrame(blocker_rows), "cloud_blockers", use_container_width=True)
     else:
         st.success("✅ No critical cloud blockers detected!")
 
     rows = [{
         "Job": j["job_data"]["job_name"],
-        "Readiness": j["cloud_readiness"]["readiness"]
+        "Readiness": j.get("cloud_readiness", {}).get("readiness", "LOW")
     } for j in all_jobs]
     df = pd.DataFrame(rows)
     counts = df["Readiness"].value_counts().reset_index()
@@ -594,7 +417,7 @@ def render_cloud_readiness_analyzer(all_jobs):
         color_discrete_map={"HIGH": "#38a169", "MEDIUM": "#d69e2e", "LOW": "#e53e3e"},
         title="Cloud Readiness per Job"
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 
 # ---------------------------------------------------------------
@@ -641,7 +464,7 @@ def render_dependency_visualizer(all_jobs):
     dep_rows = []
     for parent, child in G.edges():
         dep_rows.append({"Parent Job": parent, "Child Job": child})
-    styled_dataframe(pd.DataFrame(dep_rows), "dependency_table", width="stretch")
+    styled_dataframe(pd.DataFrame(dep_rows), "dependency_table", use_container_width=True)
 
     job_meta = {}
     for job in all_jobs:
@@ -702,7 +525,7 @@ def render_dependency_visualizer(all_jobs):
   </defs>
   <g id="container"></g>
 </svg>
-<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
 const nodes = {nodes_json};
 const edges = {edges_json};
@@ -800,7 +623,7 @@ def render_import_validation_dashboard(all_jobs):
                     "Recommendation": risk.get("details", {}).get("recommendation", "")
                 })
         if warn_rows:
-            styled_dataframe(pd.DataFrame(warn_rows), "validation_warnings", width="stretch")
+            styled_dataframe(pd.DataFrame(warn_rows), "validation_warnings", use_container_width=True)
 
 
 def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
@@ -867,7 +690,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             with cols[5]:
                 metric_card("Metadata", kpis.get("total_metadata", 0), "Repository metadata", "green")
             section("Portfolio Inventory", "Job-level repository inventory for migration planning.")
-            styled_dataframe(pd.DataFrame(inventory.get("jobs", [])), "portfolio_inventory", width="stretch", hide_index=True)
+            styled_dataframe(pd.DataFrame(inventory.get("jobs", [])), "portfolio_inventory", use_container_width=True, hide_index=True)
 
         with overview_tabs[1]:
             cols = st.columns(5)
@@ -886,7 +709,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
                 for key, value in scoring.items()
                 if isinstance(value, (int, float, str))
             ]
-            styled_dataframe(pd.DataFrame(status_rows), "status_rows", width="stretch", hide_index=True)
+            styled_dataframe(pd.DataFrame(status_rows), "status_rows", use_container_width=True, hide_index=True)
             with st.expander("Raw scoring evidence"):
                 st.json(scoring)
 
@@ -899,20 +722,20 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             cols[1].metric("Deprecated", dist.get("DEPRECATED", 0))
             cols[2].metric("Custom", dist.get("CUSTOM", 0))
             cols[3].metric("Unknown", dist.get("UNKNOWN", 0))
-            styled_dataframe(pd.DataFrame(component_profile.get("component_usage", [])), "component_usage", width="stretch")
+            styled_dataframe(pd.DataFrame(component_profile.get("component_usage", [])), "component_usage", use_container_width=True)
 
             from app.api.routes import call_route
             replacement_recs = call_route("replacement_recommendations", all_jobs)
             st.markdown("**Replacement Recommendations**")
             if replacement_recs:
-                styled_dataframe(pd.DataFrame(replacement_recs), "replacement_recommendations", width="stretch", hide_index=True)
+                styled_dataframe(pd.DataFrame(replacement_recs), "replacement_recommendations", use_container_width=True, hide_index=True)
             else:
                 action_panel("Replacement Recommendations", "No deprecated components requiring replacement were detected.", "Clean", "#22c55e")
 
             remediation_recs = call_route("remediation_recommendations", all_jobs)
             st.markdown("**Remediation Recommendations**")
             if remediation_recs:
-                styled_dataframe(pd.DataFrame(remediation_recs), "remediation_recommendations", width="stretch", hide_index=True)
+                styled_dataframe(pd.DataFrame(remediation_recs), "remediation_recommendations", use_container_width=True, hide_index=True)
             else:
                 action_panel("Remediation Recommendations", "No unsupported components requiring remediation were detected.", "Clean", "#22c55e")
 
@@ -931,7 +754,8 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             for title, rows in context_rows:
                 if rows:
                     st.markdown(f"**{title}**")
-                    styled_dataframe(pd.DataFrame(rows), "preflight_rows_hidden", width="stretch", hide_index=True)
+                    _ctx_key = f"ctx_{title.lower().replace(' ', '_')}"
+                    styled_dataframe(pd.DataFrame(rows), _ctx_key, use_container_width=True, hide_index=True)
             if not any(rows for _, rows in context_rows):
                 action_panel("Context Health", "No duplicate, unused, or conflicting contexts were detected.", "Clean", "#22c55e")
             with st.expander("Raw context evidence"):
@@ -943,10 +767,10 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             cols[0].metric("Java Usage", len(routine_profile.get("java_usage", [])))
             cols[1].metric("Cloud Risks", len(routine_profile.get("cloud_risks", [])))
             cols[2].metric("Routines", len(rows))
-            styled_dataframe(pd.DataFrame(rows), "preflight_rows", width="stretch")
+            styled_dataframe(pd.DataFrame(rows), "preflight_rows", use_container_width=True)
 
         with technical_tabs[3]:
-            styled_dataframe(pd.DataFrame(joblet_profile.get("joblet_usage_matrix", [])), "joblet_usage_matrix", width="stretch", hide_index=True)
+            styled_dataframe(pd.DataFrame(joblet_profile.get("joblet_usage_matrix", [])), "joblet_usage_matrix", use_container_width=True, hide_index=True)
             dependency_matrix = joblet_profile.get("joblet_dependency_matrix", {})
             dep_rows = [
                 {"Joblet": key, "Dependencies": ", ".join(map(str, value)) if isinstance(value, list) else str(value)}
@@ -954,7 +778,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             ]
             if dep_rows:
                 st.markdown("**Joblet Dependencies**")
-                styled_dataframe(pd.DataFrame(dep_rows), "joblet_dependencies", width="stretch", hide_index=True)
+                styled_dataframe(pd.DataFrame(dep_rows), "joblet_dependencies", use_container_width=True, hide_index=True)
             else:
                 action_panel("Joblet Dependencies", "No reusable joblet dependency chain was detected.", "No blocker", "#14b8a6")
 
@@ -988,7 +812,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
                     {"Asset Type": "Joblets", "Impacted": ", ".join(map(str, blast.get("impacted_joblets", []))) or "None"},
                     {"Asset Type": "Routines", "Impacted": ", ".join(map(str, blast.get("impacted_routines", []))) or "None"},
                 ]
-                styled_dataframe(pd.DataFrame(asset_rows), "blast_radius_assets", width="stretch", hide_index=True)
+                styled_dataframe(pd.DataFrame(asset_rows), "blast_radius_assets", use_container_width=True, hide_index=True)
                 with st.expander("Raw impact evidence"):
                     st.json({"impact_tree": impact.get("impact_tree", {}), "blast_radius": blast})
 
@@ -1071,7 +895,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             styled_dataframe(
                 pd.DataFrame([{"Metric": key.replace("_", " ").title(), "Value": str(value)} for key, value in metrics.items()]),
                 "executive_data_model_metrics",
-                width="stretch",
+                use_container_width=True,
                 hide_index=True,
             )
         with st.expander("Raw executive data model"):

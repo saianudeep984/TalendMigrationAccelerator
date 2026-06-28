@@ -36,7 +36,7 @@ def render_migration_runbook_dashboard(jobs=None, runbook=None):
     section_header("Migration Plan"); st.json(runbook.get("migration_phases", []))
     section_header("Waves"); st.json(runbook.get("migration_waves", {}))
     section_header("Dependencies"); st.json(runbook.get("dependencies", {}))
-    section_header("Risks"); st.dataframe(runbook.get("risks", []), width="stretch")
+    section_header("Risks"); st.dataframe(runbook.get("risks", []), use_container_width=True)
     section_header("Milestones"); st.json(runbook.get("executive_runbook", {}).get("milestones", []))
     section_header("Validation Tasks"); st.json(runbook.get("validation_steps", []))
     st.download_button("Export JSON", export_runbook(runbook, "json"), "migration_runbook.json")

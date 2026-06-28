@@ -588,12 +588,20 @@ def _render_copilot(all_jobs: list):
     st.header("🤖 AI Migration Copilot")
     st.caption("Ask repository-aware questions about your Talend migration.")
 
-    # Quick question buttons
-    st.markdown("**Quick Questions:**")
-    cols = st.columns(4)
-    for i, q in enumerate(_COPILOT_QUESTIONS):
-        if cols[i % 4].button(q, key=f"copilot_q_{i}"):
-            st.session_state["copilot_input"] = q
+    # Quick question chips
+    st.markdown('<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Quick Prompts</div>', unsafe_allow_html=True)
+    _chip_html = "".join(
+        f'<span style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;'
+        f'background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;font-size:11px;'
+        f'font-weight:600;margin:0 4px 4px 0;white-space:nowrap;">'
+        f'\U0001f4a1 {q}</span>'
+        for q in _COPILOT_QUESTIONS
+    )
+    st.markdown(f'<div style="display:flex;flex-wrap:wrap;margin-bottom:10px;">{_chip_html}</div>', unsafe_allow_html=True)
+    # Clickable selection preserved via selectbox (collapsed)
+    _chip_sel = st.selectbox("Select quick prompt", [""] + list(_COPILOT_QUESTIONS), key="copilot_chip_sel", label_visibility="collapsed")
+    if _chip_sel:
+        st.session_state["copilot_input"] = _chip_sel
 
     st.markdown("---")
 
@@ -657,7 +665,7 @@ def _render_routine_assessment(all_jobs: list, repo_path: str = None):
             "Risks Detected":  ", ".join(r["risks"]),
         })
     df = pd.DataFrame(rows)
-    st.dataframe(df, width="stretch", hide_index=True)
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
     # Detail expanders
     for r in data["routines"]:
@@ -711,7 +719,7 @@ def _render_joblet_assessment(all_jobs: list, repo_path: str = None):
             "Source":       j["source"],
         })
     df = pd.DataFrame(rows)
-    st.dataframe(df, width="stretch", hide_index=True)
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
     for jlet in data["joblets"][:10]:
         risk_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}.get(jlet["risk_level"], "⚪")
@@ -763,7 +771,7 @@ def _render_java_risk_assessment(all_jobs: list):
             "Risk Level":      r["risk_level"],
         })
     df = pd.DataFrame(rows)
-    st.dataframe(df, width="stretch", hide_index=True)
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -805,7 +813,7 @@ def _render_doc_readiness_score(all_jobs: list):
         })
 
     df = pd.DataFrame(rows)
-    st.dataframe(df, width="stretch", hide_index=True)
+    st.dataframe(df, use_container_width=True, hide_index=True)
 
     # Tips
     missing_docs = total - scores["doc"] * total // 100

@@ -15,6 +15,7 @@ import time
 import uuid
 import zipfile
 import html
+import xml.etree.ElementTree as ET
 
 import streamlit as st
 
@@ -109,7 +110,6 @@ def _render_status_badge_row(items: list[tuple[str, str]]) -> None:
     )
 
 
-# PHASE 1 UI REFACTOR — import updated design system
 
 def _apply_summary_overflow_fix() -> None:
     """Keep Summary-page text inside cards, markdown, and tables."""
@@ -291,12 +291,12 @@ from app.ui.design_system_v2 import (
     apply_wizard_theme,
     download_card,
     metric_card,
-    page_header,           # PHASE 1 UI REFACTOR — new compact page header
+    page_header,
     page_title,
-    panel_open,            # PHASE 1 UI REFACTOR — new fixed-height panel
-    panel_close,           # PHASE 1 UI REFACTOR — new fixed-height panel
-    render_kpi_row,        # PHASE 1 UI REFACTOR — new 4-col KPI grid
-    render_topnav,         # PHASE 1 UI REFACTOR — replaces sidebar nav
+    panel_open,
+    panel_close,
+    render_kpi_row,
+    render_topnav,
     section_header,
     sidebar_brand,         # kept for import compat (no-op in Phase 1)
     sidebar_status,        # kept for import compat (no-op in Phase 1)
@@ -310,9 +310,19 @@ from app.ui.design_system_v2 import (
     styled_dataframe,
 )
 from app.ui.score_explainer import render_score_explainer
+from app.ui.ux_enhancements import (
+    render_home_landing,
+    render_error_card,
+    render_no_repo_card,
+    render_session_restore_banner,
+    mark_settings_saved,
+    render_unsaved_settings_warning,
+    ds_section_header,
+    rag_pill,
+    record_recent_project,
+)
 
 # ── Core analysis imports ─────────────────────────────────────────────────────
-# PHASE 1 UI REFACTOR — backend imports unchanged
 from app.parser.repository_scanner import find_talend_jobs
 from app.parser.talend_xml_parser import TalendJobParser
 from app.cache.cache_manager import CacheManager as _CacheManager
@@ -356,12 +366,11 @@ from app.config.assessment_config_store import (
 )
 
 # ── Streamlit page config ──────────────────────────────────────────────────────
-# PHASE 1 UI REFACTOR: sidebar collapsed; top nav used instead
 st.set_page_config(
     page_title="Artha Talend — Migration Accelerator",
     layout="wide",
-    page_icon="🚀",
-    initial_sidebar_state="collapsed",   # PHASE 1 UI REFACTOR — collapsed; hidden via CSS
+    page_icon="🔭",
+    initial_sidebar_state="collapsed",
 )
 apply_wizard_theme()
 
@@ -386,21 +395,23 @@ if _qp_open_job:
 # st.session_state["_nav_idx2"] unchanged.
 _sel = render_topnav()
 
-# PHASE 1 UI REFACTOR — sidebar calls below are no-ops kept for safety;
+# Reset home upload flag when user navigates to a different page
+if _sel != "home":
+    st.session_state.pop("_home_show_upload", None)
+
+# Navigation — sidebar calls below are no-ops kept for safety;
 # they will not render anything (sidebar is hidden via CSS).
 _has_analysis = "last_analysis_jobs" in st.session_state
 _job_count = len(st.session_state.get("last_analysis_jobs", []))
 sidebar_brand()
 sidebar_status(_has_analysis, _job_count)
 
-# PHASE 1 UI REFACTOR — Advanced tools moved to Settings page (⚙️).
 # The sidebar expander is removed; advanced page state is preserved.
 # Entry points are now inline buttons within the Settings page.
 _adv = st.session_state.get("_advanced_page")
 
 # ── Advanced page routing (unchanged priority logic) ──────────────────────────
 if _adv == "ollama":
-    # PHASE 1 UI REFACTOR — compact page header replaces topbar() banner
     page_header("🤖", "Ollama Settings", "Configure local LLM profiles for AI-assisted migration analysis.")
     from app.config.ollama_profile_store import OllamaProfileStore
     _ops = OllamaProfileStore()
@@ -442,7 +453,6 @@ if _adv == "ollama":
     st.stop()
 
 if _adv == "prompts":
-    # PHASE 1 UI REFACTOR — compact page header
     page_header("🧩", "Prompt Library", "Customize the AI prompts used during analysis and documentation generation.")
     from app.config.prompt_store import PromptStore
     _ps = PromptStore()
@@ -465,7 +475,6 @@ if _adv == "prompts":
     st.stop()
 
 if _adv == "templates":
-    # PHASE 1 UI REFACTOR — compact page header
     page_header("📄", "Template Manager", "Upload and manage branded DOCX report templates.")
     from app.template_engine.template_manager import TemplateManager as _TM
     _tm = _TM()
@@ -514,8 +523,6 @@ if _adv == "job_analysis":
 # ── Routing for non-wizard pages ───────────────────────────────────────────────
 
 if _sel == "command_center":
-    # PHASE 1 UI REFACTOR — compact page header instead of topbar + hero banner
-    # PHASE 3 UI REFACTOR
     page_header("🚀", "Migration Command Center",
                 "Deep-dive analysis, dependency graphs, risk heatmaps, and AI insights.")
     from app.ui.preflight_dashboard import (
@@ -528,24 +535,9 @@ if _sel == "command_center":
     from app.ui.ai_intelligence_page import render_ai_intelligence_hub
     from app.ui.migration_assistant_page import render_migration_assistant
 
-    # Back to Home / Review button
-    _cb1, _cb2, _ = st.columns([1.2, 1.2, 8])
-    with _cb1:
-        if st.button("← Home", key="cmd_back_home"):
-            st.session_state["_nav_idx2"] = 0
-            st.rerun()
-    with _cb2:
-        if st.button("← Review", key="cmd_back_review"):
-            st.session_state["_nav_idx2"] = 0
-            st.session_state["wizard_step"] = 3
-            st.rerun()
 
     if "last_analysis_jobs" not in st.session_state:
-        status_card(
-            "No repository loaded",
-            "Go to Home, upload your Talend ZIP and complete the analysis first.",
-            "warning",
-        )
+        render_no_repo_card("Command Center")
         st.stop()
 
     all_jobs        = st.session_state["last_analysis_jobs"]
@@ -566,7 +558,6 @@ if _sel == "command_center":
     except (TypeError, ValueError):
         _cmd_est_weeks_display = str(_cmd_est_weeks)
 
-    # PHASE 1 UI REFACTOR — 4-column KPI grid replaces the blue hero banner
     render_kpi_row([
         {"label": "Jobs Loaded",  "value": str(len(all_jobs)),
          "caption": "In scope",   "color": "#1d4ed8"},
@@ -580,7 +571,6 @@ if _sel == "command_center":
          "caption": "Delivery baseline", "color": "#6d28d9"},
     ])
 
-    # PHASE 3 UI REFACTOR — Command Center sub-tabs replace the long section radio.
     tab_analysis, tab_ai, tab_assistant, tab_qlik = st.tabs([
         "Analysis",
         "AI Intelligence",
@@ -589,7 +579,6 @@ if _sel == "command_center":
     ])
 
     with tab_analysis:
-        # PHASE 3 UI REFACTOR — repository, complexity, and risk KPIs above the fold.
         total_components = sum(len(j["job_data"].get("components", [])) for j in all_jobs)
         complexity_counts = {}
         for job in all_jobs:
@@ -638,7 +627,6 @@ if _sel == "command_center":
             })
 
     with tab_ai:
-        # PHASE 3 UI REFACTOR — AI recommendations, modernization insights, cloud readiness.
         left, right = st.columns(2)
         with left:
             panel_open("AI Recommendations", "Flowcharts, documentation, test cases, and copilot", height=620)
@@ -660,7 +648,6 @@ if _sel == "command_center":
             panel_close()
 
     with tab_assistant:
-        # PHASE 3 UI REFACTOR — auto-fix suggestions, migration guidance, generated outputs.
         left, right = st.columns(2)
         with left:
             panel_open("Auto-Fix Suggestions", "Migration remediation candidates", height=600)
@@ -688,7 +675,6 @@ if _sel == "command_center":
 
 if _sel == "version_converter":
     from app.ui.version_converter_page import render_converter
-    # PHASE 1 UI REFACTOR — compact page header
     page_header("🔄", "Version Converter", "Upgrade or downgrade Talend job version mappings.")
     render_converter()
     st.stop()
@@ -711,6 +697,54 @@ if _sel == "executive_dashboard":
             f"An error occurred while rendering the dashboard: {e}",
             "error",
         )
+    st.stop()
+
+if _sel == "portfolio":
+    from app.ui.design_system_v2 import page_header
+    page_header("📁", "Portfolio Dashboard", "Cross-repository migration portfolio overview — jobs, effort, risk, and status.")
+    _pf_jobs = st.session_state.get("last_analysis_jobs", [])
+    if not _pf_jobs:
+        st.warning("Load a repository first to view portfolio metrics.")
+    else:
+        try:
+            from app.ui.portfolio_dashboard import render_portfolio_dashboard
+            render_portfolio_dashboard()
+        except Exception as e:
+            status_card("Portfolio Dashboard error", str(e), "error")
+    st.stop()
+
+if _sel == "migration_advisor":
+    from app.ui.design_system_v2 import page_header
+    page_header("🧭", "Migration Advisor", "Target version recommendation, migration workflow, and roadmap.")
+    _adv_jobs = st.session_state.get("last_analysis_jobs", [])
+    if not _adv_jobs:
+        st.warning("Load a repository first to use the Migration Advisor.")
+    else:
+        try:
+            from app.ui.migration_advisor_dashboard import render_migration_advisor_dashboard
+            from app.parser.project_classifier import ProjectType
+            _adv_source = st.session_state.get("wizard_source_version", "Unknown")
+            _adv_components = list({
+                c.get("component_type", "")
+                for j in _adv_jobs
+                for c in j.get("job_data", {}).get("components", [])
+                if c.get("component_type")
+            })
+            # Derive project type from source version string
+            _sv = _adv_source.lower()
+            if "cloud" in _sv:
+                _adv_project_type = ProjectType.CLOUD
+            elif "enterprise" in _sv or "studio" not in _sv:
+                _adv_project_type = ProjectType.ENTERPRISE
+            else:
+                _adv_project_type = ProjectType.OPEN_STUDIO
+            render_migration_advisor_dashboard(
+                project_type=_adv_project_type,
+                source_version=_adv_source,
+                component_usage=_adv_components,
+            )
+        except Exception as e:
+            status_card("Migration Advisor error", str(e), "error")
     st.stop()
 
 if _sel == "job_analysis":
@@ -849,6 +883,7 @@ if _sel == "settings":
             if b4.button("💾 Save Profile", type="primary", key="assess_save_profile"):
                 st.session_state["assessment_config"] = _cfg
                 save_assessment_config(_cfg, actor="settings")
+                mark_settings_saved("Assessment Profile")
                 # Clear per-section widget seeds so they reload from the saved config
                 for _stale_key in ["cw_comp","cw_sql","cw_dep","cw_custom","cw_risk",
                                    "ct_low","ct_med","ct_high",
@@ -900,7 +935,7 @@ if _sel == "settings":
             if _s2.button("💾 Save Changes", type="primary", key="save_complexity"):
                 st.session_state["assessment_config"] = _cfg
                 save_assessment_config(_cfg, actor="settings_complexity")
-                st.success("Complexity settings saved.")
+                mark_settings_saved("Complexity Scoring")
 
         elif _section == "Migration Risk":
             r = _cfg["risk"]
@@ -952,7 +987,7 @@ if _sel == "settings":
             if _r2.button("💾 Save Changes", type="primary", key="save_risk"):
                 st.session_state["assessment_config"] = _cfg
                 save_assessment_config(_cfg, actor="settings_risk")
-                st.success("Risk settings saved.")
+                mark_settings_saved("Migration Risk")
 
         elif _section == "Effort Estimation":
             e = _cfg["effort"]
@@ -977,7 +1012,7 @@ if _sel == "settings":
             if _e2.button("💾 Save Changes", type="primary", key="save_effort"):
                 st.session_state["assessment_config"] = _cfg
                 save_assessment_config(_cfg, actor="settings_effort")
-                st.success("Effort settings saved.")
+                mark_settings_saved("Effort Estimation")
 
         elif _section == "Cloud Readiness":
             c = _cfg["cloud"]
@@ -1009,7 +1044,7 @@ if _sel == "settings":
             if _cl2.button("💾 Save Changes", type="primary", key="save_cloud"):
                 st.session_state["assessment_config"] = _cfg
                 save_assessment_config(_cfg, actor="settings_cloud")
-                st.success("Cloud Readiness settings saved.")
+                mark_settings_saved("Cloud Readiness")
 
         elif _section == "AI Recommendations":
             st.markdown("### AI Recommendations")
@@ -1051,8 +1086,6 @@ if _sel == "settings":
     st.stop()
 
 if False and _sel == "settings":
-    # PHASE 1 UI REFACTOR — compact page header
-    # PHASE 6 UI REFACTOR
     page_header("⚙️", "Settings", "Configure migration defaults, display preferences, and advanced tools.")
     tab_general, tab_scoring, tab_ollama, tab_templates, tab_environment = st.tabs([
         "General",
@@ -1063,7 +1096,6 @@ if False and _sel == "settings":
     ])
 
     with tab_general:
-        # PHASE 6 UI REFACTOR — compact forms with advanced settings hidden by default.
         with st.form("settings_general_form"):
             c1, c2, c3 = st.columns(3)
             with c1:
@@ -1092,7 +1124,7 @@ if False and _sel == "settings":
             [{"Component Type": k, "Weight": v} for k, v in _ca.WEIGHTS.items()]
         )
         _edited_weights = st.data_editor(
-            _weights_df, hide_index=True, width="stretch",
+            _weights_df, hide_index=True, use_container_width=True,
             num_rows="dynamic", key="settings_scoring_weights_editor",
         )
 
@@ -1142,7 +1174,6 @@ if False and _sel == "settings":
             st.success(f"Scoring configuration applied and {len(_jobs)} job(s) recalculated.")
 
 
-        # PHASE 6 UI REFACTOR — Ollama settings in their own compact tab.
         from app.config.ollama_profile_store import OllamaProfileStore
         _ops = OllamaProfileStore()
         _all = _ops.load_all()
@@ -1189,21 +1220,19 @@ if False and _sel == "settings":
             st.caption(f"Active: **{_all.get('active','default')}**")
 
     with tab_templates:
-        # PHASE 6 UI REFACTOR — prompt and report templates grouped together.
         t1, t2 = st.columns(2)
         with t1:
-            if st.button("Prompt Library", width="stretch", key="nav_prompts"):
+            if st.button("Prompt Library", use_container_width=True, key="nav_prompts"):
                 st.session_state["_advanced_page"] = "prompts"
                 st.rerun()
         with t2:
-            if st.button("Template Manager", width="stretch", key="nav_templates"):
+            if st.button("Template Manager", use_container_width=True, key="nav_templates"):
                 st.session_state["_advanced_page"] = "templates"
                 st.rerun()
         with st.expander("Template diagnostics", expanded=False):
             st.write("Prompt and DOCX template tools open in focused edit views to preserve their existing save logic.")
 
     with tab_environment:
-        # PHASE 6 UI REFACTOR — environment diagnostics moved into expanders.
         _prereq = check_prerequisites()
         render_kpi_row([
             {"label": "Environment", "value": "Ready" if _prereq.get("ok") else "Needs Setup", "color": "#15803d" if _prereq.get("ok") else "#be123c"},
@@ -1306,22 +1335,45 @@ AI RECOMMENDATION
 
 _step = st.session_state.get("wizard_step", 1)
 
+# Home landing: show professional landing unless already in upload flow
+if _sel == "home" and _step == 1 and "last_analysis_jobs" not in st.session_state and not st.session_state.get("_home_show_upload") and "wizard_uploaded_file_data" not in st.session_state:
+    def _go_to_upload():
+        st.session_state["_home_show_upload"] = True
+        st.session_state["_scroll_to_top_once"] = True
+        st.rerun()
+    render_home_landing(on_get_started=_go_to_upload)
+    try:
+        render_session_restore_banner(_tma_cache)
+    except Exception:
+        pass
+    st.stop()
+
 # ══════════════════════════════════════════════════════════════════════════════
 # STEP 1 — REPOSITORY INTAKE (PHASE 2 UI REFACTOR)
 # Tabs: Upload | Repository Summary | Validation
 # All upload + analysis trigger logic and analysis-results logic preserved unchanged.
 # ══════════════════════════════════════════════════════════════════════════════
 if _step == 1:
+    # ── One-shot scroll-to-top after the Home "Get Started" CTA ───────────────
+    # Streamlit does not reset browser scroll position on st.rerun(). The Home
+    # landing page is long, so after clicking the CTA near the bottom, the
+    # much shorter Upload page would render starting off-screen above the
+    # user's current scroll position — making the file uploader invisible
+    # and requiring extra clicks/scrolling to find it. Fire a single scroll
+    # reset exactly on the transition, then clear the flag so it never fights
+    # the user's own scrolling on later reruns of this same page.
+    if st.session_state.pop("_scroll_to_top_once", False):
+        import streamlit.components.v1 as _components
+        _components.html(
+            "<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);"
+            "window.parent.scrollTo(0, 0);</script>",
+            height=0,
+        )
+
     wizard_progress(1)
 
     # ── compact header ────────────────────────────────────────────────────────
-    st.markdown(
-        '<div style="font-size:20px;font-weight:800;color:#0f172a;margin-bottom:2px;">'
-        'Repository Intake</div>'
-        '<div style="font-size:12px;color:#64748b;margin-bottom:12px;">'
-        'Upload, review, and validate your Talend repository.</div>',
-        unsafe_allow_html=True,
-    )
+    page_header("📤", "Repository Intake", "Upload, review, and validate your Talend repository.")
     tab_upload, tab_repo_summary, tab_validation, tab_overview_dashboard = st.tabs(
         ["📤  Upload", "📊  Repository Summary", "✅  Validation", "🗂️  Dashboard"]
     )
@@ -1387,11 +1439,17 @@ if _step == 1:
                 'Repository ZIP</div>',
                 unsafe_allow_html=True,
             )
-            _uploaded = st.file_uploader(
-                "zip",
-                type=["zip"],
-                label_visibility="collapsed",
-            )
+            # If a file was pre-loaded from the home page uploader, skip
+            # the widget so the user is not asked to upload a second time.
+            _prefilled = 'wizard_uploaded_file_data' in st.session_state
+            if not _prefilled:
+                _uploaded = st.file_uploader(
+                    'zip',
+                    type=['zip'],
+                    label_visibility='collapsed',
+                )
+            else:
+                _uploaded = None
             st.markdown(
                 '<div style="font-size:11px;color:#94a3b8;margin-top:2px;">'
                 'File → Export Items → ZIP Archive · 500 MB max</div>',
@@ -1400,48 +1458,36 @@ if _step == 1:
 
         st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
 
-        # ── upload progress + action ──────────────────────────────────────────
+        # ── upload progress + action ──────────────────────────────────────────────────
         if _uploaded:
-            st.session_state["wizard_uploaded_file_name"] = _uploaded.name
-            st.session_state["wizard_uploaded_file_data"] = _uploaded.getbuffer().tobytes()
-            st.session_state["wizard_target_version_val"] = _target
-            st.session_state["wizard_use_ollama"] = _use_ollama_toggle
+            st.session_state['wizard_uploaded_file_name'] = _uploaded.name
+            st.session_state['wizard_uploaded_file_data'] = _uploaded.getbuffer().tobytes()
+            st.session_state['wizard_target_version_val'] = _target
+            st.session_state['wizard_use_ollama'] = _use_ollama_toggle
+            _prefilled = True
 
-            _fsize_mb = round(len(st.session_state["wizard_uploaded_file_data"]) / 1024 / 1024, 1)
+        if _prefilled and 'wizard_uploaded_file_data' in st.session_state:
+            _fname = st.session_state.get('wizard_uploaded_file_name', 'repository.zip')
+            _fsize_mb = round(len(st.session_state['wizard_uploaded_file_data']) / 1024 / 1024, 1)
+            st.session_state['wizard_target_version_val'] = _target
+            st.session_state['wizard_use_ollama'] = _use_ollama_toggle
             st.progress(1.0)
             st.markdown(
                 f'<div style="display:flex;align-items:center;gap:10px;margin:6px 0 12px;">'
-                f'<span style="font-size:12px;font-weight:700;color:#15803d;">📦 {_uploaded.name}</span>'
+                f'<span style="font-size:12px;font-weight:700;color:#15803d;">📦 {_fname}</span>'
                 f'<span style="font-size:11px;color:#64748b;">{_fsize_mb} MB · ready to analyze</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
-            if st.button("▶  Analyze Repository", type="primary"):
-                st.session_state["wizard_step"] = 2
+            if st.button('▶  Analyze Repository', type='primary'):
+                st.session_state['wizard_step'] = 2
                 st.rerun()
-        else:
-            st.divider()
-            st.caption("── or load demo repository ──", unsafe_allow_html=False)
-            if st.button("🎯 Load Artha Demo Repository", key="load_demo_repo", use_container_width=True):
-                import pathlib
-                _demo_path = pathlib.Path("data/demo_repository.zip")
-                if not _demo_path.exists():
-                    st.error("Demo file not found: data/demo_repository.zip")
-                else:
-                    _demo_bytes = _demo_path.read_bytes()
-                    st.session_state["wizard_uploaded_file_name"] = "demo_repository.zip"
-                    st.session_state["wizard_uploaded_file_data"] = _demo_bytes
-                    st.session_state["wizard_target_version_val"] = _target
-                    st.session_state["wizard_use_ollama"] = _use_ollama_toggle
-                    st.session_state["_demo_repo_just_loaded"] = True
-                    st.session_state["wizard_step"] = 2
-                    st.rerun()
+
 
     # ────────────────────────────────────────────────────────────────────────
     # TAB 2 — REPOSITORY SUMMARY (PHASE 2 UI REFACTOR)
     # ────────────────────────────────────────────────────────────────────────
     with tab_repo_summary:
-        # PHASE 2 UI REFACTOR — KPI cards + fixed-height panels, no scrolling
         _intake_jobs = st.session_state.get("last_analysis_jobs", [])
 
         if not _intake_jobs:
@@ -1462,7 +1508,6 @@ if _step == 1:
             _total_jobs = len(_intake_jobs)
             _total_components = sum(len(j["job_data"].get("components", [])) for j in _intake_jobs)
 
-            # PHASE 2 UI REFACTOR — required KPI cards: Jobs, Joblets, Routines, Components
             render_kpi_row([
                 {"label": "Jobs",       "value": str(_total_jobs),
                  "caption": "In scope", "color": "#5a7fbf"},
@@ -1474,7 +1519,6 @@ if _step == 1:
                  "caption": "Across all jobs", "color": "#b08040"},
             ])
 
-            # PHASE 2 UI REFACTOR — secondary KPI row (job hierarchy + risk types)
             render_kpi_row([
                 {"label": "Parent Jobs", "value": str(_kpis.get("total_parent_jobs", 0)), "color": "#5a7fbf"},
                 {"label": "Child Jobs",  "value": str(_kpis.get("total_child_jobs", 0)),  "color": "#5a7fbf"},
@@ -1482,19 +1526,17 @@ if _step == 1:
                 {"label": "Deprecated Components", "value": str(_dist.get("DEPRECATED", 0)), "color": "#b06070"},
             ])
 
-            # PHASE 2 UI REFACTOR — large component distribution table in fixed-height panel
             panel_open("Component Distribution", "By component type across the repository", height=260)
             import pandas as pd
             _dist_rows = [{"Component Type": k, "Count": v} for k, v in _dist.items()]
             _dist_df = pd.DataFrame(_dist_rows)
-            styled_dataframe(_dist_df, "component_distribution", width="stretch", hide_index=True)
+            styled_dataframe(_dist_df, "component_distribution", use_container_width=True, hide_index=True)
             panel_close()
 
     # ────────────────────────────────────────────────────────────────────────
     # TAB 3 — VALIDATION (PHASE 2 UI REFACTOR)
     # ────────────────────────────────────────────────────────────────────────
     with tab_validation:
-        # PHASE 2 UI REFACTOR — validation results inside expanders
         _intake_jobs = st.session_state.get("last_analysis_jobs", [])
 
         if not _intake_jobs:
@@ -1514,7 +1556,6 @@ if _step == 1:
             _testing    = RegressionSuiteBuilder().build(_intake_jobs)
             _governance = ComplianceAssessor().assess(_intake_jobs)
 
-            # PHASE 2 UI REFACTOR — readiness statuses as KPI row
             _render_status_badge_row([
                 ("Migration Readiness", "GREEN" if _scoring['migration_readiness_score'] >= 70 else ("AMBER" if _scoring['migration_readiness_score'] >= 40 else "RED")),
                 ("Cloud Readiness", "GREEN" if _scoring['cloud_readiness_score'] >= 70 else ("AMBER" if _scoring['cloud_readiness_score'] >= 40 else "RED")),
@@ -1522,7 +1563,6 @@ if _step == 1:
                 ("Testing Readiness", "GREEN" if _scoring['testing_readiness_score'] >= 70 else ("AMBER" if _scoring['testing_readiness_score'] >= 40 else "RED")),
             ])
 
-            # PHASE 3 UI REFACTOR — validation expanders use inline status badges, not RAG text cards
             def _rag(score: float) -> str:
                 return "GREEN" if score >= 70 else ("AMBER" if score >= 40 else "RED")
 
@@ -1547,7 +1587,7 @@ if _step == 1:
                 if _pii_fields:
                     panel_open("Detected PII Fields", height=240)
                     import pandas as pd
-                    styled_dataframe(pd.DataFrame(_pii_fields), "pii_fields", width="stretch", hide_index=True)
+                    styled_dataframe(pd.DataFrame(_pii_fields), "pii_fields", use_container_width=True, hide_index=True)
                     panel_close()
                 else:
                     st.caption("No PII fields detected.")
@@ -1569,7 +1609,7 @@ if _step == 1:
                         "Component": r.get("component", "Unknown component"),
                         "Message": r.get("message", "No details"),
                     } for jn, r in _risks]
-                    styled_dataframe(pd.DataFrame(_risk_rows), "high_risk_findings", width="stretch", hide_index=True)
+                    styled_dataframe(pd.DataFrame(_risk_rows), "high_risk_findings", use_container_width=True, hide_index=True)
                     panel_close()
                 else:
                     _render_status_badge_row([("Risk Level", "GREEN")])
@@ -1615,6 +1655,16 @@ elif _step == 2:
             st.rerun()
         st.stop()
 
+    def _abort_upload(title: str, detail: str) -> None:
+        """Show a clear error and reset back to the Upload step."""
+        st.error(f"**{title}**\n\n{detail}")
+        st.session_state.pop("wizard_uploaded_file_data", None)
+        st.session_state.pop("wizard_uploaded_file_name", None)
+        st.session_state["wizard_step"] = 1
+        if st.button("← Back to Upload", key="_abort_back_btn"):
+            st.rerun()
+        st.stop()
+
     # ── Already analyzed? Skip straight to step 3 ──
     if "last_analysis_jobs" in st.session_state and st.session_state.get("_analysis_complete"):
         st.session_state["wizard_step"] = 3
@@ -1624,13 +1674,31 @@ elif _step == 2:
     status_placeholder = st.empty()
     progress_bar = st.progress(0)
     detail_placeholder = st.empty()
+    steps = [
+        "Parsing XML",
+        "Building metadata",
+        "Analysing components",
+        "Scoring readiness",
+        "Building lineage",
+        "Generating Job360",
+        "Complete",
+    ]
+    step_pct = {
+        "Parsing XML": 5,
+        "Building metadata": 15,
+        "Analysing components": 70,
+        "Scoring readiness": 82,
+        "Building lineage": 90,
+        "Generating Job360": 95,
+        "Complete": 100,
+    }
 
     def _update(msg: str, pct: int):
         status_placeholder.info(msg)
         progress_bar.progress(pct)
 
     # Write ZIP to disk
-    _update("Extracting repository…", 5)
+    _update(steps[0], step_pct[steps[0]])
     zip_path = f"uploaded_repository_{uuid.uuid4().hex}.zip"
     temp_repo = "temp_repository"
     output_dir = "output"
@@ -1646,12 +1714,65 @@ elif _step == 2:
     try:
         safe_extract(zip_path, temp_repo)
     except zipfile.BadZipFile:
-        st.error("Invalid ZIP file. Please re-export from Talend Open Studio.")
-        os.remove(zip_path)
-        st.stop()
+        _abort_upload(
+            "❌ Invalid ZIP file",
+            "The uploaded file is not a valid ZIP archive. "
+            "Please export your Talend repository via **File → Export Items → ZIP Archive** "
+            "in Talend Open Studio and try again.",
+        )
     finally:
         try: os.remove(zip_path)
         except: pass
+
+    # ── Validate ZIP contains Talend .item files ──────────────────────────────
+    _item_files = [
+        p for root, _, files in os.walk(temp_repo)
+        for f in files
+        for p in [os.path.join(root, f)]
+        if f.endswith(".item")
+    ]
+    _xml_files = [
+        p for root, _, files in os.walk(temp_repo)
+        for f in files
+        for p in [os.path.join(root, f)]
+        if f.endswith((".xml", ".item", ".properties"))
+    ]
+
+    if not _item_files:
+        # Check what IS in the ZIP to give a meaningful message
+        _all_exts = sorted({
+            os.path.splitext(f)[1].lower()
+            for _, _, files in os.walk(temp_repo)
+            for f in files
+            if os.path.splitext(f)[1]
+        })
+        _ext_hint = (
+            f"Found file types: {', '.join(_all_exts[:8])}" if _all_exts
+            else "The archive appears to be empty."
+        )
+        _abort_upload(
+            "❌ Not a Talend repository",
+            f"No Talend `.item` job files were found in the uploaded ZIP. {_ext_hint}\n\n"
+            "Please upload a ZIP exported from **Talend Open Studio** via "
+            "**File → Export Items → ZIP Archive**. "
+            "The archive must contain `.item` files (e.g. `MyJob_0.1.item`).",
+        )
+
+    # ── Validate that .item files are well-formed XML ─────────────────────────
+    def _try_parse(p):
+        try:
+            ET.parse(p)
+            return True
+        except Exception:
+            return False
+
+    _bad = [f for f in _item_files if not _try_parse(f)]
+
+    if len(_bad) == len(_item_files):
+        st.error("All .item files are corrupt or unsupported. Check your ZIP.")
+        st.stop()
+    elif _bad:
+        st.warning(f"{len(_bad)} file(s) skipped — corrupt XML.")
 
     repo_path = temp_repo
     st.session_state["last_repo_path"] = repo_path
@@ -1659,13 +1780,16 @@ elif _step == 2:
     target_version = st.session_state.get("wizard_target_version_val", "Talend 8")
     use_ollama = st.session_state.get("wizard_use_ollama", False)
 
-    _update("Discovering Talend jobs…", 10)
+    _update(steps[1], step_pct[steps[1]])
     source_version = detect_talend_version(repo_path)
     job_files = find_talend_jobs(repo_path)
 
     if not job_files:
-        st.error("No Talend jobs found in this repository. Check the ZIP contents.")
-        st.stop()
+        _abort_upload(
+            "❌ No parseable jobs found",
+            f"Found **{len(_item_files)} `.item` file(s)** but none could be parsed as Talend jobs. "
+            "The files may be corrupted, password-protected, or from an unsupported Talend version.",
+        )
 
     detail_placeholder.info(f"Found **{len(job_files)}** job files (source: {source_version})")
 
@@ -1680,9 +1804,11 @@ elif _step == 2:
     risk_engine = RiskAnalyzer()
     all_transformations = []
 
+    _update(steps[2], step_pct[steps[1]])
     for idx, file in enumerate(job_files):
-        pct = 10 + int(50 * (idx + 1) / len(job_files))
-        _update(f"Analyzing job {idx+1} of {len(job_files)}: {os.path.basename(file)}", pct)
+        pct = step_pct[steps[1]] + int((step_pct[steps[2]] - step_pct[steps[1]]) * (idx + 1) / len(job_files))
+        _update(steps[2], pct)
+        detail_placeholder.info(f"Job {idx+1} of {len(job_files)}: {os.path.basename(file)}")
         try:
             job_data = _tma_cache.load_or_parse(file)
             if job_data["job_name"] == "INVALID_JOB":
@@ -1717,7 +1843,7 @@ elif _step == 2:
             pass  # skip bad files silently
 
     # AI recommendations
-    _update("Running AI analysis…", 65)
+    _update(steps[2], step_pct[steps[2]])
     for idx, job in enumerate(all_jobs):
         try:
             job["ai_recommendation"] = generate_migration_recommendation(
@@ -1726,10 +1852,10 @@ elif _step == 2:
             )
         except:
             job["ai_recommendation"] = "AI recommendation unavailable."
-        progress_bar.progress(65 + int(15 * (idx + 1) / max(len(all_jobs), 1)))
+        progress_bar.progress(step_pct[steps[2]] + int(8 * (idx + 1) / max(len(all_jobs), 1)))
 
     # Enterprise analysis
-    _update("Computing migration readiness statuses…", 82)
+    _update(steps[3], step_pct[steps[3]])
     custom_analysis = analyze_custom_components(all_jobs, use_ollama=use_ollama,
                                                 prompt_template=DEFAULT_COMPONENT_RECOMMENDATION_PROMPT)
     deprecated_rows = build_deprecated_dashboard(all_jobs)
@@ -1738,7 +1864,7 @@ elif _step == 2:
     auto_fix_recs   = generate_auto_fix_recommendations(all_jobs)
 
     # Exports
-    _update("Generating reports…", 92)
+    _update(steps[4], step_pct[steps[4]])
     token_checker = MigrationTokenChecker()
     studio_guide = StudioImportGuide()
     readiness_engine = MigrationReadiness()
@@ -1749,6 +1875,7 @@ elif _step == 2:
     graph_data = graph_builder.export_graph_data()
     with open(os.path.join(output_dir, "dependency_graph_data.json"), "w") as f:
         json.dump(graph_data, f, indent=4)
+    _update(steps[5], step_pct[steps[5]])
     report_file = export_excel(all_jobs)
 
     # Persist to session (unchanged keys)
@@ -1766,7 +1893,40 @@ elif _step == 2:
         "_analysis_complete": True,
     })
 
-    _update("✅ Analysis complete", 100)
+    # Log this run for the "Recent Projects" section on the landing page.
+    # Best-effort only — never blocks the (already-complete) analysis flow.
+    record_recent_project(
+        name=st.session_state.get("wizard_uploaded_file_name", "").replace(".zip", ""),
+        job_count=len(all_jobs),
+        readiness=readiness_score.get("overall", "—"),
+        source_version=source_version,
+        target_version=target_version,
+    )
+
+    # Invalidate Phase 1C lineage cache so it rebuilds from the new repo's
+    # .item files instead of stale data from a previous run or wrong source.
+    import os as _os
+    _lineage_cache_path = _os.path.join("cache", "phase_1c", "lineage_cache.json")
+    try:
+        if _os.path.exists(_lineage_cache_path):
+            _os.remove(_lineage_cache_path)
+    except OSError:
+        pass
+    try:
+        from app.ui.cached_lineage_page import load_cached_lineage
+        load_cached_lineage.clear()
+    except Exception:
+        pass
+    try:
+        from app.ui.overview_dashboard_page import _load_lineage_cache
+        _load_lineage_cache.clear()
+    except Exception:
+        pass
+    # Drop any session-state snapshot of the lineage cache
+    st.session_state.pop("_overview_lineage_cache", None)
+    st.session_state.pop("_cached_lineage_data", None)
+
+    _update(steps[6], step_pct[steps[6]])
     time.sleep(0.5)
     st.session_state["wizard_step"] = 3
     st.rerun()
@@ -1816,7 +1976,6 @@ elif _step == 3:
     page_title(3, "Migration Review",
                f"Source: {source_ver}  →  Target: {target_ver}  ·  {total_jobs} jobs analyzed")
 
-    # PHASE 1 UI REFACTOR — render_kpi_row() for compact 4-col KPI layout
     # (the original used st.columns(5) with metric_card; render_kpi_row caps at 4,
     #  so Est. Weeks is included as the 4th tile; Cloud Status is folded into caption)
     _readiness_caption = {
@@ -1902,7 +2061,7 @@ elif _step == 3:
                 "Component": r.get("component", "Unknown component"),
                 "Detail": r.get("message", "No details"),
             } for jn, r in _risks[:50]]
-            styled_dataframe(pd.DataFrame(_risk_table), "tab_risk_findings", width="stretch", hide_index=True)
+            styled_dataframe(pd.DataFrame(_risk_table), "tab_risk_findings", use_container_width=True, hide_index=True)
             if len(_risks) > 50:
                 st.caption(f"… and {len(_risks)-50} more. See the Excel report for the full list.")
         else:
@@ -1925,7 +2084,7 @@ elif _step == 3:
                 "Complexity": j["complexity"].get("level","—"),
             })
         _df = pd.DataFrame(_rows)
-        styled_dataframe(_df, "job_summary", width="stretch", hide_index=True)
+        styled_dataframe(_df, "job_summary", use_container_width=True, hide_index=True)
         for _idx, j in enumerate(all_jobs):
             jd = j["job_data"]
             if st.button(f"Job Analysis: {jd['job_name']}", key=f"job_analysis_btn_{jd['job_name']}_{_idx}"):
@@ -1935,22 +2094,22 @@ elif _step == 3:
 
     _c1, _c2, _c3, _c4 = st.columns([1, 1, 1, 1])
     with _c1:
-        if st.button("← Back", width="stretch"):
+        if st.button("← Back", use_container_width=True):
             st.session_state["wizard_step"] = 1
             st.session_state.pop("_analysis_complete", None)
             st.session_state.pop("last_analysis_jobs", None)
             st.rerun()
     with _c2:
-        if st.button("Generate Reports →", type="primary", width="stretch"):
+        if st.button("Generate Reports →", type="primary", use_container_width=True):
             st.session_state["wizard_step"] = 4
             st.rerun()
     with _c3:
-        if st.button("🔬 Deep Analysis", width="stretch",
+        if st.button("🔬 Deep Analysis", use_container_width=True,
                      help="Dependency graph, component analyzer, routine/joblet analyzer, AI hub"):
             st.session_state["_nav_idx2"] = 1
             st.rerun()
     with _c4:
-        if st.button("📄 Generate Repository Report", width="stretch",
+        if st.button("📄 Generate Repository Report", use_container_width=True,
                      help="Generate a comprehensive repository-level migration report"):
             st.session_state["_show_repository_report"] = True
             st.rerun()
@@ -2037,7 +2196,7 @@ elif _step == 3:
                 "Cloud Status": f"{_RAG_EMOJI.get(_cr.get('rag',''), '')} {_cr.get('rag','—')}",
                 "High Risk": _hi,
             })
-        styled_dataframe(pd.DataFrame(_rr_rows), "repo_report_jobs", width="stretch", hide_index=True)
+        styled_dataframe(pd.DataFrame(_rr_rows), "repo_report_jobs", use_container_width=True, hide_index=True)
 
         st.markdown("#### High & Critical Risk Findings")
         _rr_risks = [
@@ -2047,7 +2206,7 @@ elif _step == 3:
                           if r.get("risk") in ("HIGH", "CRITICAL")]
         ]
         if _rr_risks:
-            styled_dataframe(pd.DataFrame(_rr_risks), "repo_report_risks", width="stretch", hide_index=True)
+            styled_dataframe(pd.DataFrame(_rr_risks), "repo_report_risks", use_container_width=True, hide_index=True)
         else:
             st.success("No high-risk findings detected.")
 
@@ -2138,11 +2297,11 @@ elif _step == 4:
 
     _c1, _c2, _ = st.columns([1, 1, 3])
     with _c1:
-        if st.button("← Back to Review", width="stretch"):
+        if st.button("← Back to Review", use_container_width=True):
             st.session_state["wizard_step"] = 3
             st.rerun()
     with _c2:
-        if st.button("⚙  Generate Now", type="primary", width="stretch"):
+        if st.button("⚙  Generate Now", type="primary", use_container_width=True):
             _gen_status = st.empty()
             _gen_bar = st.progress(0)
 
@@ -2212,7 +2371,6 @@ elif _step == 5:
         f"{total_jobs} jobs analyzed  ·  Readiness: {readiness}  ·  {total_hr} high-risk findings  ·  Estimated {est_weeks} weeks  ·  {source_ver} → {target_ver}"
     )
 
-    # PHASE 1 UI REFACTOR — 4-column KPI summary on download page
     render_kpi_row([
         {"label": "Jobs Analyzed",  "value": str(total_jobs),  "color": "#1d4ed8"},
         {"label": "Readiness",      "value": readiness,  "color": "#15803d"},
@@ -2234,27 +2392,27 @@ elif _step == 5:
             with open(_report_file, "rb") as f:
                 st.download_button("Download Excel", f, "migration_report.xlsx",
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    width="stretch", key="dl_excel")
+                    use_container_width=True, key="dl_excel")
         else:
-            st.button("Download Excel", disabled=True, width="stretch", key="dl_excel_dis")
+            st.button("Download Excel", disabled=True, use_container_width=True, key="dl_excel_dis")
 
     with dl_c2:
         download_card("🔧", "Migration Patch", "Automated XML transformation patch")
         if _patch_file and os.path.exists(_patch_file):
             with open(_patch_file, "rb") as f:
                 st.download_button("Download Patch", f, "migration_patch.json",
-                    "application/json", width="stretch", key="dl_patch")
+                    "application/json", use_container_width=True, key="dl_patch")
         else:
-            st.button("Download Patch", disabled=True, width="stretch", key="dl_patch_dis")
+            st.button("Download Patch", disabled=True, use_container_width=True, key="dl_patch_dis")
 
     with dl_c3:
         download_card("🔗", "Dependency Graph", "Job-to-job dependency relationships")
         if os.path.exists(_dep_file):
             with open(_dep_file, "rb") as f:
                 st.download_button("Download Dependencies", f, "dependency_summary.json",
-                    "application/json", width="stretch", key="dl_deps")
+                    "application/json", use_container_width=True, key="dl_deps")
         else:
-            st.button("Download Dependencies", disabled=True, width="stretch", key="dl_deps_dis")
+            st.button("Download Dependencies", disabled=True, use_container_width=True, key="dl_deps_dis")
 
     with dl_c4:
         download_card("📦", "Repository Report (ZIP)", "Executive summary, job analysis reports, recommendations")
@@ -2262,7 +2420,7 @@ elif _step == 5:
             all_jobs, st.session_state.get("readiness_score", {}), st.session_state.get("effort_estimate", {})
         )
         st.download_button("Download Repository Report", _rr_zip_bytes_s5, "repository_report.zip",
-            "application/zip", width="stretch", key="dl_repo_report_zip_s5")
+            "application/zip", use_container_width=True, key="dl_repo_report_zip_s5")
 
     section_header("What's Next?")
     next_c1, next_c2, next_c3 = st.columns(3)
@@ -2281,11 +2439,11 @@ elif _step == 5:
 
     _ca, _cb, _ = st.columns([1, 1, 3])
     with _ca:
-        if st.button("← Back to Review", width="stretch"):
+        if st.button("← Back to Review", use_container_width=True):
             st.session_state["wizard_step"] = 3
             st.rerun()
     with _cb:
-        if st.button("🔄 Analyze New Repository", width="stretch"):
+        if st.button("🔄 Analyze New Repository", use_container_width=True):
             for k in ["wizard_step","last_analysis_jobs","readiness_score","effort_estimate",
                       "auto_fix_recs","wizard_report_file","wizard_patch_file",
                       "wizard_uploaded_file_data","wizard_uploaded_file_name",

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" xmi:id="_lvC2IWn_EfC47_8pY-8B5g" confirmationNeeded="false" hide="false" name="Default">
+  <contextParameter xmi:id="_lv2udmn_EfC47_8pY-8B5g" comment="" name="connection_mysql_host" prompt="connection_mysql_host?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_lv2ud2n_EfC47_8pY-8B5g" comment="" name="connection_mysql_username" prompt="connection_mysql_username?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="tmetadata"/>
+  <contextParameter xmi:id="_lv2ueGn_EfC47_8pY-8B5g" comment="" name="connection_mysql_password" prompt="connection_mysql_password?" promptNeeded="false" repositoryContextId="built-in" type="id_Password" value=""/>
+  <contextParameter xmi:id="_lv2ueWn_EfC47_8pY-8B5g" comment="" name="connection_mysql_database" prompt="connection_mysql_database?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="CDH_METADATA"/>
+  <contextParameter xmi:id="_lv2uemn_EfC47_8pY-8B5g" comment="" name="connection_mysql_jdbc_parameters" prompt="connection_mysql_jdbc_parameters?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value=""/>
+  <contextParameter xmi:id="_lv2ue2n_EfC47_8pY-8B5g" comment="" name="connection_mysql_port" prompt="connection_mysql_port?" promptNeeded="false" repositoryContextId="built-in" type="id_String" value="3306"/>
+</talendfile:ContextType>

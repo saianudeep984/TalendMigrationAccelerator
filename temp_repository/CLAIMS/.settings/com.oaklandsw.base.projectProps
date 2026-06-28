@@ -1,5 +1,0 @@
-Maps/EyeMed_CMS/EyeMed_CMS_837_P2.xml,com.oaklandsw.base,references.0,Structures/EyeMed/EyeMed_837_EDI.xml
-Maps/EyeMed_CMS/EyeMed_CMS_837_P2.xml,com.oaklandsw.base,references.1,Structures/EyeMed/EyeMed_XML_P2.xml
-Maps/EyeMed_CMS/EyeMed_CMS_837_P2.xml,com.oaklandsw.base,references.2,Sample Data/EyeMed/EyeMed_837_EDI/EM_837_CCMCR1_222_000039733_260305155310000601_73985.837
-Structures/EyeMed/EyeMed_CMS_837_EDI.xml,com.oaklandsw.base,references.0,/X12_5010_HIPAA/Structures/Transactions/837-Q1-ENV.xml,/Interchange
-Structures/EyeMed/EyeMed_CMS_837_EDI.xml,com.oaklandsw.base,references.1,Sample Data/VSP/VSP_837_EDI/VSP_837_SCO_30106884_20251015.txt

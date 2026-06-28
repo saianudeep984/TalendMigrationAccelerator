@@ -460,19 +460,55 @@ def _detect_cache_source_mismatch(data: dict) -> str | None:
     return None
 
 
-def render_cached_lineage_page(preferred_job_name: str | None = None, default_view: str = "Job Lineage", widget_key: str = "_cached_lineage_module") -> None:
+def _clear_stale_lineage_cache() -> None:
+    """Delete the on-disk lineage cache and clear Streamlit's in-memory cache."""
+    import os
     try:
-        data = load_cached_lineage()
-    except Exception as exc:
-        st.error(f"Cached lineage could not be loaded: {exc}")
+        if os.path.exists(_CACHE_PATH):
+            os.remove(_CACHE_PATH)
+    except OSError:
+        pass
+    try:
+        load_cached_lineage.clear()
+    except Exception:
+        pass
+
+
+def render_cached_lineage_page(preferred_job_name: str | None = None, default_view: str = "Job Lineage", widget_key: str = "_cached_lineage_module") -> None:
+    import os as _os
+    if not _os.path.exists(_CACHE_PATH):
+        st.info("Column Lineage requires the Phase 1C cache. Run `build_phase1c_lineage_cache.py` against your repository to enable this view.")
         return
 
-    # ── Fix 3: sanity-check that cache contains Talend jobs, not Python files ──
+    try:
+        data = load_cached_lineage()
+    except Exception:
+        st.info("Column Lineage requires the Phase 1C cache. Run `build_phase1c_lineage_cache.py` against your repository to enable this view.")
+        return
+
+    # ── Sanity-check 1: cache built from Python files instead of Talend .item jobs ──
     mismatch_msg = _detect_cache_source_mismatch(data)
     if mismatch_msg:
-        st.error(mismatch_msg)
-        # Still render below so the developer can inspect what's in the cache,
-        # but the error banner makes the problem impossible to miss.
+        _clear_stale_lineage_cache()
+        st.info("Column Lineage requires the Phase 1C cache. Run `build_phase1c_lineage_cache.py` against your repository to enable this view.")
+        return
+
+    # ── Sanity-check 2: cache exists but doesn't contain the currently loaded jobs ──
+    if preferred_job_name:
+        cache_jobs = set(data.get("job_lineage", {}).keys())
+        loaded_jobs = {
+            j["job_data"]["job_name"]
+            for j in (st.session_state.get("last_analysis_jobs") or [])
+            if isinstance(j, dict) and "job_data" in j
+        }
+        # If loaded jobs are Talend-style names but cache has none of them → stale
+        if loaded_jobs and cache_jobs and not loaded_jobs.intersection(cache_jobs):
+            _clear_stale_lineage_cache()
+            st.info(
+                "Lineage cache was from a previous repository and has been cleared. "
+                "Re-run analysis to rebuild lineage for the current repository."
+            )
+            return
 
     meta = data.get("metadata", {})
     st.caption(

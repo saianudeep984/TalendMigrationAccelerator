@@ -1,4 +1,4 @@
-﻿"""
+"""
 Job Analysis Page — shows core identity details for a selected job.
 """
 
@@ -58,6 +58,7 @@ except ModuleNotFoundError as _column_mapping_import_error:
     def render_column_mapping_tab(*args, **kwargs):
         st.warning(f"Column Mapping is unavailable: {_COLUMN_MAPPING_IMPORT_ERROR}")
 from app.ui.cached_lineage_page import render_cached_lineage_page
+from app.ui.component_icons import component_icon, component_role_icon, severity_icon
 from app.parser.source_target_extractor import build_source_target_inventory, extract_sql_operations
 from app.tiap.models.repository import component_parameters, normalize_name
 from app.ui.design_system_v2 import (
@@ -67,6 +68,7 @@ from app.ui.design_system_v2 import (
     render_mermaid_diagram,
     render_kpi_badge,
     render_kpi_row,
+    render_tab_skeleton,
 )
 try:
     from app.ui.executive_flow_layout import render_executive_job_360
@@ -144,48 +146,45 @@ except ModuleNotFoundError:
     nx = _MiniNetworkX()
 
 JOB360_CATEGORY_LABELS = [
-    "Overview",
-    "Executive & Migration",
-    "Architecture",
-    "Mapping & Lineage",
-    "Technical Analysis",
-    "Documentation",
-    "Export Center",
+    "🏠 Overview",
+    "🚀 Executive & Migration",
+    "🏗️ Architecture",
+    "🔗 Mapping & Lineage",
+    "🔬 Technical Analysis",
+    "📄 Documentation",
+    "📦 Export Center",
 ]
 
 JOB360_SECTION_CATEGORIES = {
-    "Dashboard": "Overview",
-    "Summary": "Overview",
-    "Functional": "Overview",
-    "Executive Summary": "Overview",
-    "AI Summary": "Overview",
-    "Executive Flow": "Executive & Migration",
-    "Migration": "Executive & Migration",
-    "AI Copilot": "Executive & Migration",
-    "Migration Assessment": "Executive & Migration",
-    "Validation": "Executive & Migration",
-    "Flowcharts": "Architecture",
-    "Data Flow": "Architecture",
-    "Dependencies": "Architecture",
-    "Job Architecture": "Architecture",
-    "Source Architecture": "Architecture",
-    "Target Architecture": "Architecture",
-    "Transformation Architecture": "Architecture",
-    "Job Flow Architecture": "Architecture",
-    "Column Mapping": "Mapping & Lineage",
-    "Source-To-Target Mapping": "Mapping & Lineage",
-    "Column Lineage": "Mapping & Lineage",
-    "Lineage": "Mapping & Lineage",
-    "SQL": "Technical Analysis",
-    "Java Logic": "Technical Analysis",
-    "Error Handling": "Technical Analysis",
-    "Audit": "Technical Analysis",
-    "Performance": "Technical Analysis",
-    "Security": "Technical Analysis",
-    "TDD": "Documentation",
-    "Docs Hub": "Documentation",
-    "Testing": "Documentation",
-    "Export Reports": "Export Center",
+    "📊 Dashboard": "🏠 Overview",
+    "📋 Summary & Executive": "🏠 Overview",
+    "⚙️ Functional": "🏠 Overview",
+    "🤖 AI Summary": "🏠 Overview",
+    "🗺️ Executive Flow": "🚀 Executive & Migration",
+    "🚀 Migration": "🚀 Executive & Migration",
+    "🤖 AI Copilot": "🚀 Executive & Migration",
+    "🚀 Migration Assessment": "🚀 Executive & Migration",
+    "✅ Validation": "🚀 Executive & Migration",
+    "🔀 Flowcharts": "🏗️ Architecture",
+    "🌊 Data Flow": "🏗️ Architecture",
+    "🔗 Dependencies": "🏗️ Architecture",
+    "🏗️ Job Architecture": "🏗️ Architecture",
+    "📥 Source Architecture": "🏗️ Architecture",
+    "📤 Target Architecture": "🏗️ Architecture",
+    "⚙️ Transformation Architecture": "🏗️ Architecture",
+    "🔄 Job Flow Architecture": "🏗️ Architecture",
+    "🗂️ Column Mapping": "🔗 Mapping & Lineage",
+    "↔️ Source-To-Target Mapping": "🔗 Mapping & Lineage",
+    "🔍 Column Lineage": "🔗 Mapping & Lineage",
+    "🕸️ Lineage": "🔗 Mapping & Lineage",
+    "🗄️ SQL": "🔬 Technical Analysis",
+    "☕ Java Logic": "🔬 Technical Analysis",
+    "⚠️ Error Handling": "🔬 Technical Analysis",
+    "📋 Audit": "🔬 Technical Analysis",
+    "⚡ Performance": "🔬 Technical Analysis",
+    "🔒 Security": "🔬 Technical Analysis",
+    "🧪 Testing": "📄 Documentation",
+    "📦 Export Reports": "📦 Export Center",
 }
 
 
@@ -203,7 +202,6 @@ def _render_tdd_tab_content():
         _render_mapping,
         _render_transformation_architecture,
         _render_job_flow_architecture,
-        _render_column_lineage_tdd,
         _render_validation,
         _render_error_handling,
         _render_audit_monitoring,
@@ -251,7 +249,6 @@ def _render_tdd_tab_content():
         _render_mapping,
         _render_transformation_architecture,
         _render_job_flow_architecture,
-        _render_column_lineage_tdd,
         _render_validation,
         _render_error_handling,
         _render_audit_monitoring,
@@ -324,7 +321,7 @@ def _render_documentation_summary(
         {"label": "Risks", "value": len(high_risks) + len(risk_factors), "caption": "risk items", "color": "#be123c" if high_risks or risk_factors else "#15803d"},
     ])
 
-    doc_tabs = st.tabs(["Business Summary", "Technical Summary", "Migration Notes", "Risks", "Recommendations"])
+    doc_tabs = st.tabs(["💼 Business Summary", "🛠️ Technical Summary", "🚀 Migration Notes", "🛑 Risks", "💡 Recommendations"])
 
     with doc_tabs[0]:
         st.markdown("##### Business Summary")
@@ -402,12 +399,12 @@ def _render_documentation_summary(
             fallback = [
                 {"Category": "Validation", "Recommendation": "Validate source-to-target counts and key business rules after migration."},
                 {"Category": "Testing", "Recommendation": "Use the preserved Testing tab to generate or review reconciliation checks."},
-                {"Category": "Documentation", "Recommendation": "Keep TDD and Docs Hub exports aligned with the final migrated design."},
+                {"Category": "📄 Documentation", "Recommendation": "Keep TDD and Docs Hub exports aligned with the final migrated design."},
             ]
             st.dataframe(pd.DataFrame(fallback), use_container_width=True, hide_index=True)
 
 
-PHASE8_EXPORT_SECTIONS = ["Overview", "Architecture", "Mapping", "Lineage", "SQL", "Java", "Documentation"]
+PHASE8_EXPORT_SECTIONS = ["🏠 Overview", "🏗️ Architecture", "Mapping", "Lineage", "SQL", "Java", "📄 Documentation"]
 
 
 def _phase8_cache_get(namespace: str, key: str, builder):
@@ -590,8 +587,8 @@ def _phase8_export_sections(
         ]
 
         return {
-            "Overview": "# Overview\n\n" + _phase8_md_table(metadata_rows, ["Metric", "Value"]),
-            "Architecture": (
+            "🏠 Overview": "# Overview\n\n" + _phase8_md_table(metadata_rows, ["Metric", "Value"]),
+            "🏗️ Architecture": (
                 "# Architecture\n\n## Component Inventory\n\n"
                 + _phase8_md_table(comp_rows, ["Component", "Type", "Purpose"])
                 + "\n\n## Dependencies\n\n"
@@ -614,7 +611,7 @@ def _phase8_export_sections(
                 + "\n\n## Recommendations\n\n"
                 + _phase8_md_table(java_payload.get("recommendations", []), ["Component", "priority", "category", "recommendation"])
             ),
-            "Documentation": (
+            "📄 Documentation": (
                 "# Documentation\n\n"
                 + _phase8_md_table(documentation_notes, ["Section", "Content"])
                 + "\n\n## Recommendations\n\n"
@@ -745,7 +742,7 @@ def _clean_sql(sql: str) -> str:
 
 def _sql_tables(pattern: str, sql: str) -> list[str]:
     return sorted({
-        t.strip('"[]`').split()[-1]
+        re.sub(r'^[\[\]"`]+|[\[\]"`]+$', '', t.split()[-1])
         for t in re.findall(pattern, sql, flags=re.IGNORECASE)
         if t and not t.upper().startswith(("SELECT", "WHERE", "ON"))
     })
@@ -833,7 +830,7 @@ def _analyze_sql_query(op: dict, index: int) -> dict:
     joins = [
         {
             "join_type": re.sub(r"\s+", " ", jtype.strip()).upper() if jtype.strip() else "JOIN",
-            "tables": f"{_from_table} ↔ {tbl.strip(chr(34))}",
+            "tables": f"{_from_table} → {tbl.strip(chr(34))}",
             "condition": cond.strip(),
         }
         for jtype, tbl, cond in _join_pattern
@@ -890,7 +887,7 @@ def _analyze_sql_query(op: dict, index: int) -> dict:
         if actions else f"This {qtype.lower()} query performs database processing based on the detected SQL structure."
     )
 
-    # ── SQL Complexity scoring ────────────────────────────────────────────
+    # -- SQL Complexity scoring --------------------------------------------
     _sql_functions = sorted(set(re.findall(
         r"\b(COALESCE|NVL|DECODE|CASE|IIF|IF|NULLIF|CAST|CONVERT|TO_DATE|TO_CHAR|TO_NUMBER"
         r"|SUBSTR|SUBSTRING|TRIM|LTRIM|RTRIM|REPLACE|UPPER|LOWER|LENGTH|LEN|CONCAT"
@@ -1121,25 +1118,7 @@ def _generate_sql_business_context(job_name: str, query_signature: str, sql_ops:
 
 
 def _flow_icon(ctype: str) -> str:
-    c = (ctype or "").lower()
-    if c.endswith("input") or "input" in c:
-        return "📥"
-    if c.endswith("output") or "output" in c:
-        return "📤"
-    if "map" in c:
-        return "🔀"
-    if "java" in c or "beanshell" in c:
-        return "⚙️"
-    if "filter" in c or "schema" in c:
-        return "🔍"
-    if "runjob" in c:
-        return "▶️"
-    if "joblet" in c:
-        return "🧩"
-    if "file" in c and any(k in c for k in ("delete", "exist", "copy", "list")):
-        return "🗂️"
-    return "⬜"
-
+    return component_icon(ctype)
 
 def _friendly_component_name(ctype: str) -> str:
     text = str(ctype or "")
@@ -1180,12 +1159,12 @@ def _build_flow_steps(jd: dict) -> list:
         prev_key = key
         steps.append((_flow_icon(ctype), _friendly_component_name(ctype), detail or ctype))
     if not steps:
-        steps = [("⬜", "No Components", "No components found in this job")]
+        steps = [("?", "No Components", "No components found in this job")]
     return steps
 
 
 
-# ── SQL Performance: heavy-function catalogue (constant, used in tab render) ──
+# -- SQL Performance: heavy-function catalogue (constant, used in tab render) --
 _SQL_HEAVY_FUNCTIONS: dict[str, str] = {
     "ROW_NUMBER": "window function (ROW_NUMBER)",
     "RANK": "window function (RANK)",
@@ -1384,7 +1363,7 @@ def render_job_analysis_page():
             "No jobs loaded",
             "Run an analysis on a repository to see job-level details here.",
             status="warning",
-            icon="🔍",
+            icon="📭",
             button_label="Run Analysis",
             button_key="job_analysis_run_analysis",
         )
@@ -1472,8 +1451,8 @@ def render_job_analysis_page():
     talend_version = jd.get("talend_version", "—")
 
 
-    # ── Shared computed data (computed ONCE, reused across all tabs + export) ──
-    _shared_key = f"_360_shared_{job_name}"
+    # -- Shared computed data (computed ONCE, reused across all tabs + export) --
+    _shared_key = f"_360_shared_{job_name}_{job_version}"
     if _shared_key not in st.session_state:
         _inv = build_source_target_inventory(jd)
         _sql_ops = extract_sql_operations(jd.get("components", []))
@@ -1503,10 +1482,10 @@ def render_job_analysis_page():
         unsafe_allow_html=True,
     )
 
-    # ── Build 360 export content once per job (cached in session state) ────
-    _export_key = f"_360_export_{job_name}"
+    # -- Build 360 export content once per job (cached in session state) ----
+    _export_key = f"_360_export_{job_name}_{job_version}"
     if _export_key not in st.session_state:
-        # ── Build comprehensive 360 export content (all tabs) ─────────────────
+        # -- Build comprehensive 360 export content (all tabs) -----------------
         complexity = job.get("complexity", {})
         _exp_level = complexity.get("complexity", "—")
         _exp_score = complexity.get("score", "—")
@@ -1634,7 +1613,7 @@ def render_job_analysis_page():
     _exp_unknown_comps = _cached["unknown_comps"]; _exp_vendor_funcs = _cached["vendor_funcs"]
     _exp_auto_fixes = _cached["auto_fixes"]; _exp_manual_fixes = _cached["manual_fixes"]; _exp_java_comps = _cached["java_comps"]
 
-    # ── Job 360 hero KPI strip ────────────────────────────────────────────────
+    # -- Job 360 hero KPI strip ------------------------------------------------
     _hero_cx = job.get("complexity", {})
     _hero_level = _hero_cx.get("complexity", "LOW")
     _hero_score = _hero_cx.get("score", 0)
@@ -1652,19 +1631,70 @@ def render_job_analysis_page():
     ])
     _default_tab = st.session_state.pop("_job360_active_tab", 0)
 
-    # ── Phase 2A: Categorised Job 360 Navigation ─────────────────────────────
+    # -- Phase 2A: Categorised Job 360 Navigation -----------------------------
     _cat_labels = JOB360_CATEGORY_LABELS
     _pending_category = st.session_state.pop("_job360_open_category", "")
     if _pending_category in _cat_labels:
         st.session_state["job360_cat_nav"] = _pending_category
+    _j360_query = st.text_input(
+        "Search Job 360",
+        key="j360_search",
+        placeholder="Search components, SQL, risks…",
+        label_visibility="collapsed",
+    )
+    if _j360_query and _j360_query.strip():
+        _q = _j360_query.strip().lower()
+        _matches: list[dict] = []
+        for _idx, _comp in enumerate(jd.get("components", [])):
+            _name = str(_comp.get("unique_name") or _comp.get("name") or "")
+            _ctype = str(_comp.get("component_type") or "")
+            if _q in _name.lower() or _q in _ctype.lower():
+                _matches.append({
+                    "kind": "Component",
+                    "title": _name or _ctype or f"Component {_idx + 1}",
+                    "body": f"{_ctype} in {job_name}",
+                    "category": "🏗️ Architecture",
+                })
+        for _idx, _op in enumerate(_sql_ops):
+            _query_text = str(_op.get("query") or "")
+            if _q in _query_text.lower():
+                _matches.append({
+                    "kind": "SQL",
+                    "title": str(_op.get("component") or _op.get("component_name") or f"SQL operation {_idx + 1}"),
+                    "body": _query_text[:700],
+                    "category": "🔬 Technical Analysis",
+                })
+        for _idx, _rec in enumerate(_all_recs):
+            if _rec.get("job_name") not in (None, job_name):
+                continue
+            _rec_text = " ".join(str(_rec.get(k) or "") for k in ("description", "issue", "fix", "recommendation"))
+            if _q in _rec_text.lower():
+                _matches.append({
+                    "kind": "Risk",
+                    "title": str(_rec.get("category") or _rec.get("issue") or f"Risk {_idx + 1}"),
+                    "body": _rec_text[:700],
+                    "category": "🚀 Executive & Migration",
+                })
+        st.caption(f"{len(_matches)} Job 360 search result(s)")
+        for _idx, _match in enumerate(_matches[:25]):
+            with st.expander(f"{_match['kind']}: {_match['title']}", expanded=_idx == 0):
+                st.write(_match["body"] or "No additional details available.")
+                if st.button("Go to category", key=f"j360_search_go_{job_name}_{_idx}"):
+                    st.session_state["_job360_open_category"] = _match["category"]
+                    st.rerun()
+        if len(_matches) > 25:
+            st.caption(f"Showing 25 of {len(_matches)} matches. Refine your search to narrow results.")
     _cat_sel = st.radio(
         "Category", _cat_labels, horizontal=True,
         label_visibility="collapsed", key="job360_cat_nav",
     )
 
-    if _cat_sel == "Overview":
-        _ov_dash, _ov_summary, _ov_func, _ov_exec, _ov_ai = st.tabs(["Dashboard", "Summary", "Functional", "Executive Summary", "AI Summary"])
+    if _cat_sel == "🏠 Overview":
+        _ov_dash, _ov_summary, _ov_func, _ov_ai = st.tabs(["📊 Dashboard", "📋 Summary & Executive", "⚙️ Functional", "🤖 AI Summary"])
         with _ov_dash:
+            _dash_skel = st.empty()
+            with _dash_skel.container():
+                render_tab_skeleton(lines=2, show_kpi=True, show_block=False)
             # Dashboard: uses existing Job360 metadata only (_inv, _sql_ops, _cached, job, jd).
             _dsh_cx = job.get("complexity", {})
             _dsh_level = _dsh_cx.get("complexity") or _dsh_cx.get("level") or _cached.get("level", "LOW")
@@ -1706,6 +1736,7 @@ def render_job_analysis_page():
                 "Run regression and reconciliation tests from the Testing tab.",
             ]
 
+            _dash_skel.empty()
             st.markdown("#### Dashboard")
             render_kpi_row([
                 {"label": "Job Name", "value": job_name, "caption": f"v{job_version}", "color": "#1d4ed8"},
@@ -1762,7 +1793,29 @@ def render_job_analysis_page():
             ]
             st.dataframe(pd.DataFrame(_summary_rows), use_container_width=True, hide_index=True)
         with _ov_summary:
+            _sum_skel = st.empty()
+            with _sum_skel.container():
+                render_tab_skeleton(lines=4, show_kpi=True, show_block=True)
+            _sum_skel.empty()
             st.markdown("#### Summary")
+            # Compute purpose early for use in this tab
+            _sum_inv = _inv
+            _sum_sources = _sum_inv.get("source_names", [])
+            _sum_targets = _sum_inv.get("target_names", [])
+            _sum_sql_ops = _sum_inv.get("sql_operations", [])
+            if _sum_sources and _sum_targets:
+                purpose = (
+                    f"This job reads data from {', '.join(_sum_sources)} "
+                    f"and delivers it to {', '.join(_sum_targets)}."
+                )
+            elif _sum_sources:
+                purpose = f"This job reads and processes data from {', '.join(_sum_sources)}."
+            elif _sum_targets:
+                purpose = f"This job produces output data for {', '.join(_sum_targets)}."
+            else:
+                purpose = "This job performs internal processing with no clearly identified external sources or targets."
+            if _sum_sql_ops:
+                purpose += f" It also performs {len(_sum_sql_ops)} direct database operation(s) as part of its processing."
             render_kpi_row([
                 {"label": "Complexity", "value": _hero_level, "caption": f"Score: {_hero_score}", "color": "#15803d" if _hero_level == "LOW" else "#b45309" if _hero_level == "MEDIUM" else "#be123c"},
                 {"label": "Cloud Readiness", "value": _hero_cloud, "caption": f"Est. {_hero_effort}h effort", "color": "#15803d" if _hero_cloud == "Ready" else "#be123c"},
@@ -1771,24 +1824,11 @@ def render_job_analysis_page():
             ])
             st.markdown(f"**Job:** `{job_name}`")
             st.markdown(f"**Version:** `{job_version}`")
-            st.markdown(f"**Purpose:** {purpose if 'purpose' in locals() else 'Repository job analysis summary.'}")
+            st.markdown(f"**Purpose:** {purpose}")
 
-        with _ov_ai:
-            st.markdown("#### AI Summary")
-            _ai_sum_key = f"_ov_ai_summary_{job_name}"
-            if _ai_sum_key not in st.session_state:
-                try:
-                    from app.tiap.exec_summary.exec_summary import build_executive_summary
-                    _ai_sum_data = build_executive_summary(jd)
-                    st.session_state[_ai_sum_key] = _ai_sum_data
-                except Exception:
-                    st.session_state[_ai_sum_key] = {"business_summary": "AI summary unavailable.", "technical_summary": ""}
-            _ai_sum = st.session_state[_ai_sum_key]
-            with st.expander("Business Summary", expanded=True):
-                st.markdown(_ai_sum.get("business_summary","—"))
-            with st.expander("Technical Summary", expanded=False):
-                st.markdown(_ai_sum.get("technical_summary","—"))
-        with _ov_exec:
+            st.divider()
+
+            # ── Executive Summary (merged) ────────────────────────────────────
             complexity = job.get("complexity", {})
             level = complexity.get("complexity", "LOW")
             score = complexity.get("score", "—")
@@ -1911,9 +1951,9 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Business Overview ─────────────────────────────────────────────────
+            # -- Business Overview -------------------------------------------------
             st.markdown("---")
-            st.markdown("#### 📋 Business Overview")
+            st.markdown("#### 📊 Business Overview")
             st.caption("Key metrics for this job at a glance.")
             _bo_sources = _inv.get("source_names", [])
             _bo_targets = _inv.get("target_names", [])
@@ -1948,7 +1988,7 @@ def render_job_analysis_page():
                     unsafe_allow_html=True,
                 )
 
-            with st.expander("🔍 View data sources & targets"):
+            with st.expander("🔎 View data sources & targets"):
                 _bo_dc1, _bo_dc2 = st.columns(2)
                 with _bo_dc1:
                     st.markdown("**Data Sources**")
@@ -1966,14 +2006,14 @@ def render_job_analysis_page():
                         st.caption("None detected")
 
             if sql_ops:
-                with st.expander(f"🗃️ View SQL operations ({len(sql_ops)})"):
+                with st.expander(f"🗄️ View SQL operations ({len(sql_ops)})"):
                     for _op in sql_ops:
                         st.markdown(f"**{_op.get('component', 'SQL component')}** &nbsp;·&nbsp; {_op.get('db_type', 'unknown DB')}")
                         st.code(_op.get("query", "") or "—", language="sql")
 
             st.markdown("")
 
-            # ── Executive Summary ────────────────────────────────────────────────
+            # -- Executive Summary ------------------------------------------------
             st.markdown("## Executive Summary")
             _cx_color = level_colors.get(level, "#1a1a18")
             _cx_bg = level_bg.get(level, "#f5f5f0")
@@ -2040,7 +2080,7 @@ def render_job_analysis_page():
             _biz_key = f"job_biz_summary_{job_name}"
             _biz_c1, _biz_c2 = st.columns([1, 3])
             _biz_use_ai = _biz_c1.checkbox("🤖 Use AI (Ollama)", value=False, key=f"biz_use_ai_{job_name}")
-            if _biz_c2.button("✨ Explain in business terms", key=f"btn_biz_{job_name}"):
+            if _biz_c2.button("💬 Explain in business terms", key=f"btn_biz_{job_name}"):
                 _biz_prompt = (
                     "You are a business analyst explaining a data integration job to a non-technical stakeholder.\n"
                     "Rules: plain business language only, no code or technical component names, describe WHAT the "
@@ -2059,7 +2099,7 @@ def render_job_analysis_page():
             _biz_summary = st.session_state.get(_biz_key)
             if _biz_summary:
                 st.markdown(
-                    f'<div class="tma-pitch" style="border-left-color:#3C3489;"><p>🧠 {_biz_summary}</p></div>',
+                    f'<div class="tma-pitch" style="border-left-color:#3C3489;"><p>🤖 {_biz_summary}</p></div>',
                     unsafe_allow_html=True,
                 )
 
@@ -2073,11 +2113,11 @@ def render_job_analysis_page():
             with badge_cols[3]:
                 render_kpi_badge("Cloud Readiness", _cloud_readiness, details=cloud_details, key=f"{job_name}_cloud_badge")
 
-            # ── Header card ──────────────────────────────────────────────────────
+            # -- Header card ------------------------------------------------------
             st.markdown(
                 f"""
                 <div class="tma-header">
-                  <div class="tma-header-icon">🔍</div>
+                  <div class="tma-header-icon">🧾</div>
                   <div>
                     <h2>{job_name}</h2>
                     <p>
@@ -2093,7 +2133,7 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Job versions ─────────────────────────────────────────────────────
+            # -- Job versions -----------------------------------------------------
             all_versions = [j for j in all_jobs if j["job_data"].get("job_name") == job_name]
             if len(all_versions) > 1:
                 st.markdown('<div class="tma-sec-label">Job versions found in repository</div>', unsafe_allow_html=True)
@@ -2101,7 +2141,7 @@ def render_job_analysis_page():
                     v_jd = j["job_data"]
                     st.markdown(f"- Version `{v_jd.get('job_version', '—')}` — {j.get('file_path', '—')}")
 
-            # ── Job flow ─────────────────────────────────────────────────────────
+            # -- Job flow ---------------------------------------------------------
             st.markdown('<div class="tma-sec-label">How this job works — step by step</div>', unsafe_allow_html=True)
 
             steps = _flow_steps
@@ -2118,14 +2158,14 @@ def render_job_analysis_page():
             if len(steps) > len(shown_steps):
                 flow_html += (
                     f'<div class="tma-fstep"><div class="num">+{len(steps) - len(shown_steps)} MORE</div>'
-                    f'<div class="sicon">➕</div>'
+                    f'<div class="sicon">…</div>'
                     f'<div class="ftitle">More steps</div>'
                     f'<div class="fdet">See Flowcharts tab for the full sequence</div></div>'
                 )
             flow_html += '</div>'
             st.markdown(flow_html, unsafe_allow_html=True)
 
-            # ── Complexity & risk highlight ──────────────────────────────────────
+            # -- Complexity & risk highlight --------------------------------------
             st.markdown('<div class="tma-sec-label">Complexity &amp; migration risk</div>', unsafe_allow_html=True)
             tags_html = "".join(f'<span class="tma-tag">{rf}</span>' for rf in risk_factors)
             st.markdown(
@@ -2140,19 +2180,19 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Sources & targets badges ────────────────────────────────────────
+            # -- Sources & targets badges ----------------------------------------
             st.markdown('<div class="tma-sec-label">Sources &amp; targets identified</div>', unsafe_allow_html=True)
             badges_html = '<div class="tma-badge-row">'
             for s in sources_full:
-                badges_html += f'<span class="tma-badge">📥 {s.get("name","—")} <span style="font-weight:400;opacity:.7">{s.get("component","")}</span></span>'
+                badges_html += f'<span class="tma-badge">{component_role_icon("source")} {s.get("name","—")} <span style="font-weight:400;opacity:.7">{s.get("component","")}</span></span>'
             for t in targets_full:
-                badges_html += f'<span class="tma-badge">📤 {t.get("name","—")} <span style="font-weight:400;opacity:.7">{t.get("component","")}</span></span>'
+                badges_html += f'<span class="tma-badge">{component_role_icon("target")} {t.get("name","—")} <span style="font-weight:400;opacity:.7">{t.get("component","")}</span></span>'
             if not sources_full and not targets_full:
                 badges_html += '<span class="tma-badge">None detected</span>'
             badges_html += '</div>'
             st.markdown(badges_html, unsafe_allow_html=True)
 
-            # ── Auto vs manual compare ──────────────────────────────────────────
+            # -- Auto vs manual compare ------------------------------------------
             st.markdown('<div class="tma-sec-label">Recommendations — auto vs manual fixes</div>', unsafe_allow_html=True)
             auto_li = "".join(f"<li>{r['issue']} — {r['fix']}</li>" for r in auto_fixes) or "<li>None</li>"
             manual_li = "".join(f"<li>{r['issue']} — {r['fix']}</li>" for r in manual_fixes) or "<li>None</li>"
@@ -2164,7 +2204,7 @@ def render_job_analysis_page():
                     <ul>{auto_li}</ul>
                   </div>
                   <div class="tma-cmp">
-                    <div class="tma-cmp-title">⚠️ Manual Fixes</div>
+                    <div class="tma-cmp-title">🛠 Manual Fixes</div>
                     <ul>{manual_li}</ul>
                   </div>
                 </div>
@@ -2183,9 +2223,9 @@ def render_job_analysis_page():
             else:
                 st.markdown("- None")
 
-            # ── Tabs: Child Jobs / Joblets / Routines / Metadata ─────────────────────
+            # -- Tabs: Child Jobs / Joblets / Routines / Metadata ---------------------
             tab_child, tab_joblets, tab_routines, tab_metadata = st.tabs(
-                ["👶 Child Jobs", "🧩 Joblets", "📦 Routines", "🗂️ Metadata"]
+                ["📂 Child Jobs", "🔗 Joblets", "☕ Routines", "🗂️ Metadata"]
             )
 
             with tab_child:
@@ -2298,7 +2338,7 @@ def render_job_analysis_page():
                 else:
                     st.markdown("- None")
 
-            # ── SQL ───────────────────────────────────────────────────────────────────
+            # -- SQL -------------------------------------------------------------------
             st.markdown("#### SQL")
             sql_ops = _sql_ops
             tables: set[str] = set()
@@ -2328,7 +2368,7 @@ def render_job_analysis_page():
                 for cond in where_pattern.findall(query):
                     filters.append(cond.strip())
 
-            # ── Tables Used ───────────────────────────────────────────────────────────
+            # -- Tables Used -----------------------------------------------------------
             st.markdown("**Tables Used**")
             from app.parser.source_target_extractor import extract_sources, extract_targets
             _alias_pattern = re.compile(
@@ -2346,13 +2386,13 @@ def render_job_analysis_page():
 
             # Sources → READ
             for src in extract_sources(jd.get("components", [])):
-                tbl = src.get("table") or src.get("label") or ""
+                tbl = src.get("name") or src.get("qualified_name") or ""
                 if tbl:
                     _add_table_row(tbl, "", f"READ — {src.get('purpose', 'Source table')}")
 
             # Targets → WRITE
             for tgt in extract_targets(jd.get("components", [])):
-                tbl = tgt.get("table") or tgt.get("label") or ""
+                tbl = tgt.get("name") or tgt.get("qualified_name") or ""
                 if tbl:
                     _add_table_row(tbl, "", f"WRITE — {tgt.get('purpose', 'Target table')}")
 
@@ -2381,7 +2421,7 @@ def render_job_analysis_page():
             else:
                 st.markdown("- None")
 
-            # ── Mapping & Migration Logic ─────────────────────────────────────────────
+            # -- Mapping & Migration Logic ---------------------------------------------
             import pandas as _pd_map
             from collections import OrderedDict as _OD
 
@@ -2393,7 +2433,7 @@ def render_job_analysis_page():
                 _col_map_rows = _TJP(_item_path).extract_column_mappings()
                 _map_rules    = _TJP(_item_path).extract_mapping_rules()
 
-            # ── detect mapping components ─────────────────────────────────────────
+            # -- detect mapping components -----------------------------------------
             _comps      = jd.get("components", [])
             _has_tmap   = any(c.get("component_type") == "tMap"         for c in _comps)
             _has_tjoin  = any(c.get("component_type") == "tJoin"        for c in _comps)
@@ -2401,14 +2441,14 @@ def render_job_analysis_page():
             _has_tagg   = any(c.get("component_type") == "tAggregateRow"for c in _comps)
             _has_lookup = bool(_map_rules and any(r.get("Rule Type") == "Lookup" for r in _map_rules))
 
-            # ── compact signal row ────────────────────────────────────────────────
+            # -- compact signal row ------------------------------------------------
             _sig_cols = st.columns(5)
             _signals = [
-                ("tMap",        _has_tmap,   "🗺️"),
-                ("tJoin",       _has_tjoin,  "🔗"),
-                ("tFilterRow",  _has_tfilt,  "🔍"),
-                ("tAggregate",  _has_tagg,   "Σ"),
-                ("Lookup",      _has_lookup, "🔵"),
+                ("tMap",        _has_tmap,   component_icon("tMap")),
+                ("tJoin",       _has_tjoin,  component_icon("tJoin")),
+                ("tFilterRow",  _has_tfilt,  component_icon("tFilterRow")),
+                ("tAggregate",  _has_tagg,   component_icon("tAggregateRow")),
+                ("Lookup",      _has_lookup, "🔍"),
             ]
             for _sc, (_lbl, _on, _ico) in zip(_sig_cols, _signals):
                 _bg = "#e8f5e9" if _on else "#f5f5f5"
@@ -2422,19 +2462,19 @@ def render_job_analysis_page():
 
             st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
-            # ── migration logic: rule classification + action ─────────────────────
+            # -- migration logic: rule classification + action ---------------------
             _RULE_META = {
                 #                          ico   action           bg         fg         effort
                 "Direct Copy":            ("✅", "Keep",          "#e8f5e9", "#2e7d32", "Low"),
                 "Direct Copy (Nullable)": ("✅", "Keep+Null chk", "#e8f5e9", "#2e7d32", "Low"),
-                "Type Cast":              ("⚙️", "tConvertType",  "#fff3e0", "#e65100", "Low"),
-                "Context Variable":       ("🔧", "Context bind",  "#e3f2fd", "#1565c0", "Low"),
+                "Type Cast":              ("🔃", "tConvertType",  "#fff3e0", "#e65100", "Low"),
+                "Context Variable":       ("📎", "Context bind",  "#e3f2fd", "#1565c0", "Low"),
                 "Join Key":               ("🔗", "Remap key",     "#f3e5f5", "#6a1b9a", "Medium"),
                 "Conditional Expression": ("🔀", "Rewrite expr",  "#fff8e1", "#f57f17", "High"),
-                "String Concatenation":   ("✏️", "CONCAT expr",   "#fce4ec", "#880e4f", "Low"),
+                "String Concatenation":   ("🔤", "CONCAT expr",   "#fce4ec", "#880e4f", "Low"),
                 "Function Transform":     ("🛠️", "Migrate func",  "#e0f2f1", "#00695c", "High"),
                 "Arithmetic Expression":  ("🧮", "Port arith",    "#fff3e0", "#bf360c", "Medium"),
-                "Cross-Table Reference":  ("🌐", "Cross-schema",  "#e8eaf6", "#283593", "High"),
+                "Cross-Table Reference":  ("🌉", "Cross-schema",  "#e8eaf6", "#283593", "High"),
                 "Expression Mapping":     ("📝", "Manual review", "#f5f5f5", "#424242", "Medium"),
             }
             _EFFORT_BADGE = {
@@ -2461,7 +2501,7 @@ def render_job_analysis_page():
             for _r in _col_map_rows:
                 _rule_counts[_r["Migration Rule"]] = _rule_counts.get(_r["Migration Rule"], 0) + 1
 
-            # ── migration logic summary table ─────────────────────────────────────
+            # -- migration logic summary table -------------------------------------
             st.markdown("**Migration Logic**")
             if _rule_counts:
                 _auto_n  = sum(n for r, n in _rule_counts.items() if "Direct Copy" in r)
@@ -2496,7 +2536,7 @@ def render_job_analysis_page():
 
                 _logic_rows = []
                 for _rule, _cnt in sorted(_rule_counts.items(), key=lambda x: -x[1]):
-                    _ico, _action, _bg, _fg, _eff = _RULE_META.get(_rule, ("📝","Manual review","#f5f5f5","#424242","Medium"))
+                    _ico, _action, _bg, _fg, _eff = _RULE_META.get(_rule, ("🔧","Manual review","#f5f5f5","#424242","Medium"))
                     _guide = _RULE_GUIDE.get(_rule, "Manual review required.")
                     _logic_rows.append({
                         "Rule": _rule,
@@ -2522,7 +2562,7 @@ def render_job_analysis_page():
             else:
                 st.caption("No mapping components detected.")
 
-            # ── column mapping by component pair ─────────────────────────────────
+            # -- column mapping by component pair ---------------------------------
             if _col_map_rows:
                 st.markdown("**Column Mapping**")
                 _cm_groups = _OD()
@@ -2531,11 +2571,11 @@ def render_job_analysis_page():
                     _cm_groups.setdefault(_gkey, []).append(_row)
                 for (_src_c, _tgt_c), _rows in _cm_groups.items():
                     _n = len(_rows)
-                    with st.expander(f"📦 {_src_c} → {_tgt_c}  ({_n})", expanded=False):
+                    with st.expander(f"🔀 {_src_c} → {_tgt_c}  ({_n})", expanded=False):
                         _rules_here = list(dict.fromkeys(r["Migration Rule"] for r in _rows))
                         _bhtml = ""
                         for _rl in _rules_here:
-                            _, _, _bg, _fg, _ = _RULE_META.get(_rl, ("📝","",  "#f5f5f5","#424242","Medium"))
+                            _, _, _bg, _fg, _ = _RULE_META.get(_rl, ("🔧","",  "#f5f5f5","#424242","Medium"))
                             _bhtml += (
                                 f'<span style="background:{_bg};color:{_fg};font-size:10px;'
                                 f'font-weight:700;padding:1px 8px;border-radius:20px;margin:0 3px 3px 0;">'
@@ -2547,15 +2587,15 @@ def render_job_analysis_page():
                             use_container_width=True, hide_index=True,
                         )
 
-            # ── mapping rules (join/lookup/reject) ────────────────────────────────
+            # -- mapping rules (join/lookup/reject) --------------------------------
             if _map_rules:
                 st.markdown("**Mapping Rules**")
-                _mr_icon = {"Output":"🟢","Lookup":"🔵","Reject":"🔴","Expression Filter":"🟡"}
+                _mr_icon = {"Output":component_role_icon("output"),"Lookup":"🔍","Reject":"🚫","Expression Filter":"🧮"}
                 _mr_grp: dict = {}
                 for _mr in _map_rules:
                     _mr_grp.setdefault(_mr["Rule Type"], []).append(_mr)
                 for _rtype, _rrows in _mr_grp.items():
-                    with st.expander(f"{_mr_icon.get(_rtype,'⚪')} {_rtype} ({len(_rrows)})", expanded=False):
+                    with st.expander(f"{_mr_icon.get(_rtype,'🔧')} {_rtype} ({len(_rrows)})", expanded=False):
                         st.dataframe(
                             _pd_map.DataFrame(_rrows, columns=["Table","Join Type","Match Mode","Filter Expression"]),
                             use_container_width=True, hide_index=True,
@@ -2711,7 +2751,7 @@ def render_job_analysis_page():
             _bl_section("Joins", bl_joins)
             _bl_section("Rules", bl_rules)
 
-            # ── Aggregations ──────────────────────────────────────────────────────────
+            # -- Aggregations ----------------------------------------------------------
             st.markdown("**Aggregations**")
             if bl_aggregations:
                 import pandas as _pd_agg
@@ -2733,7 +2773,7 @@ def render_job_analysis_page():
             else:
                 st.markdown("- None")
 
-            # ── Business Flowchart ────────────────────────────────────────────────────
+            # -- Business Flowchart ----------------------------------------------------
             st.markdown("#### Business Flowchart")
 
             def _biz_node(name: str) -> str:
@@ -2769,22 +2809,22 @@ def render_job_analysis_page():
             # Source nodes
             for s in biz_sources:
                 nid = "SRC_" + _biz_node(s)
-                biz_mermaid.append(f'    {nid}[("📥 {s}")]')
+                biz_mermaid.append(f'    {nid}[("{component_role_icon("source")} {s}")]')
 
             # Validation nodes
             for v in validation_comps:
                 nid = "VAL_" + _biz_node(v)
-                biz_mermaid.append(f'    {nid}{{"✅ {v}"}}')
+                biz_mermaid.append(f'    {nid}{{"{component_role_icon("validation")} {v}"}}')
 
             # Transformation nodes
             for tr in transform_comps:
                 nid = "TRF_" + _biz_node(tr)
-                biz_mermaid.append(f'    {nid}["⚙️ {tr}"]')
+                biz_mermaid.append(f'    {nid}["{component_role_icon("transform")} {tr}"]')
 
             # Target nodes
             for t in biz_targets:
                 nid = "TGT_" + _biz_node(t)
-                biz_mermaid.append(f'    {nid}[("📤 {t}")]')
+                biz_mermaid.append(f'    {nid}[("{component_role_icon("target")} {t}")]')
 
             # Edges: Source → Validation (if any) → Transformation (if any) → Target
             # Fall back gracefully when stages are empty
@@ -2812,7 +2852,31 @@ def render_job_analysis_page():
             else:
                 st.markdown("- No business flow could be determined for this job.")
 
+        with _ov_ai:
+            _ai_skel = st.empty()
+            with _ai_skel.container():
+                render_tab_skeleton(lines=3, show_kpi=False, show_block=True)
+            _ai_skel.empty()
+            st.markdown("#### AI Summary")
+            _ai_sum_key = f"_ov_ai_summary_{job_name}"
+            if _ai_sum_key not in st.session_state:
+                try:
+                    from app.tiap.exec_summary.exec_summary import build_executive_summary
+                    _ai_sum_data = build_executive_summary(jd)
+                    st.session_state[_ai_sum_key] = _ai_sum_data
+                except Exception:
+                    st.session_state[_ai_sum_key] = {"business_summary": "AI summary unavailable.", "technical_summary": ""}
+            _ai_sum = st.session_state[_ai_sum_key]
+            with st.expander("Business Summary", expanded=True):
+                st.markdown(_ai_sum.get("business_summary", "—"))
+            with st.expander("Technical Summary", expanded=False):
+                st.markdown(_ai_sum.get("technical_summary", "—"))
+
         with _ov_func:
+            _func_skel = st.empty()
+            with _func_skel.container():
+                render_tab_skeleton(lines=3, show_kpi=True, show_block=True)
+            _func_skel.empty()
             st.markdown("### Functional Overview")
             functional_sources = [s.get("name", "") for s in inv.get("sources", []) if s.get("name")]
             functional_targets = [t.get("name", "") for t in inv.get("targets", []) if t.get("name")]
@@ -2887,7 +2951,7 @@ def render_job_analysis_page():
                 st.markdown("- No explicit functional rules detected in component parameters")
 
 
-    if _cat_sel == "Executive & Migration":
+    if _cat_sel == "🚀 Executive & Migration":
         # Compute variables that are normally set inside Overview/_ov_exec tab
         _em_complexity = job.get("complexity", {})
         _em_level = _em_complexity.get("complexity", "LOW")
@@ -2899,7 +2963,7 @@ def render_job_analysis_page():
         auto_fixes = [r for r in _em_job_recs if r["auto_fix"]]
         manual_fixes = [r for r in _em_job_recs if not r["auto_fix"]]
         _em_inv = _inv
-        _em_sql_ops = _em_inv.get("sql_operations", [])
+        _em_sql_ops = _sql_ops
         _em_component_count = len(jd.get("components", []))
         _em_custom_code_count = sum(
             1 for c in jd.get("components", [])
@@ -2936,7 +3000,7 @@ def render_job_analysis_page():
             "Not Ready": ("#fff1f2", "#be123c"),
         }
 
-        _em_exec, _em_migration, _em_cop, _em_mig, _em_valid = st.tabs(["Executive Flow", "Migration", "AI Copilot", "Migration Assessment", "Validation"])
+        _em_exec, _em_migration, _em_cop, _em_mig, _em_valid = st.tabs(["🗺️ Executive Flow", "🚀 Migration", "🤖 AI Copilot", "🚀 Migration Assessment", "✅ Validation"])
         with _em_exec:
             _exec_recs = [r for r in _all_recs if r["job_name"] == job_name]
             render_executive_job_360(
@@ -2949,8 +3013,8 @@ def render_job_analysis_page():
             )
 
         with _em_migration:
-            # ── Migration Impact ───────────────────────────────────────────────────
-            st.markdown("#### 🎯 Migration Impact")
+            # -- Migration Impact ---------------------------------------------------
+            st.markdown("#### 🚀 Migration Impact")
             st.markdown(
                 """
                 <style>
@@ -2980,7 +3044,7 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Compute Migration Impact metrics ────────────────────────────────
+            # -- Compute Migration Impact metrics --------------------------------
             _mi_sql_ops = _sql_ops
             _mi_comps = jd.get("components", [])
             _mi_total_comps = len(_mi_comps)
@@ -3066,7 +3130,7 @@ def render_job_analysis_page():
                 _mi_mode = "BLOCKED"
                 _mi_mode_caption = "Complex migration — significant manual effort expected"
 
-            # ── KPI row ────────────────────────────────────────────────────────
+            # -- KPI row --------------------------------------------------------
             mi_c1, mi_c2, mi_c3, mi_c4 = st.columns(4)
             with mi_c1:
                 st.markdown(
@@ -3104,11 +3168,11 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Detail sections ─────────────────────────────────────────────────
+            # -- Detail sections -------------------------------------------------
             mi_left, mi_right = st.columns(2)
 
             with mi_left:
-                st.markdown("**🔧 Manual Review Components**")
+                st.markdown("**🔍 Manual Review Components**")
                 _review_list = _mi_manual_comps + _mi_unknown_comps
                 if _review_list:
                     for _rc in _review_list:
@@ -3147,7 +3211,7 @@ def render_job_analysis_page():
                 else:
                     st.markdown('<div style="font-size:13px;color:#9e9e96;font-style:italic;">None detected</div>', unsafe_allow_html=True)
 
-                st.markdown("**✅ Auto-Migratable Components**")
+                st.markdown("**? Auto-Migratable Components**")
                 if _mi_auto_comps:
                     for _ac in _mi_auto_comps[:10]:
                         _atype = _ac.get("component_type", "")
@@ -3164,7 +3228,7 @@ def render_job_analysis_page():
 
             st.markdown("---")
 
-            # ── Cloud Readiness ────────────────────────────────────
+            # -- Cloud Readiness ------------------------------------
             st.markdown("#### Cloud Readiness")
             _readiness_label = "not ready for automated migration" if effort_hours == EFFORT_HOURS["manual"] else "a good candidate for automated migration"
             _fix_summary = f"{len(auto_fixes)} issue(s) can be auto-fixed and {len(manual_fixes)} require manual review" if (auto_fixes or manual_fixes) else "no issues detected"
@@ -3182,7 +3246,7 @@ def render_job_analysis_page():
                 {"label": "Manual Fixes", "value": str(len(manual_fixes)), "caption": "issue(s) need review"},
             ])
 
-            # ── Migration Waves ────────────────────────────────────
+            # -- Migration Waves ------------------------------------
             st.markdown("#### Migration Waves")
             st.caption("Wave order derived from existing job dependency relationships (jobs with no unresolved dependencies migrate first).")
 
@@ -3223,7 +3287,7 @@ def render_job_analysis_page():
             _sequence = [n for _wjobs in _waves for n in _wjobs]
             for _si, _sn in enumerate(_sequence, start=1):
                 _is_current = _sn == job_name
-                _marker = "➡️" if _is_current else f"{_si}."
+                _marker = "👉" if _is_current else f"{_si}."
                 _suffix = " **(this job)**" if _is_current else ""
                 st.markdown(f"{_marker} {_sn}{_suffix}")
 
@@ -3301,7 +3365,7 @@ def render_job_analysis_page():
                 key=f"ado_csv_{job_name}",
             )
 
-            # ── Upgrade Path ─────────────────────────────────────────────────────
+            # -- Upgrade Path -----------------------------------------------------
             st.markdown("#### 🛤️ Upgrade Path")
 
             from app.api.migration_api import get_upgrade_path_result
@@ -3312,10 +3376,10 @@ def render_job_analysis_page():
 
             _up_status = _up_result.get("compatibilityStatus", "NotCompatible")
             _up_badge = {
-                "Compatible": ("✅", "#d4edda", "#155724"),
-                "Conditional": ("⚠️", "#fff3cd", "#856404"),
-                "NotCompatible": ("⛔", "#f8d7da", "#721c24"),
-            }.get(_up_status, ("⛔", "#f8d7da", "#721c24"))
+                "Compatible": ("✔", "#d4edda", "#155724"),
+                "Conditional": ("🔶", "#fff3cd", "#856404"),
+                "NotCompatible": ("✘", "#f8d7da", "#721c24"),
+            }.get(_up_status, ("✘", "#f8d7da", "#721c24"))
 
             col_up1, col_up2, col_up3 = st.columns(3)
             with col_up1:
@@ -3345,7 +3409,7 @@ def render_job_analysis_page():
             if _up_warnings:
                 st.markdown("**Warnings**")
                 for w in _up_warnings:
-                    _sev_icon = {"HIGH": "🔴", "MEDIUM": "🟠", "LOW": "🟡"}.get(w.get("severity", "MEDIUM"), "🟠")
+                    _sev_icon = severity_icon(w.get("severity", "MEDIUM"))
                     st.markdown(f"- {_sev_icon} `{w.get('component')}` ({w.get('category')}): {w.get('message')}")
             else:
                 st.markdown("**Warnings:** _none_")
@@ -3368,7 +3432,7 @@ def render_job_analysis_page():
             st.markdown("#### 🤖 AI Copilot")
             st.caption(f"Ask questions about **{job_name}** — sourced from actual job analysis data.")
 
-            # ── Build rich data-driven answers from real job objects ──────────────
+            # -- Build rich data-driven answers from real job objects --------------
             _cp_inv       = _inv
             _cp_sources   = [s.get("name", "") for s in _cp_inv.get("sources", []) if s.get("name")]
             _cp_targets   = [t.get("name", "") for t in _cp_inv.get("targets", []) if t.get("name")]
@@ -3413,7 +3477,7 @@ def render_job_analysis_page():
             def _copilot_answer(question: str, free_text: str = "") -> str:  # noqa: C901
                 q = (free_text or question).lower()
 
-                # ── "What does this job do?" ───────────────────────────────────────
+                # -- "What does this job do?" ---------------------------------------
                 if question == "overview" or any(w in q for w in ("what does", "what is this job", "job do", "purpose", "overview", "describe")):
                     parts = [f"**{job_name}** is a Talend ETL job"]
                     if _cp_sources and _cp_targets:
@@ -3445,7 +3509,7 @@ def render_job_analysis_page():
                                  f"**Cloud Readiness:** {_cp_cloud.get('rag', _score_to_rag(_cp_cloud.get('score', 0)))}"),
                     return "".join(parts)
 
-                # ── "Migration risk?" ─────────────────────────────────────────────
+                # -- "Migration risk?" ---------------------------------------------
                 if question == "risk" or any(w in q for w in ("risk", "migration risk", "problem", "issue", "blocker", "concern", "critical", "high risk")):
                     if not _cp_risks:
                         return (
@@ -3459,7 +3523,7 @@ def render_job_analysis_page():
                         _by_level.get(r.get("risk", "LOW"), _by_level["LOW"]).append(r)
                     lines = [f"**Migration Risk Report — {job_name}**\n"]
                     for lvl in ("CRITICAL", "HIGH", "MEDIUM", "LOW"):
-                        _icon = {"CRITICAL": "🔴", "HIGH": "🟠", "MEDIUM": "🟡", "LOW": "🟢"}[lvl]
+                        _icon = severity_icon(lvl)
                         for r in _by_level[lvl]:
                             comp = r.get("component", "Unknown component")
                             msg  = r.get("message", "")
@@ -3469,7 +3533,7 @@ def render_job_analysis_page():
                         lines.append(f"\n⚠️ {len(_cp_java_comps)} custom Java component(s) require manual review before migration.")
                     return "\n".join(lines)
 
-                # ── "Dependencies?" ───────────────────────────────────────────────
+                # -- "Dependencies?" -----------------------------------------------
                 if question == "dependencies" or any(w in q for w in ("depend", "child job", "parent job", "calls", "routine", "joblet", "upstream", "downstream")):
                     lines = [f"**Dependencies for {job_name}**\n"]
                     lines.append(f"**Parent jobs (upstream):** {', '.join(_cp_parent_jobs) if _cp_parent_jobs else 'None — this job is not called by any other job in the repository.'}")
@@ -3488,7 +3552,7 @@ def render_job_analysis_page():
                         lines.append(f"\n**Metadata connections:** {', '.join(conn_names[:8])}")
                     return "\n".join(lines)
 
-                # ── "SQL summary?" ────────────────────────────────────────────────
+                # -- "SQL summary?" ------------------------------------------------
                 if question == "sql" or any(w in q for w in ("sql", "query", "queries", "database", "table", "select", "insert", "update", "delete", "join")):
                     if not _cp_sql_ops:
                         return f"**SQL Summary for {job_name}:** No SQL operations detected in this job's components."
@@ -3508,7 +3572,7 @@ def render_job_analysis_page():
                         lines.append(f"\n**All tables referenced:** {', '.join(sorted(all_tables))}")
                     return "\n".join(lines)
 
-                # ── "Components?" ─────────────────────────────────────────────────
+                # -- "Components?" -------------------------------------------------
                 if any(w in q for w in ("component", "step", "how many", "list of")):
                     counts: dict[str, int] = {}
                     for c in _cp_comps:
@@ -3519,7 +3583,7 @@ def render_job_analysis_page():
                         lines.append(f"- `{ct}`: {cnt}")
                     return "\n".join(lines)
 
-                # ── "Complexity?" ─────────────────────────────────────────────────
+                # -- "Complexity?" -------------------------------------------------
                 if any(w in q for w in ("complex", "score", "effort", "hours", "estimate")):
                     rf = _cp_complexity.get("risk_factors", [])
                     return (
@@ -3533,7 +3597,7 @@ def render_job_analysis_page():
                         f"- Estimated effort: {job.get('estimation', {}).get('hours', '—')}h"
                     )
 
-                # ── "Java?" ───────────────────────────────────────────────────────
+                # -- "Java?" -------------------------------------------------------
                 if any(w in q for w in ("java", "tjava", "inline", "custom code")):
                     if not _cp_java_comps:
                         return f"**Java Logic — {job_name}:** No tJava / tJavaRow / tJavaFlex components detected in this job."
@@ -3543,7 +3607,7 @@ def render_job_analysis_page():
                     lines.append("\n⚠️ Custom Java requires manual review before migration to Talend Cloud.")
                     return "\n".join(lines)
 
-                # ── Free-text fallback: return the most relevant answer ───────────
+                # -- Free-text fallback: return the most relevant answer -----------
                 # Try to match any keyword and return best fit
                 if any(w in q for w in ("source", "input", "read", "ingest")):
                     return f"**Sources for {job_name}:** {', '.join(_cp_sources) if _cp_sources else 'None detected.'}"
@@ -3592,7 +3656,7 @@ def render_job_analysis_page():
             for _col, _key in zip((sc1, sc2, sc3, sc4), _qmap):
                 with _col:
                     _label, _qtype = _qmap[_key]
-                    if st.button(_label, key=_key, width="stretch"):
+                    if st.button(_label, key=_key, use_container_width=True):
                         copilot_history.append({"role": "user", "content": _label})
                         copilot_history.append({"role": "assistant", "content": _copilot_answer(_qtype)})
                         st.rerun()
@@ -3609,9 +3673,9 @@ def render_job_analysis_page():
             from app.ui.tdd_page import _render_migration_assessment_section
             _render_migration_assessment_section()
 
-        # ── Column Mapping Tab ────────────────────────────────────────────────────
+        # -- Column Mapping Tab ----------------------------------------------------
 
-    if _cat_sel == "Architecture":
+    if _cat_sel == "🏗️ Architecture":
         # Compute joblets/routine_usage here in case Overview tab was never visited
         joblets = []
         seen_joblets: set = set()
@@ -3637,7 +3701,7 @@ def render_job_analysis_page():
                 for _rname in re.findall(r"\b([A-Z][A-Za-z0-9_]+)\s*\.", str(_value)):
                     routine_usage[_rname] = routine_usage.get(_rname, 0) + 1
 
-        _ar_flow, _ar_df, _ar_dep, _ar_job_arch, _ar_src, _ar_tgt, _ar_trf, _ar_job_flow = st.tabs(["Flowcharts", "Data Flow", "Dependencies", "Job Architecture", "Source Architecture", "Target Architecture", "Transformation Architecture", "Job Flow Architecture"])
+        _ar_flow, _ar_df, _ar_dep, _ar_job_arch, _ar_src, _ar_tgt, _ar_trf, _ar_job_flow = st.tabs(["🔀 Flowcharts", "🌊 Data Flow", "🔗 Dependencies", "🏗️ Job Architecture", "📥 Source Architecture", "📤 Target Architecture", "⚙️ Transformation Architecture", "🔄 Job Flow Architecture"])
         with _ar_flow:
             st.markdown(
                 """
@@ -3759,11 +3823,11 @@ def render_job_analysis_page():
             col_src, col_mid, col_trf, col_mid2, col_tgt = st.columns([3, 1, 3, 1, 3])
 
             with col_src:
-                st.markdown('<div class="df-section-title">📥 Source Tables</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="df-section-title">{component_role_icon("source")} Source Tables</div>', unsafe_allow_html=True)
                 if _df_sources:
                     for src in _df_sources:
                         st.markdown(
-                            f'<div class="df-card"><div class="df-card-icon">🗄️</div>'
+                            f'<div class="df-card"><div class="df-card-icon">{component_role_icon("source")}</div>'
                             f'<div class="df-card-body"><div class="df-card-name">{html_lib.escape(src)}</div>'
                             f'<div class="df-card-sub">Input table / file</div></div></div>',
                             unsafe_allow_html=True,
@@ -3773,15 +3837,15 @@ def render_job_analysis_page():
 
             with col_mid:
                 st.markdown('<div style="height:56px;"></div>', unsafe_allow_html=True)
-                st.markdown('<div class="df-arrow-row">→</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="df-arrow-row">{component_role_icon("arrow")}</div>', unsafe_allow_html=True)
 
             with col_trf:
-                st.markdown('<div class="df-section-title">⚙️ Transforms</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="df-section-title">{component_role_icon("transform")} Transforms</div>', unsafe_allow_html=True)
                 if _df_transforms:
                     for tr in _df_transforms:
                         type_label = tr["type"] if tr["type"] != tr["name"] else ""
                         st.markdown(
-                            f'<div class="df-card"><div class="df-card-icon">⚙️</div>'
+                            f'<div class="df-card"><div class="df-card-icon">{component_icon(tr["type"])}</div>'
                             f'<div class="df-card-body"><div class="df-card-name">{html_lib.escape(tr["name"])}</div>'
                             f'<div class="df-card-sub">{html_lib.escape(type_label)}</div></div></div>',
                             unsafe_allow_html=True,
@@ -3791,14 +3855,14 @@ def render_job_analysis_page():
 
             with col_mid2:
                 st.markdown('<div style="height:56px;"></div>', unsafe_allow_html=True)
-                st.markdown('<div class="df-arrow-row">→</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="df-arrow-row">{component_role_icon("arrow")}</div>', unsafe_allow_html=True)
 
             with col_tgt:
-                st.markdown('<div class="df-section-title">📤 Target Output</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="df-section-title">{component_role_icon("target")} Target Output</div>', unsafe_allow_html=True)
                 if _df_targets:
                     for tgt in _df_targets:
                         st.markdown(
-                            f'<div class="df-card"><div class="df-card-icon">🎯</div>'
+                            f'<div class="df-card"><div class="df-card-icon">{component_role_icon("target")}</div>'
                             f'<div class="df-card-body"><div class="df-card-name">{html_lib.escape(tgt)}</div>'
                             f'<div class="df-card-sub">Output table / file</div></div></div>',
                             unsafe_allow_html=True,
@@ -3806,7 +3870,7 @@ def render_job_analysis_page():
                 else:
                     st.markdown('<div class="df-empty">No target outputs detected</div>', unsafe_allow_html=True)
 
-            # ── Mermaid end-to-end flow diagram ─────────────────────────────────────
+            # -- Mermaid end-to-end flow diagram -------------------------------------
             st.markdown("---")
             st.markdown('<div class="df-section-title">End-to-End Data Flow Diagram</div>', unsafe_allow_html=True)
 
@@ -3815,11 +3879,11 @@ def render_job_analysis_page():
 
             df_mermaid = ["graph LR"]
             for s in _df_sources:
-                df_mermaid.append(f'    SRC_{_df_node(s)}[("📥 {s}")]')
+                df_mermaid.append(f'    SRC_{_df_node(s)}[("{component_role_icon("source")} {s}")]')
             for tr in _df_transforms:
-                df_mermaid.append(f'    TRF_{_df_node(tr["name"])}["⚙️ {tr["name"]}"]')
+                df_mermaid.append(f'    TRF_{_df_node(tr["name"])}["{component_icon(tr["type"])} {tr["name"]}"]')
             for t in _df_targets:
-                df_mermaid.append(f'    TGT_{_df_node(t)}[("📤 {t}")]')
+                df_mermaid.append(f'    TGT_{_df_node(t)}[("{component_role_icon("target")} {t}")]')
 
             src_ids = [f'SRC_{_df_node(s)}' for s in _df_sources]
             trf_ids = [f'TRF_{_df_node(tr["name"])}' for tr in _df_transforms]
@@ -3952,8 +4016,8 @@ def render_job_analysis_page():
             contexts = jd.get("contexts", [])
             context_vars = [c for c in contexts if isinstance(c, dict) and c.get("name")]
 
+            groups = {}
             if context_vars:
-                groups = {}
                 for cv in context_vars:
                     group = cv.get("group", "Default")
                     groups.setdefault(group, []).append(cv)
@@ -3980,8 +4044,8 @@ def render_job_analysis_page():
             )
 
 
-    if _cat_sel == "Mapping & Lineage":
-        _ml_colmap, _ml_stt, _ml_column_lineage, _ml_lin = st.tabs(["Column Mapping", "Source-To-Target Mapping", "Column Lineage", "Lineage"])
+    if _cat_sel == "🔗 Mapping & Lineage":
+        _ml_colmap, _ml_stt, _ml_col_lin, _ml_lin = st.tabs(["🗂️ Column Mapping", "↔️ Source-To-Target Mapping", "🔍 Column Lineage", "🕸️ Lineage"])
         with _ml_colmap:
             render_column_mapping_tab(job, jd, _inv, all_jobs, job_name)
 
@@ -4000,17 +4064,19 @@ def render_job_analysis_page():
                     })
             st.dataframe(pd.DataFrame(_stt_rows), use_container_width=True, hide_index=True)
 
-        with _ml_column_lineage:
-            render_cached_lineage_page(preferred_job_name=job_name, default_view="Column Lineage", widget_key="_cached_lineage_col_lineage")
+        # -- Column Lineage Tab ----------------------------------------------------
+        with _ml_col_lin:
+            from app.ui.tdd_page import _render_column_lineage_tdd as _render_col_lin
+            _render_col_lin()
 
-        # ── Lineage Tab ────────────────────────────────────────────────────────────
+        # -- Lineage Tab ------------------------------------------------------------
         with _ml_lin:
             render_cached_lineage_page(preferred_job_name=job_name, default_view="Job Lineage", widget_key="_cached_lineage_job_lineage")
 
-        # ── TDD Tab ────────────────────────────────────────────────────────────────
+        # -- TDD Tab ----------------------------------------------------------------
 
-    if _cat_sel == "Technical Analysis":
-        _ta_sql, _ta_java, _ta_error, _ta_audit, _ta_perf, _ta_security = st.tabs(["SQL", "Java Logic", "Error Handling", "Audit", "Performance", "Security"])
+    if _cat_sel == "🔬 Technical Analysis":
+        _ta_sql, _ta_java, _ta_error, _ta_audit, _ta_perf, _ta_security = st.tabs(["🗄️ SQL", "☕ Java Logic", "⚠️ Error Handling", "📋 Audit", "⚡ Performance", "🔒 Security"])
         with _ta_error:
             import app.ui.tdd_page as _tdd_mod
             _tdd_mod._KEY_CTX = "_j360_error_handling"
@@ -4036,7 +4102,7 @@ def render_job_analysis_page():
             _render_security()
 
         with _ta_sql:
-            # ── Tab-level styles (injected once) ─────────────────────────────────
+            # -- Tab-level styles (injected once) ---------------------------------
             st.markdown(
                 """
                 <style>
@@ -4058,7 +4124,7 @@ def render_job_analysis_page():
                 unsafe_allow_html=True,
             )
 
-            # ── Prepare data ──────────────────────────────────────────────────────
+            # -- Prepare data ------------------------------------------------------
             sql_ops = _sql_ops
             sql_payload = tuple(
                 (
@@ -4078,8 +4144,8 @@ def render_job_analysis_page():
             all_tgt    = flow["targets"]
             transforms = flow["transformation"]
 
-            # ── Job-level summary paragraph ───────────────────────────────────────
-            st.markdown("### 📊 SQL Overview")
+            # -- Job-level summary paragraph ---------------------------------------
+            st.markdown("### 🗄️ SQL Overview")
             if n_queries == 0:
                 st.info(
                     f"**{job_name}** contains no executable SQL queries. "
@@ -4109,7 +4175,7 @@ def render_job_analysis_page():
 
             st.divider()
 
-            # ── Per-query breakdown ───────────────────────────────────────────────
+            # -- Per-query breakdown -----------------------------------------------
             if n_queries > 1:
                 st.markdown("### Per-Query Breakdown")
 
@@ -4123,7 +4189,7 @@ def render_job_analysis_page():
                     _qcx_score = analysis.get("complexity_score", 0)
                     _qtype     = analysis.get("query_type", "SQL")
 
-                    # ── 1. Business Purpose ───────────────────────────────────
+                    # -- 1. Business Purpose -----------------------------------
                     st.markdown("#### 🎯 Business Purpose")
                     st.info(analysis["business_purpose"])
                     st.markdown(
@@ -4135,14 +4201,14 @@ def render_job_analysis_page():
                         unsafe_allow_html=True,
                     )
 
-                    # ── 2. Plain English Summary ──────────────────────────────
-                    st.markdown("#### 💬 Plain English Summary")
+                    # -- 2. Plain English Summary ------------------------------
+                    st.markdown("#### 🗣️ Plain English Summary")
                     st.success(_plain_english_summary(analysis))
 
                     st.divider()
 
-                    # ── 3. Source Tables  /  4. Column Mapping ────────────────
-                    st.markdown("#### 🗂️ Source & Target Tables")
+                    # -- 3. Source Tables  /  4. Column Mapping ----------------
+                    st.markdown("#### 🗄️ Source & Target Tables")
                     _src_col, _tgt_col = st.columns(2)
                     with _src_col:
                         st.markdown("**Source Tables**")
@@ -4188,7 +4254,7 @@ def render_job_analysis_page():
 
                     st.divider()
 
-                    # ── 5. Join Analysis ──────────────────────────────────────
+                    # -- 5. Join Analysis --------------------------------------
                     st.markdown("#### 🔗 Join Analysis")
                     joins_detail = analysis.get("joins_detail", [])
                     if joins_detail:
@@ -4210,8 +4276,8 @@ def render_job_analysis_page():
 
                     st.divider()
 
-                    # ── 6. Filters ────────────────────────────────────────────
-                    st.markdown("#### 🔍 Filters")
+                    # -- 6. Filters --------------------------------------------
+                    st.markdown("#### 🔎 Filters")
                     _filters = analysis.get("filters", [])
                     if _filters:
                         for _f in _filters:
@@ -4219,8 +4285,8 @@ def render_job_analysis_page():
                     else:
                         st.markdown("_No WHERE-clause filters detected._")
 
-                    # ── 7. Business Rules ─────────────────────────────────────
-                    st.markdown("#### 📋 Business Rules")
+                    # -- 7. Business Rules -------------------------------------
+                    st.markdown("#### 📘 Business Rules")
                     for rule in _business_rules_list(analysis):
                         st.markdown(f"- {rule}")
 
@@ -4228,10 +4294,10 @@ def render_job_analysis_page():
                     _bl = analysis.get("business_logic", {})
                     _bl_items = [
                         ("CASE WHEN", "🔀", _bl.get("case_when", [])),
-                        ("IF",        "❓", _bl.get("if_expr",  [])),
-                        ("DECODE",    "🔄", _bl.get("decode",   [])),
+                        ("IF",        "🔹", _bl.get("if_expr",  [])),
+                        ("DECODE",    "🔁", _bl.get("decode",   [])),
                         ("NVL",       "🛡️", _bl.get("nvl",      [])),
-                        ("COALESCE",  "🔗", _bl.get("coalesce", [])),
+                        ("COALESCE",  "➕", _bl.get("coalesce", [])),
                     ]
                     if any(exprs for _, _, exprs in _bl_items):
                         st.markdown("**Conditional Expressions**")
@@ -4246,7 +4312,7 @@ def render_job_analysis_page():
 
                     st.divider()
 
-                    # ── 8. Aggregations ───────────────────────────────────────
+                    # -- 8. Aggregations ---------------------------------------
                     st.markdown("#### Σ Aggregations")
                     _aggs  = analysis.get("aggregations", [])
                     _wfuncs = analysis.get("window_functions", [])
@@ -4258,8 +4324,8 @@ def render_job_analysis_page():
                     else:
                         st.markdown("_No aggregation or window functions detected._")
 
-                    # ── 9. Data Flow ──────────────────────────────────────────
-                    st.markdown("#### 🔄 Data Flow")
+                    # -- 9. Data Flow ------------------------------------------
+                    st.markdown("#### 🌊 Data Flow")
                     _src_b = " → ".join(f"`{t}`" for t in analysis["source_tables"]) or "_unknown_"
                     _tgt_b = " → ".join(f"`{t}`" for t in analysis["target_tables"]) or "_unknown_"
                     _tx_b  = " · ".join(t for t in transforms if t != "SQL execution logic") or "—"
@@ -4273,18 +4339,18 @@ def render_job_analysis_page():
                     if analysis.get("match_merge_logic"):
                         _flags.append("🔀 Match / Merge logic detected")
                     if analysis.get("deduplication_logic"):
-                        _flags.append("♻️ Deduplication logic detected")
+                        _flags.append("🔁 Deduplication logic detected")
                     if analysis.get("surrogate_key_generation"):
                         _flags.append("🔑 Surrogate key generation detected")
                     if analysis.get("cdc_logic"):
-                        _flags.append("📡 Change-Data-Capture (CDC) logic detected")
+                        _flags.append("🕒 Change-Data-Capture (CDC) logic detected")
                     for _fl in _flags:
                         st.markdown(f"- {_fl}")
 
                     st.divider()
 
-                    # ── 10. Complexity ────────────────────────────────────────
-                    st.markdown("#### 🧮 Complexity")
+                    # -- 10. Complexity ----------------------------------------
+                    st.markdown("#### 📊 Complexity")
                     _cx_c1, _cx_c2, _cx_c3, _cx_c4, _cx_c5 = st.columns(5)
                     _cx_c1.metric("Tables",     len(analysis["source_tables"]) + len(analysis["target_tables"]),
                                   help="Source + target tables")
@@ -4306,7 +4372,7 @@ def render_job_analysis_page():
                     if _all_sql_funcs:
                         st.markdown(f"**Functions used:** `{'` · `'.join(_all_sql_funcs)}`")
 
-                    # ── 11. Migration Impact ──────────────────────────────────
+                    # -- 11. Migration Impact ----------------------------------
                     st.markdown("#### 🚀 Migration Impact")
                     _mig_notes = []
                     if analysis.get("match_merge_logic"):
@@ -4347,7 +4413,7 @@ def render_job_analysis_page():
 
                     st.divider()
 
-                    # ── 12. Performance Notes ─────────────────────────────────
+                    # -- 12. Performance Notes ---------------------------------
                     st.markdown("#### ⚡ Performance Notes")
 
                     _perf_sql     = analysis["query"]
@@ -4432,8 +4498,8 @@ def render_job_analysis_page():
 
                     st.divider()
 
-                    # ── 13. Line-by-Line SQL Explanation ─────────────────────
-                    with st.expander("💬 Line-by-Line Explanation", expanded=False):
+                    # -- 13. Line-by-Line SQL Explanation ---------------------
+                    with st.expander("🔍 Line-by-Line Explanation", expanded=False):
                         _exp_lines = [ln for ln in analysis["query"].splitlines() if ln.strip()]
                         st.markdown(
                             '<div class="sql-exp-row">'
@@ -4453,19 +4519,19 @@ def render_job_analysis_page():
                                 unsafe_allow_html=True,
                             )
 
-                    # ── 14. Original SQL ──────────────────────────────────────
-                    with st.expander("🧾 Original SQL", expanded=False):
+                    # -- 14. Original SQL --------------------------------------
+                    with st.expander("📄 Original SQL", expanded=False):
                         st.code(analysis["query"], language="sql")
 
 
         with _ta_java:
-            # ── Lazy-load analysis ─────────────────────────────────────────────────
+            # -- Lazy-load analysis -------------------------------------------------
             _jl_cache_key = f"_java_logic_{job_name}"
             if _jl_cache_key not in st.session_state:
                 st.session_state[_jl_cache_key] = analyze_java_logic(job)
             _jl = st.session_state[_jl_cache_key]
 
-            # ── Global dashboard CSS ───────────────────────────────────────────────
+            # -- Global dashboard CSS -----------------------------------------------
             st.markdown("""
             <style>
             .jl-header{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
@@ -4481,7 +4547,7 @@ def render_job_analysis_page():
             .jl-section-label{font-size:11px;font-weight:700;color:#8a8a85;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
             </style>""", unsafe_allow_html=True)
 
-            # ── Page header ────────────────────────────────────────────────────────
+            # -- Page header --------------------------------------------------------
             _jl_comps = _jl["components"]
             _jl_risk_color = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}.get(_jl["overall_risk"], "#374151")
             _jl_risk_bg    = {"CRITICAL": "#fff1f2", "HIGH": "#fff7ed", "MEDIUM": "#eff6ff", "LOW": "#f0fdf4"}.get(_jl["overall_risk"], "#f9fafb")
@@ -4493,7 +4559,7 @@ def render_job_analysis_page():
                 f'<div class="jl-header-sub">Custom Java components detected in <strong>{job_name}</strong></div>',
                 unsafe_allow_html=True)
 
-            # ── KPI strip ─────────────────────────────────────────────────────────
+            # -- KPI strip ---------------------------------------------------------
             _jl_cx_color = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}.get(
                 "CRITICAL" if _jl["max_complexity_score"] >= 70 else
                 "HIGH"     if _jl["max_complexity_score"] >= 45 else
@@ -4525,7 +4591,7 @@ def render_job_analysis_page():
                 f'</div><hr class="jl-divider">',
                 unsafe_allow_html=True)
 
-            _jl_overview_tabs = st.tabs(["Java Inventory", "Complexity & Risk", "AI Explanation", "Recommendations"])
+            _jl_overview_tabs = st.tabs(["📋 Java Inventory", "📊 Complexity & Risk", "🤖 AI Explanation", "💡 Recommendations"])
             with _jl_overview_tabs[0]:
                 st.markdown("#### Java Inventory")
                 _inv_rows = _jl.get("java_inventory", [])
@@ -4591,7 +4657,7 @@ def render_job_analysis_page():
             if not _jl_comps:
                 st.info("No tJava / tJavaRow / tJavaFlex components found in this job.")
             else:
-                # ── Component selector ─────────────────────────────────────────────
+                # -- Component selector ---------------------------------------------
                 _RISK_COLOR_SEL = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}
                 _RISK_BG_SEL    = {"CRITICAL": "#fff1f2", "HIGH": "#fff7ed", "MEDIUM": "#eff6ff", "LOW": "#f0fdf4"}
 
@@ -4604,7 +4670,7 @@ def render_job_analysis_page():
                 )
                 _comp = _jl_comps[_sel_comp_idx]
 
-                # ── Component list cards ───────────────────────────────────────────
+                # -- Component list cards -------------------------------------------
                 _cl_css = """
                 <style>
                 .cl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:14px;}
@@ -4637,13 +4703,13 @@ def render_job_analysis_page():
                     </div>"""
                 st.markdown(f"<div class='cl-grid'>{_cl_cards}</div>", unsafe_allow_html=True)
 
-                # ── Sub-tabs ───────────────────────────────────────────────────────
+                # -- Sub-tabs -------------------------------------------------------
                 _jt_rules, _jt_pseudo, _jt_biz_rules, _jt_inputs, _jt_outputs, _jt_flow, _jt_risk, _jt_deps, _jt_code = st.tabs(
-                    ["Business Function", "Rules & Logic", "Business Rules", "Inputs", "Outputs", "Process Flow", "Migration Impact", "Dependencies", "Technical Code"]
+                    ["💼 Business Function", "📜 Rules & Logic", "📘 Business Rules", f"{component_role_icon('input')} Inputs", f"{component_role_icon('output')} Outputs", "🔄 Process Flow", "🚀 Migration Impact", "🔗 Dependencies", "💻 Technical Code"]
                 )
-                # Technical Code ───────────────────────────────────────────────────
+                # Technical Code ---------------------------------------------------
                 with _jt_code:
-                    # ── Metric strip ───────────────────────────────────────────────
+                    # -- Metric strip -----------------------------------------------
                     _tc_cx = _comp["complexity"]
                     _TC_RISK_COLOR = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}
                     _TC_RISK_BG    = {"CRITICAL": "#fff1f2", "HIGH": "#fff7ed", "MEDIUM": "#eff6ff", "LOW": "#f0fdf4"}
@@ -4694,7 +4760,7 @@ def render_job_analysis_page():
                     _flag_cols = st.columns(4)
                     for _fi, (_fk, _fl) in enumerate(_flag_names.items()):
                         with _flag_cols[_fi % 4]:
-                            _icon = "✅" if _comp["flags"].get(_fk) else "⬜"
+                            _icon = "?" if _comp["flags"].get(_fk) else "?"
                             st.markdown(f"{_icon} {_fl}")
                     if _comp.get("external_jars"):
                         st.markdown("**External JARs detected:**")
@@ -4705,15 +4771,15 @@ def render_job_analysis_page():
                     else:
                         st.caption("No extractable code found in component parameters.")
 
-                # Business Function ────────────────────────────────────────────────
+                # Business Function ------------------------------------------------
                 with _jt_rules:
                     _flags = _comp["flags"]
                     _risk  = _comp["risk"]
                     _cx    = _comp["complexity"]
 
-                    # ── Purpose ───────────────────────────────────────────────────
+                    # -- Purpose ---------------------------------------------------
                     _purpose = _comp["explanation"]
-                    # ── Business Process ──────────────────────────────────────────
+                    # -- Business Process ------------------------------------------
                     _process_items = []
                     if _flags.get("file_operations"):  _process_items.append("File read/write operations")
                     if _flags.get("jdbc_calls"):        _process_items.append("Direct database query execution")
@@ -4723,24 +4789,24 @@ def render_job_analysis_page():
                     if _flags.get("math_ops"):          _process_items.append("Numeric/mathematical computation")
                     if _flags.get("collections"):       _process_items.append("Collection/list management")
                     if not _process_items:              _process_items.append("Custom Java processing")
-                    # ── Inputs ────────────────────────────────────────────────────
+                    # -- Inputs ----------------------------------------------------
                     _inputs = []
                     if _flags.get("jdbc_calls"):   _inputs.append("Database records via JDBC")
                     if _flags.get("file_operations"): _inputs.append("Local file system data")
                     if _flags.get("system_env"):   _inputs.append("System environment / JVM properties")
                     if _jl["routine_usage"]:       _inputs.append(f"Custom routines: {', '.join(list(_jl['routine_usage'].keys())[:3])}")
                     if not _inputs:                _inputs.append("Row data from upstream Talend components")
-                    # ── Outputs ───────────────────────────────────────────────────
+                    # -- Outputs ---------------------------------------------------
                     _outputs = []
                     if _flags.get("jdbc_calls"):      _outputs.append("Database write / query result")
                     if _flags.get("file_operations"): _outputs.append("Written file output")
                     if _flags.get("runtime_exec"):    _outputs.append("OS process result / exit code")
                     if not _outputs:                  _outputs.append("Transformed row data to downstream components")
-                    # ── Key Decisions ─────────────────────────────────────────────
+                    # -- Key Decisions ---------------------------------------------
                     _decisions = _comp["business_rules"]
-                    # ── Business Impact ───────────────────────────────────────────
+                    # -- Business Impact -------------------------------------------
                     _impact_color = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}.get(_risk["overall"], "#374151")
-                    _impact_icon  = {"CRITICAL": "🔴", "HIGH": "🟠", "MEDIUM": "🟡", "LOW": "🟢"}.get(_risk["overall"], "⚪")
+                    _impact_icon  = severity_icon(_risk["overall"])
                     _impact_lines = [f"Migration risk: **{_risk['overall']}** — {_risk['findings'][0]['reason']}"]
                     _impact_lines.append(f"Complexity Status: **{_cx['label']}")
                     if _comp["external_jars"]:
@@ -4749,7 +4815,7 @@ def render_job_analysis_page():
                     st.markdown(f"#### Business Function — {_comp['uid']}")
                     st.caption(f"`{_comp['component_type']}` · {_comp['loc']} lines of custom Java")
 
-                    # ── Top summary card ───────────────────────────────────────────
+                    # -- Top summary card -------------------------------------------
                     _bf_outcome = (
                         f"Produces {', '.join(_outputs[:2])}" if _outputs else "Delivers transformed data to downstream components"
                     )
@@ -4777,7 +4843,7 @@ def render_job_analysis_page():
                     </style>"""
                     st.markdown(_bf_summary_css, unsafe_allow_html=True)
                     st.markdown(f"""<div class="bfs-card">
-                      <div class="bfs-title">📋 {_comp['uid']}</div>
+                      <div class="bfs-title">💻 {_comp['uid']}</div>
                       <div class="bfs-purpose">{_purpose}</div>
                       <div class="bfs-row">
                         <div class="bfs-col">
@@ -4785,11 +4851,11 @@ def render_job_analysis_page():
                           <div class="bfs-col-text">{_bf_outcome}</div>
                         </div>
                         <div class="bfs-col">
-                          <div class="bfs-col-label">❓ Why Used</div>
+                          <div class="bfs-col-label">💭 Why Used</div>
                           <div class="bfs-col-text">{_bf_why}</div>
                         </div>
                         <div class="bfs-col">
-                          <div class="bfs-col-label">⚠️ Migration Risk</div>
+                          <div class="bfs-col-label">🚀 Migration Risk</div>
                           <div class="bfs-col-text">{_impact_icon} <strong>{_risk['overall']}</strong> — {_risk['findings'][0]['reason']}</div>
                         </div>
                       </div>
@@ -4817,13 +4883,13 @@ def render_job_analysis_page():
                     with _c1:
                         _proc_html = "".join(f"<li>{i}</li>" for i in _process_items)
                         st.markdown(f"""<div class="bf-card">
-                          <div class="bf-card-title">⚙️ Business Process</div>
+                          <div class="bf-card-title">🔄 Business Process</div>
                           <div class="bf-card-body"><ul>{_proc_html}</ul></div>
                         </div>""", unsafe_allow_html=True)
                     with _c2:
                         _dec_html = "".join(f"<li>{d}</li>" for d in _decisions)
                         st.markdown(f"""<div class="bf-card">
-                          <div class="bf-card-title">🔀 Key Decisions</div>
+                          <div class="bf-card-title">🧭 Key Decisions</div>
                           <div class="bf-card-body"><ul>{_dec_html}</ul></div>
                         </div>""", unsafe_allow_html=True)
 
@@ -4832,13 +4898,13 @@ def render_job_analysis_page():
                     with _c3:
                         _in_html = "".join(f"<li>{i}</li>" for i in _inputs)
                         st.markdown(f"""<div class="bf-card">
-                          <div class="bf-card-title">📥 Inputs</div>
+                          <div class="bf-card-title">{component_role_icon('input')} Inputs</div>
                           <div class="bf-card-body"><ul>{_in_html}</ul></div>
                         </div>""", unsafe_allow_html=True)
                     with _c4:
                         _out_html = "".join(f"<li>{o}</li>" for o in _outputs)
                         st.markdown(f"""<div class="bf-card">
-                          <div class="bf-card-title">📤 Outputs</div>
+                          <div class="bf-card-title">{component_role_icon('output')} Outputs</div>
                           <div class="bf-card-body"><ul>{_out_html}</ul></div>
                         </div>""", unsafe_allow_html=True)
 
@@ -4849,7 +4915,7 @@ def render_job_analysis_page():
                       <div class="bf-card-body"><ul>{_imp_html}</ul></div>
                     </div>""", unsafe_allow_html=True)
 
-                    # ── AI Business Function Summary ──────────────────────────────────────────
+                    # -- AI Business Function Summary ------------------------------------------
                     st.markdown("---")
                     _bf_ai_key = f"bf_ai_summary_{job_name}_{_comp['uid']}"
                     _bf_use_ai = st.checkbox("\U0001f916 Use AI (Ollama)", value=False, key=f"bf_use_ai_{job_name}_{_comp['uid']}")
@@ -4885,12 +4951,12 @@ def render_job_analysis_page():
                             unsafe_allow_html=True
                         )
 
-                # Rules & Logic ────────────────────────────────────────────────────
+                # Rules & Logic ----------------------------------------------------
                 with _jt_pseudo:
                     st.markdown(f"#### Rules & Logic — {_comp['uid']}")
                     st.caption("Business rules extracted from this component. No code — business language only.")
 
-                    # ── Build business rules table ─────────────────────────────────
+                    # -- Build business rules table ---------------------------------
                     _rl_flags = _comp["flags"]
                     _rl_raw_rules = _comp["business_rules"]
 
@@ -4956,13 +5022,13 @@ def render_job_analysis_page():
                         st.markdown("")
                         st.caption(f"**Summary:** {_comp['explanation']}")
 
-                # Business Rules ───────────────────────────────────────────────────
+                # Business Rules ---------------------------------------------------
                 with _jt_biz_rules:
                     import json as _json_br
                     st.markdown(f"#### Business Rules — {_comp['uid']}")
                     st.caption("Plain-English business rules derived from this component's Java logic, enriched with the Business Dictionary.")
 
-                    # ── Load java_dictionary ───────────────────────────────────────
+                    # -- Load java_dictionary ---------------------------------------
                     _br_dict_path = "config/java_dictionary.json"
                     try:
                         with open(_br_dict_path, "r") as _br_f:
@@ -4978,7 +5044,7 @@ def render_job_analysis_page():
                     _br_flags = _comp["flags"]
                     _br_raw_rules = _comp["business_rules"]
 
-                    # ── CSS ────────────────────────────────────────────────────────
+                    # -- CSS --------------------------------------------------------
                     st.markdown("""
                     <style>
                     .br-section{margin-bottom:18px;}
@@ -5002,12 +5068,12 @@ def render_job_analysis_page():
                     .br-empty{font-size:13px;color:#9ca3af;font-style:italic;padding:12px 0;}
                     </style>""", unsafe_allow_html=True)
 
-                    # ── Section 1: Keyword-level Business Rules ────────────────────
+                    # -- Section 1: Keyword-level Business Rules --------------------
                     st.markdown("<div class='br-section-label'>🔑 Keyword Business Rules (from Business Dictionary)</div>", unsafe_allow_html=True)
                     _br_kw_icons = {
-                        "if": "🔀", "else": "↩️", "for": "🔁", "while": "🔄",
-                        "try": "⚙️", "catch": "🚨", "return": "📤", "throw": "⚠️",
-                        "switch": "🗂️", "break": "⏹️", "continue": "⏭️", "import": "📦",
+                        "if": "🔀", "else": "🔂", "for": "🔁", "while": "🔄",
+                        "try": "🧪", "catch": "🧯", "return": "🔚", "throw": "💥",
+                        "switch": "🎛️", "break": "🚧", "continue": "➡️", "import": "📦",
                     }
                     _br_found_kw = []
                     for _kw, _kw_info in _br_kw.items():
@@ -5019,7 +5085,7 @@ def render_job_analysis_page():
                     if _br_found_kw:
                         _br_kw_html = ""
                         for _kw, _kw_info in _br_found_kw:
-                            _ico = _br_kw_icons.get(_kw, "📋")
+                            _ico = _br_kw_icons.get(_kw, "🔧")
                             _br_kw_html += f"""<div class="br-card">
                               <div class="br-card-row">
                                 <div class="br-icon">{_ico}</div>
@@ -5036,8 +5102,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr style='border:none;border-top:1px solid #e4e3dc;margin:14px 0;'>", unsafe_allow_html=True)
 
-                    # ── Section 2: Extracted Conditional Rules ─────────────────────
-                    st.markdown("<div class='br-section-label'>🔍 Extracted Conditional Business Rules</div>", unsafe_allow_html=True)
+                    # -- Section 2: Extracted Conditional Rules ---------------------
+                    st.markdown("<div class='br-section-label'>🔀 Extracted Conditional Business Rules</div>", unsafe_allow_html=True)
                     _br_cond_matches = re.findall(r"if\s*\((.{0,120})\)", _br_code)
                     if _br_cond_matches:
                         _br_cond_html = ""
@@ -5067,8 +5133,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr style='border:none;border-top:1px solid #e4e3dc;margin:14px 0;'>", unsafe_allow_html=True)
 
-                    # ── Section 3: Data Type Business Translations ─────────────────
-                    st.markdown("<div class='br-section-label'>🏷️ Data Types in Business Language</div>", unsafe_allow_html=True)
+                    # -- Section 3: Data Type Business Translations -----------------
+                    st.markdown("<div class='br-section-label'>🗃️ Data Types in Business Language</div>", unsafe_allow_html=True)
                     _br_found_types = []
                     for _ty, _ty_info in _br_ty.items():
                         _ty_pat = rf"\b{re.escape(_ty)}\b"
@@ -5090,8 +5156,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr style='border:none;border-top:1px solid #e4e3dc;margin:14px 0;'>", unsafe_allow_html=True)
 
-                    # ── Section 4: Pattern-level Business Rules ────────────────────
-                    st.markdown("<div class='br-section-label'>🔬 Code Pattern Rules</div>", unsafe_allow_html=True)
+                    # -- Section 4: Pattern-level Business Rules --------------------
+                    st.markdown("<div class='br-section-label'>🧬 Code Pattern Rules</div>", unsafe_allow_html=True)
                     _br_pattern_checks = {
                         "null_check":       r"\bnull\b",
                         "string_compare":   r"\.equals\s*\(|==\s*\"",
@@ -5109,7 +5175,7 @@ def render_job_analysis_page():
                         _br_pat_html = ""
                         for _pk, _pi in _br_found_pats:
                             _br_pat_html += f"""<div class="br-pat-card">
-                              <div class="br-pat-term">✅ {_pi['business_term']}</div>
+                              <div class="br-pat-term">✦ {_pi['business_term']}</div>
                               <div class="br-pat-expl">{_pi['explanation']}</div>
                             </div>"""
                         st.markdown(_br_pat_html, unsafe_allow_html=True)
@@ -5118,8 +5184,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr style='border:none;border-top:1px solid #e4e3dc;margin:14px 0;'>", unsafe_allow_html=True)
 
-                    # ── Section 5: Raw Extracted Rules (from analyzer) ─────────────
-                    st.markdown("<div class='br-section-label'>📋 Analyser-Extracted Rules</div>", unsafe_allow_html=True)
+                    # -- Section 5: Raw Extracted Rules (from analyzer) -------------
+                    st.markdown("<div class='br-section-label'>🤖 Analyser-Extracted Rules</div>", unsafe_allow_html=True)
                     _non_cond_rules = [r for r in _br_raw_rules if not r.startswith("Conditional logic:")]
                     _cond_rules     = [r for r in _br_raw_rules if r.startswith("Conditional logic:")]
                     if _non_cond_rules:
@@ -5132,12 +5198,12 @@ def render_job_analysis_page():
                     if not _non_cond_rules and not _cond_rules:
                         st.markdown("<div class='br-empty'>No rules extracted by the analyser for this component.</div>", unsafe_allow_html=True)
 
-                # Inputs ───────────────────────────────────────────────────────────
+                # Inputs -----------------------------------------------------------
                 with _jt_inputs:
                     st.markdown(f"#### Inputs — {_comp['uid']}")
                     st.caption("All data sources feeding into this Java component: upstream connections, parameters, context variables, and code-detected sources.")
 
-                    # ── CSS ────────────────────────────────────────────────────────
+                    # -- CSS --------------------------------------------------------
                     st.markdown("""
                     <style>
                     .inp-section-label{font-size:11px;font-weight:700;color:#8a8a85;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;margin-top:2px;}
@@ -5168,7 +5234,7 @@ def render_job_analysis_page():
                     .inp-kpi-sub{font-size:11px;color:#8a8a85;margin-top:2px;}
                     </style>""", unsafe_allow_html=True)
 
-                    # ── Gather data ────────────────────────────────────────────────
+                    # -- Gather data ------------------------------------------------
                     _inp_jd       = job.get("job_data", {})
                     _inp_uid      = _comp["uid"]
                     _inp_all_comp = {c.get("unique_name"): c for c in _inp_jd.get("components", []) if isinstance(c, dict)}
@@ -5188,17 +5254,17 @@ def render_job_analysis_page():
                     # Component parameters hinting at explicit input sources
                     _inp_params_raw = _comp.get("parameters") or {}
                     _INP_PARAM_KEYS = {
-                        "FILE_NAME": ("File Path", "📄"),
-                        "FILENAME": ("File Path", "📄"),
+                        "FILE_NAME": ("File Path", "📁"),
+                        "FILENAME": ("File Path", "📁"),
                         "TABLE": ("Database Table", "🗄️"),
                         "TABLE_NAME": ("Database Table", "🗄️"),
                         "DBTABLE": ("Database Table", "🗄️"),
-                        "QUERY": ("SQL Query", "🔍"),
-                        "MEMO_SQL": ("SQL Query", "🔍"),
+                        "QUERY": ("SQL Query", "📝"),
+                        "MEMO_SQL": ("SQL Query", "📝"),
                         "HOST": ("Database Host", "🌐"),
                         "DBNAME": ("Database Name", "🗄️"),
                         "IMPORT": ("Java Imports", "📦"),
-                        "PRECODE": ("Pre-execution Code", "⚙️"),
+                        "PRECODE": ("Pre-execution Code", "💻"),
                     }
                     _inp_explicit_params = [
                         (label, icon, _inp_params_raw[k].strip('"').strip("'"))
@@ -5221,15 +5287,15 @@ def render_job_analysis_page():
                     if _inp_flags.get("jdbc_calls"):
                         _inp_code_sources.append(("🗄️", "Database (JDBC)", "Direct database access via JDBC — reads records from a database table or query result.", "#eff6ff", "#1d4ed8"))
                     if _inp_flags.get("file_operations"):
-                        _inp_code_sources.append(("📄", "File System", "Reads data from a local file path using Java I/O classes.", "#fffbeb", "#b45309"))
+                        _inp_code_sources.append(("📁", "File System", "Reads data from a local file path using Java I/O classes.", "#fffbeb", "#b45309"))
                     if _inp_flags.get("runtime_exec"):
-                        _inp_code_sources.append(("⚙️", "External Process", "Reads output from an OS-level process or shell command via Runtime/ProcessBuilder.", "#f5f3ff", "#7c3aed"))
+                        _inp_code_sources.append(("🔧", "External Process", "Reads output from an OS-level process or shell command via Runtime/ProcessBuilder.", "#f5f3ff", "#7c3aed"))
                     if _inp_flags.get("system_env"):
-                        _inp_code_sources.append(("🌐", "System / Environment", "Reads configuration values from JVM system properties or OS environment variables.", "#f0fdfa", "#0f766e"))
+                        _inp_code_sources.append(("🖥", "System / Environment", "Reads configuration values from JVM system properties or OS environment variables.", "#f0fdfa", "#0f766e"))
                     if _inp_flags.get("external_jar"):
-                        _inp_code_sources.append(("📦", "External Library", "Receives or processes data via an external JAR library bundled with the job.", "#f0fdf4", "#166534"))
+                        _inp_code_sources.append(("🧩", "External Library", "Receives or processes data via an external JAR library bundled with the job.", "#f0fdf4", "#166534"))
 
-                    # ── KPI strip ──────────────────────────────────────────────────
+                    # -- KPI strip --------------------------------------------------
                     _inp_kpi_html = "<div class='inp-summary-strip'>"
                     _inp_kpi_html += f"""<div class='inp-kpi' style='border-left:4px solid #3C3489;'>
                       <div class='inp-kpi-label'>Upstream Connections</div>
@@ -5254,7 +5320,7 @@ def render_job_analysis_page():
                     _inp_kpi_html += "</div>"
                     st.markdown(_inp_kpi_html, unsafe_allow_html=True)
 
-                    # ── Section 1: Upstream Component Connections ──────────────────
+                    # -- Section 1: Upstream Component Connections ------------------
                     st.markdown("<div class='inp-section-label'>🔗 Upstream Component Connections</div>", unsafe_allow_html=True)
                     if _inp_flow_sources:
                         _inp_conn_html = "<div class='inp-conn-grid'>"
@@ -5282,7 +5348,7 @@ def render_job_analysis_page():
                               <div class='inp-conn-type'>{_iconn_type}</div>
                               <div class='inp-conn-name'>{_isrc_uid}</div>
                               <div><span class='inp-conn-ctype'>{_isrc_ctype}</span></div>
-                              <div class='inp-conn-label'>↳ {_iconn_label}</div>
+                              <div class='inp-conn-label'>→ {_iconn_label}</div>
                               {"<div style='font-size:11px;color:#6b7280;margin-top:3px;'>"+_schema_hint+"</div>" if _schema_hint else ""}
                             </div>"""
                         _inp_conn_html += "</div>"
@@ -5330,8 +5396,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr class='inp-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 2: Explicit Parameter Inputs ───────────────────────
-                    st.markdown("<div class='inp-section-label'>⚙️ Explicit Parameter Inputs</div>", unsafe_allow_html=True)
+                    # -- Section 2: Explicit Parameter Inputs -----------------------
+                    st.markdown("<div class='inp-section-label'>📋 Explicit Parameter Inputs</div>", unsafe_allow_html=True)
                     if _inp_explicit_params:
                         _inp_pt_rows = "".join(
                             f"<tr><td class='inp-param-key'>{icon} {label}</td><td>{val[:120]}</td></tr>"
@@ -5346,8 +5412,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr class='inp-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 3: Context Variable Inputs ────────────────────────
-                    st.markdown("<div class='inp-section-label'>🌍 Context Variable Inputs</div>", unsafe_allow_html=True)
+                    # -- Section 3: Context Variable Inputs ------------------------
+                    st.markdown("<div class='inp-section-label'>🔧 Context Variable Inputs</div>", unsafe_allow_html=True)
                     if _inp_ctx_refs:
                         _inp_ctx_html = "<div class='inp-conn-grid'>"
                         for _ctx in _inp_ctx_refs:
@@ -5363,8 +5429,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr class='inp-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 4: Code-Detected Implicit Sources ─────────────────
-                    st.markdown("<div class='inp-section-label'>🔬 Code-Detected Implicit Input Sources</div>", unsafe_allow_html=True)
+                    # -- Section 4: Code-Detected Implicit Sources -----------------
+                    st.markdown("<div class='inp-section-label'>🧩 Code-Detected Implicit Input Sources</div>", unsafe_allow_html=True)
                     if _inp_code_sources:
                         _inp_cs_html = "<div class='inp-conn-grid'>"
                         for _cs_icon, _cs_name, _cs_desc, _cs_bg, _cs_col in _inp_code_sources:
@@ -5377,7 +5443,7 @@ def render_job_analysis_page():
                     else:
                         st.markdown("<div class='inp-conn-none'>No implicit input sources detected in Java code patterns.</div>", unsafe_allow_html=True)
 
-                    # ── Section 5: Routine / Library Inputs (if any) ──────────────
+                    # -- Section 5: Routine / Library Inputs (if any) --------------
                     _inp_routine_refs_filtered = {k: v for k, v in _inp_routine_refs.items()
                                                   if k not in {"System", "String", "Integer", "Boolean", "Math", "Long", "Double"}}
                     if _inp_routine_refs_filtered or _comp.get("external_jars"):
@@ -5399,12 +5465,12 @@ def render_job_analysis_page():
                         _inp_rl_html += "</div>"
                         st.markdown(_inp_rl_html, unsafe_allow_html=True)
 
-                # Outputs ──────────────────────────────────────────────────────────
+                # Outputs ----------------------------------------------------------
                 with _jt_outputs:
                     st.markdown(f"#### Outputs — {_comp['uid']}")
                     st.caption("Everything this Java component produces or writes: downstream connections, write parameters, return variables, and code-detected output destinations.")
 
-                    # ── CSS ────────────────────────────────────────────────────────
+                    # -- CSS --------------------------------------------------------
                     st.markdown("""
                     <style>
                     .out-section-label{font-size:11px;font-weight:700;color:#8a8a85;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;margin-top:2px;}
@@ -5439,7 +5505,7 @@ def render_job_analysis_page():
                     .out-var-expl{font-size:11px;color:#6b7280;margin-top:3px;line-height:1.4;}
                     </style>""", unsafe_allow_html=True)
 
-                    # ── Gather data ────────────────────────────────────────────────
+                    # -- Gather data ------------------------------------------------
                     _out_jd       = job.get("job_data", {})
                     _out_uid      = _comp["uid"]
                     _out_all_comp = {c.get("unique_name"): c for c in _out_jd.get("components", []) if isinstance(c, dict)}
@@ -5467,17 +5533,17 @@ def render_job_analysis_page():
 
                     # Output parameters — write destinations configured on the component
                     _OUT_PARAM_KEYS = {
-                        "FILE_NAME":      ("Output File Path",     "📄"),
-                        "FILENAME":       ("Output File Path",     "📄"),
+                        "FILE_NAME":      ("Output File Path",     "📁"),
+                        "FILENAME":       ("Output File Path",     "📁"),
                         "TABLE":          ("Target DB Table",      "🗄️"),
                         "TABLE_NAME":     ("Target DB Table",      "🗄️"),
                         "DBTABLE":        ("Target DB Table",      "🗄️"),
-                        "QUERY":          ("Write Query",          "🔍"),
-                        "MEMO_SQL":       ("Write Query",          "🔍"),
+                        "QUERY":          ("Write Query",          "📝"),
+                        "MEMO_SQL":       ("Write Query",          "📝"),
                         "HOST":           ("Target DB Host",       "🌐"),
                         "DBNAME":         ("Target Database",      "🗄️"),
-                        "POSTCODE":       ("Post-execution Code",  "⚙️"),
-                        "END_CODE":       ("End Code",             "⚙️"),
+                        "POSTCODE":       ("Post-execution Code",  "💻"),
+                        "END_CODE":       ("End Code",             "🏁"),
                         "OUTPUT_STREAM":  ("Output Stream",        "📤"),
                     }
                     _out_explicit_params = [
@@ -5520,13 +5586,13 @@ def render_job_analysis_page():
                     if _out_flags.get("jdbc_calls"):
                         _out_code_dests.append(("🗄️", "Database (JDBC write)", "Writes or updates records in a database via direct JDBC — INSERT, UPDATE, or DELETE statements.", "#eff6ff", "#1d4ed8"))
                     if _out_flags.get("file_operations"):
-                        _out_code_dests.append(("📄", "File System (write)", "Writes data to a local file path using Java I/O — FileOutputStream, PrintWriter, or FileWriter.", "#fffbeb", "#b45309"))
+                        _out_code_dests.append(("📁", "File System (write)", "Writes data to a local file path using Java I/O — FileOutputStream, PrintWriter, or FileWriter.", "#fffbeb", "#b45309"))
                     if _out_flags.get("runtime_exec"):
-                        _out_code_dests.append(("⚙️", "External Process (output)", "Sends data to or triggers an OS-level process — output is consumed by an external program.", "#f5f3ff", "#7c3aed"))
+                        _out_code_dests.append(("🔧", "External Process (output)", "Sends data to or triggers an OS-level process — output is consumed by an external program.", "#f5f3ff", "#7c3aed"))
                     if _out_flags.get("error_handling"):
-                        _out_code_dests.append(("🚨", "Error / Reject Path", "Exceptions caught may route records to a reject link or write errors to a log / error table.", "#fff1f2", "#be123c"))
+                        _out_code_dests.append(("🧯", "Error / Reject Path", "Exceptions caught may route records to a reject link or write errors to a log / error table.", "#fff1f2", "#be123c"))
                     if any(kw in _out_code for kw in ("globalMap.put", "globalMap.get")):
-                        _out_code_dests.append(("🌐", "Global Map", "Values written to globalMap are available as outputs to all subsequent components in the job.", "#f0fdfa", "#0f766e"))
+                        _out_code_dests.append(("🌍", "Global Map", "Values written to globalMap are available as outputs to all subsequent components in the job.", "#f0fdfa", "#0f766e"))
 
                     # Downstream schema columns from target components
                     _out_downstream_cols = []
@@ -5543,7 +5609,7 @@ def render_job_analysis_page():
                                             "to":   _otgt_uid,
                                         })
 
-                    # ── KPI strip ──────────────────────────────────────────────────
+                    # -- KPI strip --------------------------------------------------
                     _out_kpi_html = "<div class='out-summary-strip'>"
                     _out_kpi_html += f"""<div class='out-kpi' style='border-left:4px solid #0f766e;'>
                       <div class='out-kpi-label'>Downstream Connections</div>
@@ -5574,7 +5640,7 @@ def render_job_analysis_page():
                     _out_kpi_html += "</div>"
                     st.markdown(_out_kpi_html, unsafe_allow_html=True)
 
-                    # ── Section 1: Downstream Component Connections ────────────────
+                    # -- Section 1: Downstream Component Connections ----------------
                     st.markdown("<div class='out-section-label'>🔗 Downstream Component Connections</div>", unsafe_allow_html=True)
                     if _out_flow_targets:
                         _out_conn_html = "<div class='out-conn-grid'>"
@@ -5602,7 +5668,7 @@ def render_job_analysis_page():
                               <div class='out-conn-type'>{_oconn_type}</div>
                               <div class='out-conn-name'>{_otgt_uid}</div>
                               <div><span class='out-conn-ctype'>{_otgt_ctype}</span></div>
-                              <div class='out-conn-label'>↳ {_oconn_label}</div>
+                              <div class='out-conn-label'>→ {_oconn_label}</div>
                               {"<div style='font-size:11px;color:#6b7280;margin-top:3px;'>"+_dest_hint+"</div>" if _dest_hint else ""}
                             </div>"""
                         _out_conn_html += "</div>"
@@ -5642,15 +5708,15 @@ def render_job_analysis_page():
                             _out_trig_html += (
                                 f"<span style='font-size:11px;color:#6b7280;background:#f3f4f6;"
                                 f"border-radius:5px;padding:3px 9px;display:inline-block;margin:2px;'>"
-                                f"⏭ {_otrig_type} → {_otrig_tgt} ({_otrig_ct})</span>"
+                                f"▶ {_otrig_type} → {_otrig_tgt} ({_otrig_ct})</span>"
                             )
                         _out_trig_html += "</div>"
                         st.markdown(_out_trig_html, unsafe_allow_html=True)
 
                     st.markdown("<hr class='out-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 2: Output Variables Detected in Code ───────────────
-                    st.markdown("<div class='out-section-label'>📝 Output Variables Detected in Code</div>", unsafe_allow_html=True)
+                    # -- Section 2: Output Variables Detected in Code ---------------
+                    st.markdown(f"<div class='out-section-label'>{component_role_icon('output')} Output Variables Detected in Code</div>", unsafe_allow_html=True)
                     if _out_var_assignments:
                         _out_var_html = "<div class='out-var-grid'>"
                         for _ov in _out_var_assignments[:20]:
@@ -5668,8 +5734,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr class='out-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 3: Write Parameters ────────────────────────────────
-                    st.markdown("<div class='out-section-label'>⚙️ Write / Destination Parameters</div>", unsafe_allow_html=True)
+                    # -- Section 3: Write Parameters --------------------------------
+                    st.markdown("<div class='out-section-label'>📝 Write / Destination Parameters</div>", unsafe_allow_html=True)
                     if _out_explicit_params:
                         _out_pt_rows = "".join(
                             f"<tr><td class='out-param-key'>{icon} {label}</td><td>{val[:120]}</td></tr>"
@@ -5684,8 +5750,8 @@ def render_job_analysis_page():
 
                     st.markdown("<hr class='out-divider'>", unsafe_allow_html=True)
 
-                    # ── Section 4: Code-Detected Output Destinations ───────────────
-                    st.markdown("<div class='out-section-label'>🔬 Code-Detected Output Destinations</div>", unsafe_allow_html=True)
+                    # -- Section 4: Code-Detected Output Destinations ---------------
+                    st.markdown("<div class='out-section-label'>🧩 Code-Detected Output Destinations</div>", unsafe_allow_html=True)
                     if _out_code_dests:
                         _out_cd_html = "<div class='out-conn-grid'>"
                         for _cd_icon, _cd_name, _cd_desc, _cd_bg, _cd_col in _out_code_dests:
@@ -5698,14 +5764,14 @@ def render_job_analysis_page():
                     else:
                         st.markdown("<div class='out-conn-none'>No implicit write destinations detected in Java code patterns.</div>", unsafe_allow_html=True)
 
-                # Process Flow ─────────────────────────────────────────────────────
+                # Process Flow -----------------------------------------------------
                 with _jt_flow:
                     st.markdown(f"#### Process Flow — {_comp['uid']}")
                     st.caption("Ordered business steps executed by this component. No technical code.")
 
                     _pf_flags = _comp["flags"]
 
-                    # ── Ordered step catalogue (flag → step text) ─────────────────
+                    # -- Ordered step catalogue (flag → step text) -----------------
                     # Steps are added in execution order: setup → input → validate → transform → output → error
                     _pf_step_catalogue = [
                         ("system_env",     "Read configuration settings and environment variables needed for processing"),
@@ -5762,7 +5828,7 @@ def render_job_analysis_page():
                     )
                     st.markdown(f"<ul class='pf-list'>{_pf_items}</ul>", unsafe_allow_html=True)
 
-                # Migration Impact ──────────────────────────────────────────────────
+                # Migration Impact --------------------------------------------------
                 with _jt_risk:
                     st.markdown(f"#### Migration Impact — {_comp['uid']}")
                     st.caption(f"`{_comp['component_type']}` · {_comp['loc']} lines of custom Java")
@@ -5771,20 +5837,19 @@ def render_job_analysis_page():
                     _cx   = _comp["complexity"]
                     _mf   = _comp["flags"]
 
-                    # ── Colour helpers ─────────────────────────────────────────────
+                    # -- Colour helpers ---------------------------------------------
                     _RISK_COLOR  = {"CRITICAL": "#be123c", "HIGH": "#c2500a", "MEDIUM": "#1d4ed8", "LOW": "#166534"}
                     _RISK_BG     = {"CRITICAL": "#fff1f2", "HIGH": "#fff7ed", "MEDIUM": "#eff6ff", "LOW": "#f0fdf4"}
-                    _RISK_ICON   = {"CRITICAL": "🔴", "HIGH": "🟠", "MEDIUM": "🟡", "LOW": "🟢"}
                     _USE_COLOR   = {"Yes": "#166534", "No": "#6b7280"}
                     _USE_BG      = {"Yes": "#f0fdf4", "No": "#f9fafb"}
 
-                    # ── Derive usage flags ─────────────────────────────────────────
+                    # -- Derive usage flags -----------------------------------------
                     _mi_db       = "Yes" if _mf.get("jdbc_calls")      else "No"
                     _mi_file     = "Yes" if _mf.get("file_operations")  else "No"
                     _mi_api      = "Yes" if _mf.get("runtime_exec")     else "No"
                     _mi_code     = "Yes" if _comp["loc"] > 0            else "No"
 
-                    # ── Recommendation ────────────────────────────────────────────
+                    # -- Recommendation --------------------------------------------
                     _mi_rec_map = {
                         "CRITICAL": "Requires manual rewrite before migration. Runtime execution and OS-level calls are blocked in cloud environments. Engage a developer to replace this logic with supported Talend components.",
                         "HIGH":     "Requires manual review and likely refactoring. File or environment access must be replaced with cloud-compatible patterns before migrating.",
@@ -5793,7 +5858,7 @@ def render_job_analysis_page():
                     }
                     _mi_rec = _mi_rec_map.get(_risk["overall"], "Review component logic before migration.")
 
-                    # ── CSS ────────────────────────────────────────────────────────
+                    # -- CSS --------------------------------------------------------
                     _mi_css = """
                     <style>
                     .mi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
@@ -5815,7 +5880,7 @@ def render_job_analysis_page():
                     </style>"""
                     st.markdown(_mi_css, unsafe_allow_html=True)
 
-                    # ── Row 1: Complexity | Risk | Custom Code ─────────────────────
+                    # -- Row 1: Complexity | Risk | Custom Code ---------------------
                     _cx_color = _RISK_COLOR.get(_cx["label"], "#374151")
                     _cx_bg    = _RISK_BG.get(_cx["label"], "#f9fafb")
                     _rv_color = _RISK_COLOR.get(_risk["overall"], "#374151")
@@ -5829,7 +5894,7 @@ def render_job_analysis_page():
                       </div>
                       <div class="mi-card" style="border-left:4px solid {_rv_color};background:{_rv_bg};">
                         <div class="mi-card-label">Overall Risk</div>
-                        <div class="mi-card-value" style="color:{_rv_color};">{_RISK_ICON.get(_risk["overall"],"⚪")} {_risk["overall"]}</div>
+                        <div class="mi-card-value" style="color:{_rv_color};">{severity_icon(_risk["overall"])} {_risk["overall"]}</div>
                         <div class="mi-card-sub">{len(_risk["findings"])} finding(s) detected</div>
                       </div>
                       <div class="mi-card" style="border-left:4px solid #3C3489;background:#f5f4ff;">
@@ -5839,7 +5904,7 @@ def render_job_analysis_page():
                       </div>
                     </div>""", unsafe_allow_html=True)
 
-                    # ── Row 2: DB | File | API | External JARs ────────────────────
+                    # -- Row 2: DB | File | API | External JARs --------------------
                     _mi_jars = str(len(_comp["external_jars"])) if _comp["external_jars"] else "0"
                     _mi_jar_col = _USE_COLOR["Yes"] if _comp["external_jars"] else _USE_COLOR["No"]
                     _mi_jar_bg  = _USE_BG["Yes"]    if _comp["external_jars"] else _USE_BG["No"]
@@ -5863,7 +5928,7 @@ def render_job_analysis_page():
                       </div>
                     </div>""", unsafe_allow_html=True)
 
-                    # ── Recommendation ────────────────────────────────────────────
+                    # -- Recommendation --------------------------------------------
                     _rec_color = _RISK_COLOR.get(_risk["overall"], "#374151")
                     _rec_bg    = _RISK_BG.get(_risk["overall"], "#f9fafb")
                     st.markdown(f"""
@@ -5872,7 +5937,7 @@ def render_job_analysis_page():
                       <div class="mi-rec-text">{_mi_rec}</div>
                     </div>""", unsafe_allow_html=True)
 
-                    # ── Risk Findings ─────────────────────────────────────────────
+                    # -- Risk Findings ---------------------------------------------
                     st.markdown("<div class='mi-findings'>", unsafe_allow_html=True)
                     st.markdown("**Risk Findings**")
                     _finding_rows = ""
@@ -5886,23 +5951,23 @@ def render_job_analysis_page():
                         )
                     st.markdown(_finding_rows + "</div>", unsafe_allow_html=True)
 
-                # Dependencies ─────────────────────────────────────────────────────
+                # Dependencies -----------------------------------------------------
                 with _jt_deps:
                     st.markdown(f"#### Dependencies — {job_name}")
                     st.caption("Dependency groups detected across all Java components in this job.")
                     _graph_nodes = _jl["graph_nodes"]
                     _graph_edges = _jl["graph_edges"]
 
-                    # ── Build grouped dependency data from existing analysis ────────
+                    # -- Build grouped dependency data from existing analysis --------
                     _dep_flags = _comp["flags"]
 
                     _dep_groups = {
                         "Database":   {"icon": "🗄️",  "color": "#1d4ed8", "bg": "#eff6ff", "items": []},
                         "Files":      {"icon": "📁",  "color": "#b45309", "bg": "#fffbeb", "items": []},
-                        "APIs":       {"icon": "🔌",  "color": "#7c3aed", "bg": "#f5f3ff", "items": []},
-                        "Components": {"icon": "☕",  "color": "#3C3489", "bg": "#f5f4ff", "items": []},
+                        "APIs":       {"icon": "🌐",  "color": "#7c3aed", "bg": "#f5f3ff", "items": []},
+                        "Components": {"icon": "🧩",  "color": "#3C3489", "bg": "#f5f4ff", "items": []},
                         "Libraries":  {"icon": "📦",  "color": "#166534", "bg": "#f0fdf4", "items": []},
-                        "Context":    {"icon": "⚙️",  "color": "#0f766e", "bg": "#f0fdfa", "items": []},
+                        "Context":    {"icon": "🔧",  "color": "#0f766e", "bg": "#f0fdfa", "items": []},
                     }
 
                     if _dep_flags.get("jdbc_calls"):
@@ -5937,7 +6002,7 @@ def render_job_analysis_page():
                             if _ctx_node not in _dep_groups["Context"]["items"]:
                                 _dep_groups["Context"]["items"].append(_ctx_node)
 
-                    # ── CSS ────────────────────────────────────────────────────────
+                    # -- CSS --------------------------------------------------------
                     _dep_css = """
                     <style>
                     .dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
@@ -5951,7 +6016,7 @@ def render_job_analysis_page():
                     </style>"""
                     st.markdown(_dep_css, unsafe_allow_html=True)
 
-                    # ── Render group cards ─────────────────────────────────────────
+                    # -- Render group cards -----------------------------------------
                     _dep_card_html = "<div class='dep-grid'>"
                     for _grp_name, _grp in _dep_groups.items():
                         _cnt = len(_grp["items"])
@@ -5974,7 +6039,7 @@ def render_job_analysis_page():
                     _dep_card_html += "</div>"
                     st.markdown(_dep_card_html, unsafe_allow_html=True)
 
-                    # ── Dependency graph (kept as-is) ──────────────────────────────
+                    # -- Dependency graph (kept as-is) ------------------------------
                     if _graph_nodes and _graph_edges:
                         st.markdown("**Dependency Graph**")
                         def _safe_nid(s: str) -> str:
@@ -5983,7 +6048,7 @@ def render_job_analysis_page():
                         _dep_lines = ["graph LR"]
                         for _n in _graph_nodes:
                             _nid = _safe_nid(_n)
-                            _icon = "☕" if _n in [c["uid"] for c in _jl_comps] else "📦"
+                            _icon = "💻" if _n in [c["uid"] for c in _jl_comps] else "📦"
                             _dep_lines.append(f'    {_nid}["{_icon} {_n}"]')
                         for _src, _tgt in _graph_edges:
                             _dep_lines.append(f"    {_safe_nid(_src)} --> {_safe_nid(_tgt)}")
@@ -5991,8 +6056,8 @@ def render_job_analysis_page():
                     else:
                         st.info("No dependency graph edges detected in Java components.")
 
-            # ── All-job Java summary (outside component selector) ──────────────────
-            with st.expander("📊 Repository Java Summary", expanded=False):
+            # -- All-job Java summary (outside component selector) ------------------
+            with st.expander("📋 Repository Java Summary", expanded=False):
                 _all_java_jobs = [
                     j for j in all_jobs
                     if any(c.get("component_type") in {"tJava", "tJavaRow", "tJavaFlex"}
@@ -6040,26 +6105,30 @@ def render_job_analysis_page():
                     st.info("No Java components found across loaded jobs.")
 
 
-    if _cat_sel == "Documentation":
-        _doc_summary, _doc_tdd, _doc_hub, _doc_testing = st.tabs(["Documentation Summary", "TDD", "Docs Hub", "Testing"])
-        with _doc_summary:
+    if _cat_sel == "📄 Documentation":
+        _doc_main, _doc_tdd_dl, _doc_testing = st.tabs(["📄 Documentation", "⬇️ Download TDD", "🧪 Testing"])
+        with _doc_main:
             _render_documentation_summary(job, jd, _inv, _all_recs, _sql_ops, job_name)
-
-        with _doc_tdd:
-            _render_tdd_tab_content()
-
-        # ── Documentation Hub Tab ──────────────────────────────────────────────────
-        with _doc_hub:
+            st.divider()
             _render_docs_hub_tab_content()
 
-        with _doc_testing:
+        with _doc_tdd_dl:
             import app.ui.tdd_page as _tdd_mod
-            _tdd_mod._KEY_CTX = "_j360_doc_testing"
-            from app.ui.tdd_page import _render_testing_section
-            _render_testing_section()
+            _tdd_mod._KEY_CTX = "_j360"
+            from app.ui.tdd_page import _render_tdd_download_section
+            _render_tdd_download_section(_key_suffix="_j360_doc")
+
+        with _doc_testing:
+            from app.ui.testing_architecture_page import render_testing_architecture_page
+            render_testing_architecture_page(jd)
 
 
-    if _cat_sel == "Export Center":
-        _xp_tab, = st.tabs(["Export Reports"])
+    if _cat_sel == "📦 Export Center":
+        _xp_tab, _xp_tdd = st.tabs(["📦 Export Reports", "⬇️ Download TDD"])
         with _xp_tab:
             _render_phase8_export_center(job, jd, _inv, _all_recs, _sql_ops, job_name, _cached)
+        with _xp_tdd:
+            import app.ui.tdd_page as _tdd_mod_xp
+            _tdd_mod_xp._KEY_CTX = "_j360_xp"
+            from app.ui.tdd_page import _render_tdd_download_section as _xp_tdd_dl
+            _xp_tdd_dl(_key_suffix="_j360_export_center")

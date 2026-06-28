@@ -237,7 +237,7 @@ def render_quick_insights(
 
     render_kpi_row([
         {"label": "Complexity",   "value": cx_level,       "caption": f"Score {cx_score}", "color": cx_color},
-        {"label": "Cloud Ready",  "value": cloud_rag,      "caption": cloud.get("status", ""), "color": cloud_color},
+        {"label": "Readiness Status",  "value": cloud_rag,      "caption": cloud.get("status", ""), "color": cloud_color},
         {"label": "Risk Items",   "value": len(ent_risks),  "caption": f"{len(top_risks)} critical", "color": "#be123c" if top_risks else "#15803d"},
         {"label": "Auto-Fix",     "value": len([r for r in job_recs if r.get("auto_fix")]),
                                    "caption": f"of {len(job_recs)} findings", "color": "#1d4ed8"},

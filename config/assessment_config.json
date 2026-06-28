@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "active_profile": "Custom",
   "profiles": [
     "Conservative",
@@ -38,7 +38,7 @@
   },
   "effort": {
     "hours_per_component": 0.5,
-    "hours_per_sql_query": 1.0,
+    "hours_per_sql_query": 0.5,
     "hours_per_dependency": 0.5,
     "hours_per_custom_code": 2.0
   },
@@ -52,5 +52,5 @@
       "partially_ready": 50
     }
   },
-  "updated_at": "2026-06-26T13:28:57Z"
+  "updated_at": "2026-06-28T09:54:35Z"
 }

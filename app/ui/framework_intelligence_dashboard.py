@@ -73,7 +73,7 @@ def render_framework_intelligence_dashboard(jobs=None, data=None):
     st.metric("Framework Maturity", data["framework_maturity"]["framework_maturity_score"])
     st.metric("Compliance", data["best_practice_compliance_score"])
     section_header("Inventory"); st.json(data["framework_inventory"])
-    section_header("Gaps"); st.dataframe(data["framework_gaps"]["remediation_recommendations"], width="stretch")
+    section_header("Gaps"); st.dataframe(data["framework_gaps"]["remediation_recommendations"], use_container_width=True)
     section_header("Risks"); st.json(data.get("framework_risks", []))
     st.download_button("Export JSON", export_framework_report(data, "json"), "framework_intelligence.json")
     st.download_button("Export HTML", export_framework_report(data, "html"), "framework_intelligence.html")

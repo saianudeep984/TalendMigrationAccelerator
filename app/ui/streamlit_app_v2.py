@@ -103,11 +103,11 @@ sidebar_status(_has_analysis, _job_count)
 # Advanced tools collapsed away from main flow
 with st.sidebar.expander("🔧 Advanced", expanded=False):
     st.caption("AI / Ollama, prompts, templates")
-    if st.button("Ollama Settings", width="stretch", key="nav_ollama"):
+    if st.button("Ollama Settings", use_container_width=True, key="nav_ollama"):
         st.session_state["_advanced_page"] = "ollama"
-    if st.button("Prompt Library", width="stretch", key="nav_prompts"):
+    if st.button("Prompt Library", use_container_width=True, key="nav_prompts"):
         st.session_state["_advanced_page"] = "prompts"
-    if st.button("Template Manager", width="stretch", key="nav_templates"):
+    if st.button("Template Manager", use_container_width=True, key="nav_templates"):
         st.session_state["_advanced_page"] = "templates"
 
 # ── Routing for non-wizard pages ───────────────────────────────────────────────
@@ -602,18 +602,18 @@ elif _step == 3:
                 "Complexity": j["complexity"].get("level","—"),
             })
         _df = pd.DataFrame(_rows)
-        st.dataframe(_df, width="stretch", hide_index=True)
+        st.dataframe(_df, use_container_width=True, hide_index=True)
 
     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
     _c1, _c2, _ = st.columns([1, 1, 3])
     with _c1:
-        if st.button("← Back", width="stretch"):
+        if st.button("← Back", use_container_width=True):
             st.session_state["wizard_step"] = 1
             st.session_state.pop("_analysis_complete", None)
             st.session_state.pop("last_analysis_jobs", None)
             st.rerun()
     with _c2:
-        if st.button("Generate Reports →", type="primary", width="stretch"):
+        if st.button("Generate Reports →", type="primary", use_container_width=True):
             st.session_state["wizard_step"] = 4
             st.rerun()
 
@@ -656,11 +656,11 @@ elif _step == 4:
 
     _c1, _c2, _ = st.columns([1, 1, 3])
     with _c1:
-        if st.button("← Back to Review", width="stretch"):
+        if st.button("← Back to Review", use_container_width=True):
             st.session_state["wizard_step"] = 3
             st.rerun()
     with _c2:
-        if st.button("⚙  Generate Now", type="primary", width="stretch"):
+        if st.button("⚙  Generate Now", type="primary", use_container_width=True):
             _gen_status = st.empty()
             _gen_bar = st.progress(0)
 
@@ -744,27 +744,27 @@ elif _step == 5:
             with open(_report_file, "rb") as f:
                 st.download_button("Download Excel", f, "migration_report.xlsx",
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    width="stretch", key="dl_excel")
+                    use_container_width=True, key="dl_excel")
         else:
-            st.button("Download Excel", disabled=True, width="stretch", key="dl_excel_dis")
+            st.button("Download Excel", disabled=True, use_container_width=True, key="dl_excel_dis")
 
     with dl_c2:
         download_card("🔧", "Migration Patch", "Automated XML transformation patch")
         if _patch_file and os.path.exists(_patch_file):
             with open(_patch_file, "rb") as f:
                 st.download_button("Download Patch", f, "migration_patch.json",
-                    "application/json", width="stretch", key="dl_patch")
+                    "application/json", use_container_width=True, key="dl_patch")
         else:
-            st.button("Download Patch", disabled=True, width="stretch", key="dl_patch_dis")
+            st.button("Download Patch", disabled=True, use_container_width=True, key="dl_patch_dis")
 
     with dl_c3:
         download_card("🔗", "Dependency Graph", "Job-to-job dependency relationships")
         if os.path.exists(_dep_file):
             with open(_dep_file, "rb") as f:
                 st.download_button("Download Dependencies", f, "dependency_summary.json",
-                    "application/json", width="stretch", key="dl_deps")
+                    "application/json", use_container_width=True, key="dl_deps")
         else:
-            st.button("Download Dependencies", disabled=True, width="stretch", key="dl_deps_dis")
+            st.button("Download Dependencies", disabled=True, use_container_width=True, key="dl_deps_dis")
 
     st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
 
@@ -786,11 +786,11 @@ elif _step == 5:
     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
     _ca, _cb, _ = st.columns([1, 1, 3])
     with _ca:
-        if st.button("← Back to Review", width="stretch"):
+        if st.button("← Back to Review", use_container_width=True):
             st.session_state["wizard_step"] = 3
             st.rerun()
     with _cb:
-        if st.button("🔄 Analyze New Repository", width="stretch"):
+        if st.button("🔄 Analyze New Repository", use_container_width=True):
             for k in ["wizard_step","last_analysis_jobs","readiness_score","effort_estimate",
                       "auto_fix_recs","wizard_report_file","wizard_patch_file",
                       "wizard_uploaded_file_data","wizard_uploaded_file_name",

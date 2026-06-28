@@ -10,7 +10,6 @@ Converts shell to enterprise dashboard:
 All original component functions are preserved unchanged.
 """
 
-# PHASE 1 UI REFACTOR
 try:
     import streamlit as st
 except ImportError:
@@ -317,6 +316,11 @@ def apply_wizard_theme() -> None:
     if "tma_theme" not in st.session_state:
         st.session_state["tma_theme"] = "Light"
 
+    _t = st.session_state.get("tma_theme")
+    if not st.session_state.get("_theme_injected") or st.session_state.get("_theme_last") != _t:
+        st.session_state["_theme_injected"] = True
+        st.session_state["_theme_last"] = _t
+
     st.markdown("""<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -348,11 +352,12 @@ html, body, [class*="css"], .stApp {
 }
 
 /* ── Performance: avoid dim/fade flash on rerun (tab navigation) ── */
-[data-testid="stAppViewContainer"], .main .block-container,
-[data-stale="true"], [data-stale="true"] * {
-    opacity: 1 !important;
-    transition: none !important;
-    filter: none !important;
+/* Suppress the default Streamlit stale-fade on everything EXCEPT tab panels
+   (tab panels fade out fast so the skeleton can appear cleanly) */
+[data-stale="true"] { opacity: 1 !important; transition: none !important; filter: none !important; }
+[data-stale="true"] .stTabs [data-baseweb="tab-panel"] {
+    opacity: 0.08 !important;
+    transition: opacity 0.1s ease !important;
 }
 
 /* PHASE 1 UI REFACTOR — reduced block padding for denser dashboard layout */
@@ -434,6 +439,52 @@ div[data-testid="stMetricLabel"] {
     font-weight: 700 !important;
 }
 .stTabs [data-baseweb="tab-panel"] { padding-top: 12px !important; }
+
+/* ── Tab transition: instant clear + skeleton shimmer ── */
+/* When Streamlit marks content as stale (mid-rerun), fade it out fast
+   so old tab content doesn't linger visibly */
+[data-stale="true"] .stTabs [data-baseweb="tab-panel"],
+[data-stale="true"] .stTabs [data-baseweb="tab-panel"] * {
+    opacity: 0 !important;
+    transition: opacity 0.08s ease !important;
+}
+
+/* Skeleton shimmer keyframe */
+@keyframes tma-shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position: 600px 0; }
+}
+
+/* Skeleton bar base — use class .tma-skel on any div */
+.tma-skel {
+    background: linear-gradient(90deg, #e8eaf0 25%, #f4f6fb 50%, #e8eaf0 75%);
+    background-size: 600px 100%;
+    animation: tma-shimmer 1.3s ease-in-out infinite;
+    border-radius: 6px;
+    display: block;
+}
+
+/* Pre-built skeleton card for tab loading state */
+.tma-tab-loading {
+    padding: 18px 0 8px;
+}
+.tma-tab-loading .tma-skel-title {
+    height: 18px; width: 38%; margin-bottom: 18px;
+}
+.tma-tab-loading .tma-skel-kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.tma-tab-loading .tma-skel-kpi {
+    height: 72px; border-radius: 10px;
+}
+.tma-tab-loading .tma-skel-line { height: 12px; margin-bottom: 10px; border-radius: 4px; }
+.tma-tab-loading .tma-skel-line.w100 { width: 100%; }
+.tma-tab-loading .tma-skel-line.w80  { width: 80%; }
+.tma-tab-loading .tma-skel-line.w60  { width: 60%; }
+.tma-tab-loading .tma-skel-block { height: 120px; width: 100%; margin-bottom: 14px; border-radius: 10px; }
 .stButton > button {
     font-size: 12px !important;
     font-weight: 600 !important;
@@ -654,6 +705,14 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
     font-weight: 600;
     border-color: #bfdbfe;
 }
+.tma-nav-group-sep {
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background: #e2e8f0;
+    margin: 0 2px;
+    flex-shrink: 0;
+}
 .tma-topnav-right {
     display: flex;
     align-items: center;
@@ -807,6 +866,82 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
     .block-container { padding: 52px .6rem .9rem !important; }
     .tma-kpi-grid { grid-template-columns: 1fr; }
     .tma-page-header { align-items: flex-start; }
+}
+/* ── Legacy component classes (design_system.py: hero/section/metric_card/
+   action_panel/roadmap) — these pages were never migrated off the old
+   helper functions, and apply_enterprise_theme() (the only place that used
+   to style them) is no longer called anywhere. Without this block, those
+   cards render with zero matching CSS the moment a repository is uploaded
+   and the user reaches Command Center / Migration Advisor, which is the
+   "layout changes after upload" inconsistency. Re-mapped onto the same
+   --tma-* tokens used everywhere else so the theme matches. ── */
+.f-hero {
+    background: linear-gradient(118deg, #0f172a 0%, #1e3a5f 60%, #0f4c75 100%);
+    border-radius: 14px;
+    padding: 22px 26px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.f-hero-title { font-size: 19px; font-weight: 700; margin: 0 0 3px; letter-spacing: -0.01em; }
+.f-hero-sub   { font-size: 12px; color: rgba(255,255,255,0.7); margin: 0 0 12px; line-height: 1.5; }
+.f-pill-row   { display: flex; flex-wrap: wrap; gap: 6px; }
+.f-pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+}
+.f-section {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 20px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--tma-border);
+}
+.f-section-title { font-size: 13px; font-weight: 600; color: var(--tma-text); }
+.f-section-sub   { font-size: 12px; color: var(--tma-text-muted); }
+.f-kpi {
+    background: var(--tma-surface);
+    border: 1px solid var(--tma-border);
+    border-radius: var(--tma-radius);
+    padding: 14px 16px;
+    box-shadow: var(--tma-shadow-sm);
+    min-height: 86px;
+}
+.f-kpi-label   { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tma-text-muted); margin-bottom: 5px; }
+.f-kpi-value   { font-size: 22px; font-weight: 700; color: var(--tma-text); line-height: 1.1; margin-bottom: 3px; }
+.f-kpi-caption { font-size: 11px; color: var(--tma-text-muted); line-height: 1.4; }
+.f-kpi-bar     { height: 2px; border-radius: 999px; margin-top: 9px; }
+.f-action {
+    background: var(--tma-surface);
+    border: 1px solid var(--tma-border);
+    border-left: 3px solid var(--tma-primary);
+    border-radius: var(--tma-radius);
+    padding: 12px 14px;
+    box-shadow: var(--tma-shadow-sm);
+    height: 100%;
+}
+.f-action-title  { font-size: 13px; font-weight: 600; color: var(--tma-text); margin-bottom: 4px; }
+.f-action-body   { font-size: 12px; color: var(--tma-text-muted); line-height: 1.4; margin-bottom: 6px; }
+.f-action-status { font-size: 11px; font-weight: 600; }
+.f-roadmap { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 8px 0 16px; }
+.f-step {
+    background: var(--tma-surface);
+    border: 1px solid var(--tma-border);
+    border-radius: var(--tma-radius);
+    padding: 12px 14px;
+    box-shadow: var(--tma-shadow-sm);
+}
+.f-step-num   { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tma-primary); margin-bottom: 4px; }
+.f-step-title { font-size: 13px; font-weight: 600; color: var(--tma-text); margin-bottom: 3px; }
+.f-step-desc  { font-size: 11px; color: var(--tma-text-muted); line-height: 1.4; }
+@media (max-width: 900px) {
+    .f-roadmap { grid-template-columns: repeat(2, 1fr); }
+    .f-hero-title { font-size: 17px; }
 }
 </style>""", unsafe_allow_html=True)
     if st.session_state.get("tma_theme") == "Dark":
@@ -1060,16 +1195,18 @@ _NAV_PAGES = [
     ("command_center",      "Command Center"),
     ("version_converter",   "Version Converter"),  # hidden by default; toggled via Settings
     ("executive_dashboard", "Executive Dashboard"),
+    ("portfolio",           "Portfolio Dashboard"),
     ("job_analysis",        "Job 360 Analysis"),
-    ("repository_search",   "Repository Search"),  # NEW — Feature 1
+    ("repository_search",   "Repository Search"),  # hidden by default; toggled via Settings
     # ("tdd",              "Documentation"),  # merged into Job 360 > TDD tab
     # ("documentation_hub",   "Documentation"),  # merged into Job 360 > Docs Hub tab
     ("testing_architecture","Testing Architecture"),
+    ("migration_advisor",   "Migration Advisor"),
     ("settings",            "Settings"),
 ]
 
 # Pages hidden from nav by default; can be re-enabled via Settings
-_HIDDEN_PAGES_DEFAULT = {"version_converter", "repository_search"}
+_HIDDEN_PAGES_DEFAULT = {"version_converter", "portfolio", "migration_advisor"}
 
 
 
@@ -1077,13 +1214,15 @@ def render_topnav() -> str:
     """Native Streamlit top navigation keyed by stable page ids."""
     _ALL_LABEL_KEYS = [k for k, _, _ in [
         ("home",                "🏠 Home",               "Upload · Scan · Analyse"),
-        ("command_center",      "🚀 Command Center",     "Repository · Risks · Deps"),
+        ("command_center",      "🔬 Analyse",            "Repository · Risks · Deps"),
         ("version_converter",   "🔄 Converter",          "6→7→8 · Batch · Advisor"),
         ("executive_dashboard", "📊 Executive",          "KPIs · RAG · Readiness"),
-        ("job_analysis",        "🔍 Job 360 Analysis",   "Jobs · tMap · Java · Cloud"),
+        ("portfolio",           "📁 Portfolio",          "Cross-repo · Status · Effort"),
+        ("job_analysis",        "🔭 Job 360",             "Jobs · tMap · Java · Cloud"),
         ("repository_search",   "🔍 Search",             "Jobs · Tables · SQL · Contexts"),
         # ("documentation_hub",   "📄 Documentation",  # merged into Job 360
-        ("testing_architecture","🧪 Testing",            "Unit · SQL · Reconciliation"),
+        ("testing_architecture","📋 Plan",               "Unit · SQL · Reconciliation"),
+        ("migration_advisor",   "🧭 Migration Advisor",  "Target · Workflow · Roadmap"),
         ("settings",            "⚙️ Settings",           "Config · AI · Templates"),
     ]]
     _max_idx = len(_ALL_LABEL_KEYS) - 1
@@ -1178,13 +1317,15 @@ def render_topnav() -> str:
 
     _ALL_LABELS = [
         ("home",                "🏠 Home",               "Upload · Scan · Analyse"),
-        ("command_center",      "🚀 Command Center",     "Repository · Risks · Deps"),
+        ("command_center",      "🔬 Analyse",            "Repository · Risks · Deps"),
         ("version_converter",   "🔄 Converter",          "6→7→8 · Batch · Advisor"),
         ("executive_dashboard", "📊 Executive",          "KPIs · RAG · Readiness"),
-        ("job_analysis",        "🔍 Job 360 Analysis",   "Jobs · tMap · Java · Cloud"),
+        ("portfolio",           "📁 Portfolio",          "Cross-repo · Status · Effort"),
+        ("job_analysis",        "🔭 Job 360",             "Jobs · tMap · Java · Cloud"),
         ("repository_search",   "🔍 Search",             "Jobs · Tables · SQL · Contexts"),
         # ("documentation_hub",   "📄 Documentation",  # merged into Job 360
-        ("testing_architecture","🧪 Testing",            "Unit · SQL · Reconciliation"),
+        ("testing_architecture","📋 Plan",               "Unit · SQL · Reconciliation"),
+        ("migration_advisor",   "🧭 Migration Advisor",  "Target · Workflow · Roadmap"),
         ("settings",            "⚙️ Settings",           "Config · AI · Templates"),
     ]
 
@@ -1202,7 +1343,8 @@ def render_topnav() -> str:
     _vis_idx = _vis_keys.index(_cur_key) if _cur_key in _vis_keys else 0
 
     _n = len(_LABELS)
-    _btn_widths = [0.8, 1.1, 0.85, 0.9, 1.15, 0.95, 0.85, 0.8][:_n]
+    _BASE_BTN_WIDTHS = [0.8, 1.1, 0.85, 0.9, 1.15, 0.95, 0.85, 0.8, 0.75, 0.75, 0.75]
+    _btn_widths = (_BASE_BTN_WIDTHS * ((_n // len(_BASE_BTN_WIDTHS)) + 1))[:_n]
     _col_widths = [1.3] + _btn_widths + [0.75, 1.0]
 
     _topnav = st.container(key="tma_topnav")
@@ -1233,11 +1375,19 @@ def render_topnav() -> str:
                     unsafe_allow_html=True,
                 )
 
+        _NAV_GROUPS_MAP = {
+            "home": "Home", "command_center": "Analyse", "executive_dashboard": "Analyse",
+            "portfolio": "Analyse", "job_analysis": "Explore", "repository_search": "Explore",
+            "testing_architecture": "Plan", "migration_advisor": "Plan",
+            "version_converter": "Plan", "settings": "Settings",
+        }
+        _prev_grp = None
         for i, (col, (page_key, short, tagline)) in enumerate(zip(_btn_cols2, _LABELS)):
+            _cur_grp = _NAV_GROUPS_MAP.get(page_key)
             with col:
                 is_active = (i == _vis_idx)
                 btn_type = "primary" if is_active else "secondary"
-                if st.button(short, key=f"nav2_{page_key}", type=btn_type, width="stretch"):
+                if st.button(short, key=f"nav2_{page_key}", type=btn_type, use_container_width=True):
                     # Store the global index for this page key
                     _gidx = _all_keys.index(page_key) if page_key in _all_keys else 0
                     st.session_state["_nav_idx2"] = _gidx
@@ -1245,6 +1395,7 @@ def render_topnav() -> str:
                     st.rerun()
                 tag_color = "#3b82f6" if is_active else "#94a3b8"
                 tag_weight = "600" if is_active else "400"
+                _prev_grp = _cur_grp  # track for group boundaries
                 st.markdown(
                     f'<div style="font-size:8px;color:{tag_color};text-align:center;'
                     f'margin-top:-8px;white-space:nowrap;overflow:hidden;'
@@ -1315,6 +1466,59 @@ def render_kpi_row(items: list[dict]) -> None:
     )
 
 
+def render_tab_skeleton(lines: int = 3, show_kpi: bool = True, show_block: bool = True) -> None:
+    """
+    Render an animated shimmer skeleton for a tab that is loading.
+
+    Call this at the very top of a ``with tab:`` block, then clear it
+    by writing over the same ``st.empty()`` placeholder — or simply let
+    Streamlit replace it on the next rerun once real content renders.
+
+    Parameters
+    ----------
+    lines      : number of text-line shimmer bars to show (default 3)
+    show_kpi   : whether to include a 4-column KPI row shimmer
+    show_block : whether to include a large block shimmer (e.g. chart/table)
+
+    Usage
+    -----
+    with my_tab:
+        _loading = st.empty()
+        with _loading.container():
+            render_tab_skeleton()
+        # … compute expensive content …
+        _loading.empty()          # clears skeleton
+        st.markdown("Real content here")
+    """
+    kpi_row = ""
+    if show_kpi:
+        kpi_row = (
+            '<div class="tma-skel-kpi-row">'
+            + '<div class="tma-skel tma-skel-kpi"></div>' * 4
+            + '</div>'
+        )
+
+    line_widths = ["w100", "w80", "w60", "w100", "w80"]
+    line_html = "".join(
+        f'<div class="tma-skel tma-skel-line {line_widths[i % len(line_widths)]}"></div>'
+        for i in range(lines)
+    )
+
+    block_html = '<div class="tma-skel tma-skel-block"></div>' if show_block else ""
+
+    st.markdown(
+        f"""
+        <div class="tma-tab-loading">
+          <div class="tma-skel tma-skel-title"></div>
+          {kpi_row}
+          {line_html}
+          {block_html}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # ── PHASE 1 UI REFACTOR — Fixed-Height Panel ──────────────────────────────────
 
 _INTELLIGENT_KPIS = {
@@ -1331,7 +1535,7 @@ _INTELLIGENT_KPIS = {
 
 
 def _open_settings_button(key: str) -> None:
-    if st.button("Open Settings", key=key, width="stretch"):
+    if st.button("Open Settings", key=key, use_container_width=True):
         _settings_idx = next(
             (i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8
         )
@@ -1354,7 +1558,7 @@ def _settings_section_for_kpi(label: str) -> str:
 
 
 def _open_settings_section(label: str, key: str) -> None:
-    if st.button("Open Settings", key=key, width="stretch"):
+    if st.button("Open Settings", key=key, use_container_width=True):
         _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8)
         st.session_state["settings_section"] = _settings_section_for_kpi(label)
         st.session_state["_nav_idx2"] = _si
@@ -1363,7 +1567,7 @@ def _open_settings_section(label: str, key: str) -> None:
 
 
 def _open_simulation(key: str) -> None:
-    if st.button("Simulate Changes", key=key, width="stretch"):
+    if st.button("Simulate Changes", key=key, use_container_width=True):
         _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8)
         st.session_state["settings_section"] = "Simulation Sandbox"
         st.session_state["_nav_idx2"] = _si
@@ -1594,7 +1798,7 @@ def render_kpi_badge(label: str, value, caption: str = "", color: str = "blue",
     help_text = f"{label}: click for breakdown, expandable details, and settings."
     pop_key = key or f"kpi_popover_{normalized.replace(' ', '_')}_{uuid.uuid4().hex}"
     pop_label = f"{label}: {value}"
-    with st.popover(pop_label, help=help_text, width="stretch"):
+    with st.popover(pop_label, help=help_text, use_container_width=True):
         if caption:
             st.caption(caption)
         _render_kpi_details(label, value, details, pop_key)
@@ -1684,6 +1888,12 @@ def page_header(icon: str, title: str, subtitle: str = "") -> None:
         f'</div></div>',
         unsafe_allow_html=True,
     )
+
+
+# Alias kept for backward compatibility — several dashboard pages
+# (migration_advisor_dashboard, migration_runbook_dashboard, etc.) import
+# this name instead of page_header().
+std_page_header = page_header
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1911,7 +2121,7 @@ def ExecutiveDashboardCard(dashboard, mrs: dict | None = None) -> str | None:
         {"label": "Warning Jobs", "value": str(warning_jobs), "caption": "needs review (AMBER)", "filter": "Warning Jobs", "color": "#b45309"},
         {"label": "High Risk Jobs", "value": str(high_risk), "caption": "HIGH/CRITICAL findings", "filter": "High Risk Jobs", "color": "#be123c"},
         {"label": "Failed Jobs", "value": str(failed_jobs), "caption": "blocked (RED)", "filter": "Failed Jobs", "color": "#7f1d1d"},
-        {"label": "Cloud Readiness Status", "value": overall, "caption": "GREEN Low Effort / AMBER Medium Effort / RED High Effort", "filter": "Status", "color": status_color},
+        {"label": "Readiness Status", "value": overall, "caption": "GREEN Low Effort / AMBER Medium Effort / RED High Effort", "filter": "Status", "color": status_color},
         {"label": "Automation", "value": f"{auto_pct}%", "caption": "auto-migratable", "filter": "Automation", "color": "#0f766e"},
         {"label": "Hours", "value": str(est_hours), "caption": f"{est_weeks} wks", "filter": "Hours", "color": "#6d28d9"},
         {"label": "Risk", "value": risk_label, "caption": f"{high_risk} high/critical", "filter": "Risk", "color": risk_color},
@@ -2047,7 +2257,7 @@ def render_complexity_distribution_chart(
 
     fig.update_layout(height=height, margin=dict(t=10, b=0, l=0, r=0),
                        showlegend=True, legend=dict(font_size=11))
-    st.plotly_chart(fig, width="stretch", key=key)
+    st.plotly_chart(fig, use_container_width=True, key=key)
 
 
 def render_progress_metric(label: str, value: str, pct: int, caption: str = "", color: str = "#2563eb") -> None:
@@ -2228,6 +2438,37 @@ def success_banner(title: str, body: str) -> None:
         f'margin-bottom:16px;color:#fff;">'
         f'<div style="font-size:16px;font-weight:800;margin-bottom:4px;">✅ {title}</div>'
         f'<div style="font-size:12px;opacity:.9;line-height:1.5;">{body}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+
+_RAG_BANNER_STYLE = {
+    "GREEN": ("#f0fdf4", "#86efac", "#15803d", "🟢"),
+    "AMBER": ("#fffbeb", "#fcd34d", "#b45309", "🟡"),
+    "RED":   ("#fff1f2", "#fda4af", "#be123c", "🔴"),
+}
+
+
+def render_rag_banner(rag: str, title: str = "Migration Readiness", subtitle: str = "") -> None:
+    """Full-width RAG (RED / AMBER / GREEN) status banner.
+
+    Parameters
+    ----------
+    rag      : "RED" | "AMBER" | "GREEN" — e.g. readiness_score["overall"]
+    title    : banner heading (default "Migration Readiness")
+    subtitle : optional small sub-text below the heading
+    """
+    bg, border, fg, icon = _RAG_BANNER_STYLE.get((rag or "").upper(), _RAG_BANNER_STYLE["RED"])
+    sub_html = (
+        f'<div style="font-size:12px;color:{fg};opacity:.85;margin-top:2px;">{subtitle}</div>'
+        if subtitle else ""
+    )
+    st.markdown(
+        f'<div style="background:{bg};border:1px solid {border};border-left:5px solid {fg};'
+        f'border-radius:10px;padding:14px 18px;margin-bottom:14px;">'
+        f'<div style="font-size:15px;font-weight:800;color:{fg};">'
+        f'{icon} {title} — {(rag or "—").upper()}</div>'
+        f'{sub_html}</div>',
         unsafe_allow_html=True,
     )
 
@@ -2533,12 +2774,12 @@ def render_unsupported_components_report(report: dict) -> None:
                     })
                 if rows:
                     import pandas as pd
-                    styled_dataframe(pd.DataFrame(rows), "unsupported_custom_routines", width="stretch", hide_index=True)
+                    styled_dataframe(pd.DataFrame(rows), "unsupported_custom_routines", use_container_width=True, hide_index=True)
             else:
                 rows = []
                 for inst in instances:
                     breakdown = inst.get("breakdown", {})
-                    bd_str = ", ".join(f"{ct}×{n}" for ct, n in breakdown.items()) if breakdown else key
+                    bd_str = ", ".join(f"{ct}Ã—{n}" for ct, n in breakdown.items()) if breakdown else key
                     rows.append({
                         "Job":        inst.get("job", "—"),
                         "Count":      inst.get("count", 0),
@@ -2546,7 +2787,7 @@ def render_unsupported_components_report(report: dict) -> None:
                     })
                 if rows:
                     import pandas as pd
-                    styled_dataframe(pd.DataFrame(rows), "unsupported_component_instances", width="stretch", hide_index=True)
+                    styled_dataframe(pd.DataFrame(rows), "unsupported_component_instances", use_container_width=True, hide_index=True)
 
             # Impacted jobs list
             if jobs_list:
@@ -2605,7 +2846,7 @@ def empty_state_card(title: str, body: str = "", status: str = "info", icon: str
     if button_label:
         c1, c2, c3 = st.columns([2, 1, 2])
         with c2:
-            return st.button(button_label, key=button_key or f"empty_state_{_slug(title)}", width="stretch")
+            return st.button(button_label, key=button_key or f"empty_state_{_slug(title)}", use_container_width=True)
     return False
 
 
@@ -2673,7 +2914,7 @@ def render_clickable_kpi_row(items: list[dict], state_key: str, key_prefix: str)
                 f'</style>',
                 unsafe_allow_html=True,
             )
-            if st.button(" ", key=btn_key, width="stretch"):
+            if st.button(" ", key=btn_key, use_container_width=True):
                 new_value = None if current == filter_value else filter_value
                 st.session_state[state_key] = new_value
                 st.session_state["kpi_filter"] = new_value
@@ -2685,7 +2926,7 @@ def render_clickable_kpi_row(items: list[dict], state_key: str, key_prefix: str)
         with c1:
             st.caption(f"Drilldown filter: {selected}")
         with c2:
-            if st.button("Clear", key=f"{key_prefix}_clear", width="stretch"):
+            if st.button("Clear", key=f"{key_prefix}_clear", use_container_width=True):
                 st.session_state[state_key] = None
                 st.session_state["kpi_filter"] = None
                 st.rerun()

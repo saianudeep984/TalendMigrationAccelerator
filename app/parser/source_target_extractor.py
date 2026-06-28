@@ -167,11 +167,13 @@ class PhysicalTableRef:
             return f"FILE:{fname}" if fname else (prefix or "FILE")
 
         if self.table:
-            if self.schema:
-                return f"{prefix}.{self.schema.upper()}.{self.table.upper()}" if prefix else f"{self.schema.upper()}.{self.table.upper()}"
+            if self.database and self.schema:
+                return f"{self.database}.{self.schema}.{self.table}"
             if self.database:
-                return f"{prefix}.{self.database.upper()}.{self.table.upper()}" if prefix else f"{self.database.upper()}.{self.table.upper()}"
-            return f"{prefix}.{self.table.upper()}" if prefix else self.table.upper()
+                return f"{self.database}.{self.table}"
+            if self.schema:
+                return f"{self.schema}.{self.table}"
+            return self.table
 
         if self.query_snippet:
             label = self.query_snippet[:60].strip()
@@ -246,7 +248,7 @@ def _get_param(component: dict, *keys: str, default: str = "") -> str:
     for key in keys:
         val = params.get(key, "")
         if val and val not in ('""', "''", "null", "NULL", '""'):
-            return val.strip('"').strip("'").strip()
+            return re.sub(r'[[]]', '', val.strip('"').strip("'")).strip()
     return default
 
 
@@ -644,7 +646,7 @@ def _sql_tables(pattern: str, sql: str) -> list[str]:
     for table in re.findall(pattern, str(sql or ""), flags=re.IGNORECASE):
         if not table or table.upper().startswith(("SELECT", "WHERE", "ON")):
             continue
-        parts = table.strip('"[]`').split()
+        parts = re.sub(r'[\[\]]', '', table.strip('"').strip('`')).split()
         if parts:
             results.add(parts[0])
     return sorted(results)

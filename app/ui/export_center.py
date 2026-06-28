@@ -1049,10 +1049,10 @@ def render_export_center() -> None:
     elif mode == EC_MODE_MULTI:
         c1, c2 = st.columns([1, 1])
         with c1:
-            if st.button("Select All", key="ec2_select_all", width="stretch"):
+            if st.button("Select All", key="ec2_select_all", use_container_width=True):
                 st.session_state[_SS_DOCS] = [d for d in ALL_DOCUMENTS if availability.get(d)]
         with c2:
-            if st.button("Deselect All", key="ec2_deselect_all", width="stretch"):
+            if st.button("Deselect All", key="ec2_deselect_all", use_container_width=True):
                 st.session_state[_SS_DOCS] = []
         chosen: List[str] = []
         cols = st.columns(3)
@@ -1082,10 +1082,10 @@ def render_export_center() -> None:
         all_sections = DOC_SECTIONS.get(d, [])
         c1, c2, _ = st.columns([1, 1, 4])
         with c1:
-            if st.button("Select All Sections", key=f"ec2_sa_{d}", width="stretch"):
+            if st.button("Select All Sections", key=f"ec2_sa_{d}", use_container_width=True):
                 sections_per_doc[d] = list(all_sections)
         with c2:
-            if st.button("Deselect All Sections", key=f"ec2_da_{d}", width="stretch"):
+            if st.button("Deselect All Sections", key=f"ec2_da_{d}", use_container_width=True):
                 sections_per_doc[d] = []
         chosen_sections: List[str] = []
         cols = st.columns(3)
@@ -1159,7 +1159,7 @@ def render_export_center() -> None:
         EC_MODE_PACKAGE:  "Generate Complete Package",
     }[mode]
 
-    if st.button(label, type="primary", disabled=not can_run, key="ec2_run_btn", width="stretch"):
+    if st.button(label, type="primary", disabled=not can_run, key="ec2_run_btn", use_container_width=True):
         try:
             with st.spinner("Generating export — rendering visuals…"):
                 if mode == EC_MODE_CURRENT:
@@ -1185,7 +1185,7 @@ def render_export_center() -> None:
             data=st.session_state["ec2_last_bytes"],
             file_name=st.session_state.get("ec2_last_name", "Export"),
             mime=st.session_state.get("ec2_last_mime", "application/octet-stream"),
-            width="stretch",
+            use_container_width=True,
             key="ec2_dl_last",
         )
 
