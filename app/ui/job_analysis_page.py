@@ -79,7 +79,7 @@ except ModuleNotFoundError as _executive_flow_import_error:
         st.warning(f"Executive Flow is unavailable: {_EXECUTIVE_FLOW_IMPORT_ERROR}")
 from app.analyzers.complexity_analyzer import EFFORT_HOURS
 from app.analyzers.java_logic_analyzer import analyze_java_logic
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 try:
     from app.ai.llm_engine import ask_ollama
 except ModuleNotFoundError as _ollama_import_error:
@@ -6106,7 +6106,7 @@ def render_job_analysis_page():
 
 
     if _cat_sel == "📄 Documentation":
-        _doc_main, _doc_tdd_dl, _doc_testing = st.tabs(["📄 Documentation", "⬇️ Download TDD", "🧪 Testing"])
+        _doc_main, _doc_tdd_dl = st.tabs(["📄 Documentation", "⬇️ Download TDD"])
         with _doc_main:
             _render_documentation_summary(job, jd, _inv, _all_recs, _sql_ops, job_name)
             st.divider()
@@ -6117,10 +6117,6 @@ def render_job_analysis_page():
             _tdd_mod._KEY_CTX = "_j360"
             from app.ui.tdd_page import _render_tdd_download_section
             _render_tdd_download_section(_key_suffix="_j360_doc")
-
-        with _doc_testing:
-            from app.ui.testing_architecture_page import render_testing_architecture_page
-            render_testing_architecture_page(jd)
 
 
     if _cat_sel == "📦 Export Center":

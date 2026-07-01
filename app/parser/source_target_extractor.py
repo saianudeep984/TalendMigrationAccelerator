@@ -652,6 +652,27 @@ def _sql_tables(pattern: str, sql: str) -> list[str]:
     return sorted(results)
 
 
+def _patched_ref(ref: "PhysicalTableRef", table: str) -> "PhysicalTableRef":
+    """
+    Return a copy of ``ref`` with ``.table`` (and ``.schema`` when the
+    resolved name is dotted, e.g. ``schema.table``) filled in from a
+    regex-extracted FROM/JOIN/INSERT table name.
+
+    Without this, query-derived sources/targets carry a ``qualified_name``
+    that already shows the correct table (used by Dashboard / Overview),
+    but their nested ``physical_ref.table`` stays empty — which causes any
+    code that filters on ``physical_ref.table`` (e.g. the Source/Target
+    Architecture "Source Tables" / "Target Tables" sub-tabs) to silently
+    drop these tables even though they were successfully resolved.
+    """
+    from dataclasses import replace
+    clean = table.strip('"').strip("`").strip("[]")
+    if "." in clean and not ref.schema:
+        schema_part, _, table_part = clean.rpartition(".")
+        return replace(ref, schema=schema_part, table=table_part, is_resolved=True)
+    return replace(ref, table=clean, is_resolved=True)
+
+
 def _query_source_tables(sql_ops: list[dict]) -> list[dict]:
     results = []
     seen: set[str] = set()
@@ -662,13 +683,14 @@ def _query_source_tables(sql_ops: list[dict]) -> list[dict]:
             if table in seen:
                 continue
             seen.add(table)
+            base_ref = op.get("physical_ref")
             results.append({
                 "name": table,
                 "type": op.get("db_type", "SQL"),
                 "component": op.get("component", "SQL"),
                 "unique_name": op.get("unique_name", ""),
                 "purpose": f"Read data from query table {table}",
-                "physical_ref": op.get("physical_ref"),
+                "physical_ref": _patched_ref(base_ref, table) if base_ref is not None else base_ref,
                 "qualified_name": table,
                 "source": "query",
             })
@@ -699,7 +721,7 @@ def _query_source_tables_from_components(components: list[dict]) -> list[dict]:
                 "component": ct or "SQL",
                 "unique_name": component.get("unique_name", ""),
                 "purpose": f"Read data from query table {table}",
-                "physical_ref": ref,
+                "physical_ref": _patched_ref(ref, table),
                 "qualified_name": table,
                 "source": "query",
             })
@@ -725,13 +747,14 @@ def _query_target_tables(sql_ops: list[dict]) -> list[dict]:
             if table in seen:
                 continue
             seen.add(table)
+            base_ref = op.get("physical_ref")
             results.append({
                 "name": table,
                 "type": op.get("db_type", "SQL"),
                 "component": op.get("component", "SQL"),
                 "unique_name": op.get("unique_name", ""),
                 "purpose": f"Write data to query table {table}",
-                "physical_ref": op.get("physical_ref"),
+                "physical_ref": _patched_ref(base_ref, table) if base_ref is not None else base_ref,
                 "qualified_name": table,
                 "source": "query",
             })

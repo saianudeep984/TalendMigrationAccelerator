@@ -336,7 +336,7 @@ class ExecutiveDashboard:
 
         analyzed_jobs = sum(1 for j in all_jobs if j.get("estimation"))
 
-        from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+        from app.analyzers.health_score import rag_from_score as _score_to_rag
 
         def _job_rag(j):
             cr = j.get("cloud_readiness", {}) or {}

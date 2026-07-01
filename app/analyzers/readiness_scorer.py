@@ -10,26 +10,24 @@ _READINESS_WEIGHT = {"HIGH": 100, "MEDIUM": 60, "LOW": 20}
 
 
 def _rag(value: int) -> str:
-    """Map a 0-100 numeric score to a RED/AMBER/GREEN rating."""
-    if value >= 70:
-        return "GREEN"
-    elif value >= 40:
-        return "AMBER"
-    else:
-        return "RED"
+    """Map a 0-100 numeric score to RED/AMBER/GREEN.
+
+    Delegates to the canonical rag_from_score in app.analyzers.health_score
+    (thresholds: >=80 GREEN, >=60 AMBER, <60 RED).
+    """
+    from app.analyzers.health_score import rag_from_score
+    return rag_from_score(value)
 
 
-def score_to_rag(score, low=40, high=70) -> str:
-    """Convert a numeric score to RED/AMBER/GREEN."""
-    try:
-        s = int(score)
-    except (TypeError, ValueError):
-        return "AMBER"
-    if s >= high:
-        return "GREEN"
-    if s >= low:
-        return "AMBER"
-    return "RED"
+def score_to_rag(score, low: int = 60, high: int = 80) -> str:
+    """Convert a numeric score to RED/AMBER/GREEN.
+
+    Delegates to the canonical rag_from_score in app.analyzers.health_score.
+    The low/high parameters are accepted for backward-compat but are ignored —
+    the canonical thresholds (>=80 GREEN, >=60 AMBER, <60 RED) always apply.
+    """
+    from app.analyzers.health_score import rag_from_score
+    return rag_from_score(score)
 
 
 def calculate_readiness_score(all_jobs, custom_analysis, deprecated_rows):

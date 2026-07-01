@@ -5,7 +5,7 @@ Enterprise Migration Factory — Phase 1 & 2 Features
 
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 
 def _cloud_rag(cr: dict) -> str:
     """Get RAG status from a cloud_readiness dict."""
@@ -698,9 +698,9 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
                 rag_metric_card("Migration Readiness", scoring['migration_readiness_score'])
             with cols[1]:
                 rag_metric_card("Cloud Readiness", scoring['cloud_readiness_score'])
-            cols[2].metric("Complexity", "GREEN" if scoring['repository_complexity_score'] >= 70 else ("AMBER" if scoring['repository_complexity_score'] >= 40 else "RED"))
-            cols[3].metric("Documentation", "GREEN" if scoring['documentation_readiness_score'] >= 70 else ("AMBER" if scoring['documentation_readiness_score'] >= 40 else "RED"))
-            cols[4].metric("Testing", "GREEN" if scoring['testing_readiness_score'] >= 70 else ("AMBER" if scoring['testing_readiness_score'] >= 40 else "RED"))
+            cols[2].metric("Complexity",   _score_to_rag(scoring['repository_complexity_score']))
+            cols[3].metric("Documentation", _score_to_rag(scoring['documentation_readiness_score']))
+            cols[4].metric("Testing",       _score_to_rag(scoring['testing_readiness_score']))
             status_rows = [
                 {
                     "Signal": key.replace("_score", "").replace("_", " ").title(),
@@ -745,19 +745,34 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
             cols[1].metric("Shared", len(context_profile.get("shared_contexts", [])))
             cols[2].metric("Unused", len(context_profile.get("unused_contexts", [])))
             cols[3].metric("Conflicts", len(context_profile.get("context_conflicts", [])))
+
+            # Repository Context Matrix — per-job variable list
+            ctx_matrix = context_profile.get("repository_context_matrix", {})
+            if ctx_matrix:
+                st.markdown("**Context Variables by Job**")
+                _matrix_rows = [
+                    {"Job": job, "Context Variables": ", ".join(sorted(vars_)) or "—"}
+                    for job, vars_ in sorted(ctx_matrix.items())
+                ]
+                styled_dataframe(pd.DataFrame(_matrix_rows), "ctx_matrix", use_container_width=True, hide_index=True)
+
             context_rows = [
-                ("Duplicate Contexts", context_profile.get("duplicate_contexts", [])),
-                ("Shared Contexts", context_profile.get("shared_contexts", [])),
-                ("Unused Contexts", context_profile.get("unused_contexts", [])),
-                ("Context Conflicts", context_profile.get("context_conflicts", [])),
+                ("Duplicate Contexts",  context_profile.get("duplicate_contexts", []),  "Context Variable"),
+                ("Shared Contexts",     context_profile.get("shared_contexts", []),      "Context Variable"),
+                ("Unused Contexts",     context_profile.get("unused_contexts", []),      "Context Variable"),
+                ("Context Conflicts",   context_profile.get("context_conflicts", []),    None),
             ]
-            for title, rows in context_rows:
+            for title, rows, col_name in context_rows:
                 if rows:
                     st.markdown(f"**{title}**")
                     _ctx_key = f"ctx_{title.lower().replace(' ', '_')}"
-                    styled_dataframe(pd.DataFrame(rows), _ctx_key, use_container_width=True, hide_index=True)
-            if not any(rows for _, rows in context_rows):
-                action_panel("Context Health", "No duplicate, unused, or conflicting contexts were detected.", "Clean", "#22c55e")
+                    if col_name and rows and isinstance(rows[0], str):
+                        _df = pd.DataFrame({col_name: rows})
+                    else:
+                        _df = pd.DataFrame(rows)
+                    styled_dataframe(_df, _ctx_key, use_container_width=True, hide_index=True)
+            if not ctx_matrix and not any(rows for _, rows, _ in context_rows):
+                action_panel("Context Health", "No context variables detected in this repository.", "Clean", "#22c55e")
             with st.expander("Raw context evidence"):
                 st.json(context_profile)
 
@@ -868,7 +883,7 @@ def render_enterprise_factory(all_jobs, custom_analysis, deprecated_rows,
         with st.expander("Raw assessment evidence"):
             st.json(assessment)
     with exp_test:
-        st.metric("Testing Readiness", "GREEN" if testing.get("testing_readiness_score", 0) >= 70 else ("AMBER" if testing.get("testing_readiness_score", 0) >= 40 else "RED"))
+        st.metric("Testing Readiness", _score_to_rag(testing.get("testing_readiness_score", 0)))
         action_panel(
             "Validation Pack",
             f"{len(testing.get('test_cases', []))} generated test case entries are available.",

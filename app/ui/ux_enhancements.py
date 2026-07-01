@@ -290,42 +290,27 @@ def render_home_landing(on_get_started) -> None:
         st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
 
-    # ── Two-step CTA: "Get Started" button → reveals file uploader ───────────
-    # Step 1: Show a branded "Get Started" button.
-    # Step 2: When clicked, set a flag so the file uploader appears in place.
-    # This guarantees the user sees ONE clear action at a time.
-    if not st.session_state.get("_home_show_uploader"):
-        cta_label = "🔄 Get Started — Upload New Repository" if has_repo else "🚀 Get Started — Upload Repository"
-        c1, c2, c3 = st.columns([1, 2, 1])
-        with c2:
-            if st.button(cta_label, type="primary", use_container_width=True, key="home_cta_get_started"):
-                st.session_state["_home_show_uploader"] = True
-                st.rerun()
-    else:
-        c1, c2, c3 = st.columns([1, 2, 1])
-        with c2:
-            st.markdown(
-                '<div style="text-align:center;font-size:13px;font-weight:700;color:#1d4ed8;'
-                'margin-bottom:6px;">📂 Select your Talend repository ZIP</div>',
-                unsafe_allow_html=True,
-            )
-            _home_uploaded = st.file_uploader(
-                "zip",
-                type=["zip"],
-                key="home_cta_file_uploader",
-                label_visibility="collapsed",
-                help="Talend: File → Export Items → ZIP Archive (max 500 MB)",
-            )
-            st.markdown(
-                '<div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:6px;">'
-                'Talend → File → Export Items → ZIP Archive · 500 MB max</div>',
-                unsafe_allow_html=True,
-            )
-            if _home_uploaded is not None:
-                st.session_state["wizard_uploaded_file_name"] = _home_uploaded.name
-                st.session_state["wizard_uploaded_file_data"] = _home_uploaded.getbuffer().tobytes()
-                st.session_state.pop("_home_show_uploader", None)
-                on_get_started()
+    # ── CTA: "Get Started" button → directly navigates to upload step ────────
+    # Uses Streamlit's on_click= callback (not "if st.button(): handler()")
+    # so the session-state mutation that flips the home→upload gate is
+    # guaranteed to run BEFORE this script rerun starts, instead of being
+    # applied mid-script on the same pass the gate condition is read. The
+    # inline-call pattern previously used here required two clicks on a
+    # fresh app start: the first click's handler ran, but the surrounding
+    # column/container nesting meant the rerun it triggered re-evaluated
+    # the gate condition before Streamlit had fully committed the click's
+    # own widget state, so the Home page rendered again; the second click
+    # then worked because the state from click 1 was already committed.
+    cta_label = "🔄 Get Started — Upload New Repository" if has_repo else "🚀 Get Started — Upload Repository"
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
+        st.button(
+            cta_label,
+            type="primary",
+            use_container_width=True,
+            key="home_cta_get_started",
+            on_click=on_get_started,
+        )
 
 
 
@@ -437,7 +422,6 @@ NAV_GROUPS = {
     "job_analysis":         ("Explore", "🔭"),
     "repository_search":    ("Explore", "🔭"),
     "testing_architecture": ("Plan",    "📋"),
-    "migration_advisor":    ("Plan",    "📋"),
     "version_converter":    ("Plan",    "📋"),
     "settings":             ("Settings","⚙️"),
 }
@@ -688,3 +672,51 @@ def export_row(items: list[dict], key_prefix: str = "export") -> None:
                 key=f"{key_prefix}_{label.lower().replace(' ', '_')}",
                 use_container_width=True,
             )
+
+
+# ── Analyze New Repository ──────────────────────────────────────────────────────
+
+_ANALYZE_NEW_REPO_SESSION_KEYS = [
+    "wizard_step", "last_analysis_jobs", "readiness_score", "effort_estimate",
+    "auto_fix_recs", "wizard_report_file", "wizard_patch_file",
+    "wizard_uploaded_file_data", "wizard_uploaded_file_name",
+    "_analysis_complete", "repository_health_score",
+    "custom_analysis", "deprecated_rows", "qlik_readiness",
+    "tiap_context_profile", "tiap_component_profile", "tiap_routine_profile",
+    "java_risk_analysis", "routine_analysis", "joblet_analysis",
+    "repository_ai_context", "unsupported_component_report",
+    "executive_dashboard_model", "migration_intelligence",
+    "impact_intelligence", "upgrade_advisor", "migration_runbook",
+    "framework_intelligence", "architecture_autofix_intelligence",
+    "last_repo_path", "wizard_source_version", "wizard_target_version_val",
+]
+
+
+def render_analyze_new_repo_button(
+    key: str = "analyze_new_repo_btn",
+    label: str = "🔄 Analyze New Repository",
+    use_container_width: bool = False,
+    help: str = "Clear current analysis and return to the upload screen.",
+) -> bool:
+    """Render a button that clears session/cache and returns to the upload screen.
+
+    Returns True if the button was clicked (caller does not need to st.rerun()).
+    """
+    if st.button(label, key=key, use_container_width=use_container_width, help=help):
+        for _k in _ANALYZE_NEW_REPO_SESSION_KEYS:
+            st.session_state.pop(_k, None)
+        # Clearing state alone does not move the user off whatever page
+        # they were on — nav selection is driven by the separate
+        # "_nav_idx2" session key. Without resetting it, the click
+        # appeared to do nothing: the user stayed on e.g. Job 360 /
+        # Search / Executive Dashboard and just saw a "Load a
+        # repository first" warning instead of being returned to the
+        # upload screen. Explicitly send the user back to Home and
+        # straight to the upload form (skip the marketing landing page)
+        # so "Analyze New Repository" always results in a visible,
+        # actionable change.
+        st.session_state["_nav_idx2"] = 0  # Home
+        st.session_state["_home_show_upload"] = True
+        st.session_state["wizard_step"] = 1
+        st.rerun()
+    return False

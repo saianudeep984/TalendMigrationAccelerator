@@ -308,7 +308,7 @@ def chart_readiness(jobs: List[Dict[str, Any]], title: str = "Readiness RAG") ->
     """Stacked-bar of READY / WARNING / FAILED counts."""
     try:
         plt = _ensure_mpl()
-        from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+        from app.analyzers.health_score import rag_from_score as _score_to_rag
 
         def _rag(j):
             cr = j.get("cloud_readiness", {}) or {}

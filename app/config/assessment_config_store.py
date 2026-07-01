@@ -48,6 +48,10 @@ DEFAULT_CONFIG = {
         "legacy_context_variables": True,
         "thresholds": {"ready": 80, "partially_ready": 50},
     },
+    "economics": {
+        "blended_daily_rate": 900,
+        "ai_reduction_pct": 30,
+    },
 }
 
 

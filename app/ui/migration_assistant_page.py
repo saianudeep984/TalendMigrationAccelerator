@@ -5,7 +5,7 @@ Full UX: Before → During → After Open Studio → Talend 8 migration.
 
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 
 def _cloud_rag(cr: dict) -> str:
     """Get RAG status from a cloud_readiness dict (supports RAG status fields)."""
@@ -157,7 +157,7 @@ def _show_compatibility(all_jobs: list):
 
     col1.metric(
         "Talend 8 Readiness",
-        "GREEN" if repo_readiness['overall_score'] >= 70 else ("AMBER" if repo_readiness['overall_score'] >= 40 else "RED"),
+        _score_to_rag(repo_readiness['overall_score']),
         delta=repo_readiness["overall_status"]
     )
 
@@ -525,7 +525,7 @@ def _show_post_migration(all_jobs: list):
 
     col2.metric(
         "Cloud Readiness",
-        "GREEN" if cloud_result['cloud_readiness_pct'] >= 70 else ("AMBER" if cloud_result['cloud_readiness_pct'] >= 40 else "RED")
+        _score_to_rag(cloud_result['cloud_readiness_pct'])
     )
 
     if cloud_result["job_recommendations"]:

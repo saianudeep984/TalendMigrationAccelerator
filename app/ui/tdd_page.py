@@ -22,6 +22,64 @@ from app.tiap.exec_summary.exec_summary import build_executive_summary
 _API_TYPE_RE = re.compile(r"REST|SOAP|HTTP|WebService|API|Salesforce|Kafka|MQ", re.I)
 
 
+def _resolve_active_job(all_jobs: list):
+    """Resolve the job that matches the Job 360 Overview tab's current selection.
+
+    The Overview tab (app/ui/job_analysis_page.py) stores the *selected label*
+    (not the plain job_name) in st.session_state["selected_job"], because labels
+    get a "  v{version}" suffix whenever a job_name is duplicated across versions
+    or paths. Comparing that label directly against plain job_name (as several
+    Architecture sub-tabs used to do) silently fails for any duplicated job name
+    and falls back to an arbitrary job — which is why Source/Target/Job
+    Architecture could show data for a different job than the Overview tab.
+
+    This rebuilds the exact same label → job mapping used by the Overview tab
+    so every tab resolves to the identical job object.
+    """
+    if not all_jobs:
+        return None
+
+    def _ver_tuple(v):
+        try:
+            return tuple(int(x) for x in str(v).split("."))
+        except Exception:
+            return (0, 0)
+
+    sorted_jobs = sorted(
+        all_jobs,
+        key=lambda j: (
+            j["job_data"].get("job_name", ""),
+            tuple(-x for x in _ver_tuple(j["job_data"].get("job_version", "0.1"))),
+        ),
+    )
+
+    name_counts: dict = {}
+    for j in sorted_jobs:
+        n = j["job_data"].get("job_name", "")
+        name_counts[n] = name_counts.get(n, 0) + 1
+
+    label_to_job: dict = {}
+    for j in sorted_jobs:
+        n = j["job_data"].get("job_name", "")
+        v = j["job_data"].get("job_version", "")
+        label = f"{n}  v{v}" if name_counts.get(n, 1) > 1 else n
+        if label in label_to_job:
+            label = f"{label} ({id(j)})"
+        label_to_job[label] = j
+
+    selected_label = st.session_state.get("selected_job")
+
+    if selected_label in label_to_job:
+        return label_to_job[selected_label]
+
+    # Fallback: plain job_name match (safe when names are unique)
+    for j in sorted_jobs:
+        if j["job_data"].get("job_name") == selected_label:
+            return j
+
+    return sorted_jobs[0]
+
+
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def _rag_badge(rag: str) -> str:
@@ -200,8 +258,7 @@ def _render_executive_summary():
 
     # ── Job selector ─────────────────────────────────────────────────────────
     job_names = [j["job_data"].get("job_name", "—") for j in all_jobs]
-    selected = st.selectbox("Select Job", job_names, key=f"tdd_exec_job_sel{_KEY_CTX}")
-    job = next((j for j in all_jobs if j["job_data"].get("job_name") == selected), all_jobs[0])
+    job = _resolve_active_job(all_jobs)
 
     jd         = job["job_data"]
     components = jd.get("components", [])
@@ -520,8 +577,7 @@ def _render_source_architecture():
         return
 
     job_names = sorted({j["job_data"].get("job_name", "—") for j in all_jobs})
-    selected = st.selectbox("Select Job", job_names, key=f"tdd_src_job_sel{_KEY_CTX}")
-    job = next((j for j in all_jobs if j["job_data"].get("job_name") == selected), all_jobs[0])
+    job = _resolve_active_job(all_jobs)
     jd = job["job_data"]
     components = jd.get("components", [])
     inv = build_source_target_inventory(jd)          # existing parser output — reused as-is
@@ -584,9 +640,7 @@ def _render_target_architecture():
         st.info("⬜ No repository loaded. Upload and analyse a Talend repository to populate this section.")
         return
 
-    job_names = sorted({j["job_data"].get("job_name", "—") for j in all_jobs})
-    selected = st.selectbox("Select Job", job_names, key=f"tdd_tgt_job_sel{_KEY_CTX}")
-    job = next((j for j in all_jobs if j["job_data"].get("job_name") == selected), all_jobs[0])
+    job = _resolve_active_job(all_jobs)
     jd = job["job_data"]
     inv = build_source_target_inventory(jd)          # existing parser output — reused as-is
     targets, target_systems = inv["targets"], inv["target_systems"]
@@ -651,8 +705,7 @@ def _render_mapping():
         return
 
     job_names = sorted({j["job_data"].get("job_name", "—") for j in all_jobs})
-    selected = st.selectbox("Select Job", job_names, key=f"tdd_map_job_sel{_KEY_CTX}")
-    job = next((j for j in all_jobs if j["job_data"].get("job_name") == selected), all_jobs[0])
+    job = _resolve_active_job(all_jobs)
     mappings = job["job_data"].get("column_mappings", [])
 
     if not mappings:
@@ -709,10 +762,8 @@ def _select_job(key: str):
     if not all_jobs:
         st.info("⬜ No repository loaded. Upload and analyse a Talend repository to populate this section.")
         return None
-    job_names = sorted({j["job_data"].get("job_name", "—") for j in all_jobs})
-    selected = st.selectbox("Select Job", job_names, key=key)
-    job = next((j for j in all_jobs if j["job_data"].get("job_name") == selected), all_jobs[0])
-    return job["job_data"]
+    job = _resolve_active_job(all_jobs)
+    return job["job_data"] if job else None
 
 
 def _render_findings_card(findings: list[str], empty_msg: str = "No findings."):

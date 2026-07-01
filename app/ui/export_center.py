@@ -187,8 +187,11 @@ def _exec_sections() -> Dict[str, str]:
 
     risk_label  = safe_get(m, "risk_label", "LOW") or "LOW"
     high_risk   = safe_get(m, "high_risk", 0)
-    health      = safe_get(m, "health", 0)
     success     = safe_get(m, "success_rate", 0)
+    # Repository Health Score and Overall Status must come from the canonical engine.
+    _hs         = st.session_state.get("repository_health_score") or {}
+    health      = _hs.get("overall_score") or _hs.get("health_score") or safe_get(m, "health", 0)
+    overall_status = _hs.get("overall_status") or _hs.get("risk_level") or "—"
     kpi_md      = _md_table(
         [
             {"Metric": "Total Jobs", "Value": safe_get(m, "total_jobs", 0)},
@@ -196,14 +199,16 @@ def _exec_sections() -> Dict[str, str]:
             {"Metric": "High Risk Jobs", "Value": high_risk},
             {"Metric": "Unsupported Components", "Value": safe_get(m, "unsupported", 0)},
             {"Metric": "Estimated Migration Success Rate", "Value": f"{success}%"},
-            {"Metric": "Repository Health Score", "Value": f"{health}%"},
+            {"Metric": "Repository Health Score", "Value": f"{health}/100"},
+            {"Metric": "Overall Status", "Value": overall_status},
         ],
         ["Metric", "Value"],
     )
     risk_md = (
         f"**Risk Label:** {risk_label}\n\n"
         f"**High / Critical Risk Findings:** {high_risk}\n\n"
-        f"**Repository Health Score:** {health}%\n\n"
+        f"**Repository Health Score:** {health}/100\n\n"
+        f"**Overall Status:** {overall_status}\n\n"
         f"**Estimated Migration Success Rate:** {success}%\n"
     )
 

@@ -19,7 +19,7 @@ import xml.etree.ElementTree as ET
 
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 from app.utils.zip_extractor import safe_extract
 
 # Cloud readiness status display — color/emoji for the RED/AMBER/GREEN rag value
@@ -320,6 +320,7 @@ from app.ui.ux_enhancements import (
     ds_section_header,
     rag_pill,
     record_recent_project,
+    render_analyze_new_repo_button,
 )
 
 # ── Core analysis imports ─────────────────────────────────────────────────────
@@ -369,7 +370,7 @@ from app.config.assessment_config_store import (
 st.set_page_config(
     page_title="Artha Talend — Migration Accelerator",
     layout="wide",
-    page_icon="🔭",
+    page_icon="assets/artha_logo.png",
     initial_sidebar_state="collapsed",
 )
 apply_wizard_theme()
@@ -671,6 +672,9 @@ if _sel == "command_center":
         render_qlik_readiness_page()
         panel_close()
 
+    st.divider()
+    render_analyze_new_repo_button(key="cmd_center_analyze_new", use_container_width=False)
+
     st.stop()
 
 if _sel == "version_converter":
@@ -697,6 +701,8 @@ if _sel == "executive_dashboard":
             f"An error occurred while rendering the dashboard: {e}",
             "error",
         )
+    st.divider()
+    render_analyze_new_repo_button(key="exec_dash_analyze_new")
     st.stop()
 
 if _sel == "portfolio":
@@ -711,50 +717,22 @@ if _sel == "portfolio":
             render_portfolio_dashboard()
         except Exception as e:
             status_card("Portfolio Dashboard error", str(e), "error")
-    st.stop()
-
-if _sel == "migration_advisor":
-    from app.ui.design_system_v2 import page_header
-    page_header("🧭", "Migration Advisor", "Target version recommendation, migration workflow, and roadmap.")
-    _adv_jobs = st.session_state.get("last_analysis_jobs", [])
-    if not _adv_jobs:
-        st.warning("Load a repository first to use the Migration Advisor.")
-    else:
-        try:
-            from app.ui.migration_advisor_dashboard import render_migration_advisor_dashboard
-            from app.parser.project_classifier import ProjectType
-            _adv_source = st.session_state.get("wizard_source_version", "Unknown")
-            _adv_components = list({
-                c.get("component_type", "")
-                for j in _adv_jobs
-                for c in j.get("job_data", {}).get("components", [])
-                if c.get("component_type")
-            })
-            # Derive project type from source version string
-            _sv = _adv_source.lower()
-            if "cloud" in _sv:
-                _adv_project_type = ProjectType.CLOUD
-            elif "enterprise" in _sv or "studio" not in _sv:
-                _adv_project_type = ProjectType.ENTERPRISE
-            else:
-                _adv_project_type = ProjectType.OPEN_STUDIO
-            render_migration_advisor_dashboard(
-                project_type=_adv_project_type,
-                source_version=_adv_source,
-                component_usage=_adv_components,
-            )
-        except Exception as e:
-            status_card("Migration Advisor error", str(e), "error")
+    st.divider()
+    render_analyze_new_repo_button(key="portfolio_analyze_new")
     st.stop()
 
 if _sel == "job_analysis":
     from app.ui.job_analysis_page import render_job_analysis_page
     render_job_analysis_page()
+    st.divider()
+    render_analyze_new_repo_button(key="job360_analyze_new")
     st.stop()
 
 if _sel == "repository_search":
     from app.ui.repository_search_page import render_repository_search_page
     render_repository_search_page()
+    st.divider()
+    render_analyze_new_repo_button(key="repo_search_analyze_new")
     st.stop()
 
 if _sel == "repo_lineage":
@@ -762,6 +740,8 @@ if _sel == "repo_lineage":
     from app.ui.design_system_v2 import page_header
     page_header("🗺️", "Repository Lineage Explorer", "Cross-job data flow: Source → Job A → Job B → Job C → Target")
     render_repository_lineage_explorer()
+    st.divider()
+    render_analyze_new_repo_button(key="repo_lineage_analyze_new")
     st.stop()
 
 # Documentation Hub and TDD are now merged into Job 360 Analysis (tabs: TDD, Docs Hub)
@@ -783,6 +763,8 @@ if _sel == "testing_architecture":
         _ta_sel = st.selectbox("Select Job", [j["job_data"].get("job_name", f"Job {i}") for i, j in enumerate(_ta_jobs)])
         _ta_wrap = next((j for j in _ta_jobs if j["job_data"].get("job_name") == _ta_sel), _ta_jobs[0])
         render_testing_architecture_page(_ta_wrap["job_data"])
+    st.divider()
+    render_analyze_new_repo_button(key="testing_arch_analyze_new")
     st.stop()
 
 if _sel == "migration_assessment":
@@ -796,6 +778,8 @@ if _sel == "migration_assessment":
         _ma_sel = st.selectbox("Select Job", [j["job_data"].get("job_name", f"Job {i}") for i, j in enumerate(_ma_jobs)], key="ma_job_select")
         _ma_wrap = next((j for j in _ma_jobs if j["job_data"].get("job_name") == _ma_sel), _ma_jobs[0])
         render_migration_assessment_page(_ma_wrap["job_data"])
+    st.divider()
+    render_analyze_new_repo_button(key="migration_assess_analyze_new")
     st.stop()
 
 if _sel == "exec_summary":
@@ -809,6 +793,8 @@ if _sel == "exec_summary":
         _es_sel = st.selectbox("Select Job", [j["job_data"].get("job_name", f"Job {i}") for i, j in enumerate(_es_jobs)], key="es_job_select")
         _es_wrap = next((j for j in _es_jobs if j["job_data"].get("job_name") == _es_sel), _es_jobs[0])
         render_exec_summary_page(_es_wrap["job_data"])
+    st.divider()
+    render_analyze_new_repo_button(key="exec_summary_analyze_new")
     st.stop()
 
 if _sel == "settings":
@@ -827,6 +813,9 @@ if _sel == "settings":
         _section = st.radio("Settings", _sections, index=_default_idx, key="assessment_settings_nav")
 
     _cfg = copy.deepcopy(st.session_state.get("assessment_config", ASSESSMENT_DEFAULT_CONFIG))
+    _econ = _cfg.get("economics", ASSESSMENT_DEFAULT_CONFIG["economics"])
+    st.session_state.setdefault("default_blended_rate", int(_econ.get("blended_daily_rate", 900)))
+    st.session_state.setdefault("default_ai_reduction", int(_econ.get("ai_reduction_pct", 30)))
     _jobs = st.session_state.get("last_analysis_jobs", [])
     _selected_job = next((j for j in _jobs if j["job_data"].get("job_name") == st.session_state.get("selected_job")), _jobs[0] if _jobs else None)
     _jd = _selected_job.get("job_data", {}) if _selected_job else {"components": []}
@@ -997,10 +986,10 @@ if _sel == "settings":
             st.session_state.setdefault("eff_sql",    float(e["hours_per_sql_query"]))
             st.session_state.setdefault("eff_dep",    float(e["hours_per_dependency"]))
             st.session_state.setdefault("eff_custom", float(e["hours_per_custom_code"]))
-            cols[0].number_input("Hours / Component",   0.0, 50.0, step=0.5, key="eff_comp")
-            cols[1].number_input("Hours / SQL Query",   0.0, 50.0, step=0.5, key="eff_sql")
-            cols[2].number_input("Hours / Dependency",  0.0, 50.0, step=0.5, key="eff_dep")
-            cols[3].number_input("Hours / Custom Code", 0.0, 50.0, step=0.5, key="eff_custom")
+            cols[0].number_input("Hours / Component",   0.0, 50.0, step=0.1, format="%.2f", key="eff_comp")
+            cols[1].number_input("Hours / SQL Query",   0.0, 50.0, step=0.1, format="%.2f", key="eff_sql")
+            cols[2].number_input("Hours / Dependency",  0.0, 50.0, step=0.1, format="%.2f", key="eff_dep")
+            cols[3].number_input("Hours / Custom Code", 0.0, 50.0, step=0.1, format="%.2f", key="eff_custom")
             e["hours_per_component"]  = st.session_state["eff_comp"]
             e["hours_per_sql_query"]  = st.session_state["eff_sql"]
             e["hours_per_dependency"] = st.session_state["eff_dep"]
@@ -1069,6 +1058,50 @@ if _sel == "settings":
             if st.button("Apply Changes", type="primary", key="apply_sim_changes"):
                 _cfg["complexity"] = s
                 st.success("Simulation changes staged. Save configuration to persist.")
+
+            st.divider()
+            st.markdown("### 💰 Estimated Savings Calculator")
+            st.caption("Drives the Estimated Savings KPI on every dashboard. "
+                       "Formula: (Estimated Days × Blended Daily Rate) × AI Reduction %. "
+                       "Changes here save automatically — no need to click Save.")
+            sv1, sv2 = st.columns(2)
+            sv1.number_input("Blended daily rate ($)", 100, 5000, step=50, key="default_blended_rate")
+            sv2.slider("AI effort reduction (%)", 5, 60, key="default_ai_reduction")
+
+            _live_days = (st.session_state.get("effort_estimate", {}) or {}).get("estimated_days", 0)
+            _rate = st.session_state["default_blended_rate"]
+            _redux = st.session_state["default_ai_reduction"]
+            _base_cost = round(_live_days * _rate) if _live_days else 0
+            _live_savings = round(_base_cost * _redux / 100)
+            st.code(f"Estimated Savings = ({_live_days} days × ${_rate:,}/day) × {_redux}% = ${_live_savings:,}")
+
+            # Auto-persist to disk the moment either widget changes, so the
+            # value survives navigation, a browser refresh, or an app
+            # restart — not just the current in-memory session.
+            _econ_now = _cfg.get("economics", {})
+            if _econ_now.get("blended_daily_rate") != _rate or _econ_now.get("ai_reduction_pct") != _redux:
+                _cfg["economics"] = {"blended_daily_rate": _rate, "ai_reduction_pct": _redux}
+                st.session_state["assessment_config"] = _cfg
+                save_assessment_config(_cfg, actor="settings_economics_auto")
+
+            sv3, sv4 = st.columns([3, 1])
+            sv3.metric("Live Preview — Estimated Savings", f"${_live_savings:,}")
+            if sv4.button("💾 Save Changes", type="primary", key="save_economics"):
+                _cfg["economics"] = {
+                    "blended_daily_rate": _rate,
+                    "ai_reduction_pct": _redux,
+                }
+                st.session_state["assessment_config"] = _cfg
+                save_assessment_config(_cfg, actor="settings_economics")
+                mark_settings_saved("Simulation Sandbox")
+
+            _on_disk_econ = load_assessment_config(None).get("economics", {})
+            st.caption(
+                f"📄 On disk right now: ${_on_disk_econ.get('blended_daily_rate', 900):,}/day, "
+                f"{_on_disk_econ.get('ai_reduction_pct', 30)}% reduction "
+                f"(file: config/assessment_config.json). If this doesn't match what you "
+                f"just typed, the app process needs a restart to pick up the latest code."
+            )
 
         elif _section == "Import / Export":
             st.markdown("### Import / Export")
@@ -1171,6 +1204,9 @@ if False and _sel == "settings":
             for _job in _jobs:
                 _job["complexity"] = _ca.calculate_complexity(_job["job_data"])
             st.session_state["last_analysis_jobs"] = _jobs
+            # Invalidate the cached Repository Health Score so it is recomputed
+            # from the updated complexity scores on the next consumer access.
+            st.session_state.pop("repository_health_score", None)
             st.success(f"Scoring configuration applied and {len(_jobs)} job(s) recalculated.")
 
 
@@ -1262,6 +1298,9 @@ def _build_repository_report_zip(all_jobs, readiness_score, effort_estimate):
     _cloud_rags = [j.get("cloud_readiness", {}).get("rag", "—") for j in all_jobs]
     _cloud_status = max(set(_cloud_rags), key=_cloud_rags.count) if _cloud_rags else "—"
     _readiness = readiness_score.get("overall", "RED")
+    _hs = st.session_state.get("repository_health_score") or {}
+    _overall_status = _hs.get("overall_status") or _hs.get("risk_level") or "—"
+    _health_score = _hs.get("overall_score") or _hs.get("health_score") or "—"
     _weeks = effort_estimate.get("estimated_weeks", "N/A") if effort_estimate else "N/A"
     _auto_pct = effort_estimate.get("auto_pct", 0) if effort_estimate else 0
     _complexity_counts = {}
@@ -1278,7 +1317,8 @@ Source: {st.session_state.get('wizard_source_version', 'Unknown')} -> Target: {s
 Total Jobs: {_total}
 Total Components: {_components}
 Migration Readiness: {_readiness}
-Cloud Readiness Status: {_cloud_status}
+Overall Status: {_overall_status}
+Repository Health Score: {_health_score}/100
 High/Critical Risk Findings: {_high_risk}
 Estimated Delivery: {_weeks} weeks
 Auto-Migratable: {_auto_pct}%
@@ -1338,9 +1378,11 @@ _step = st.session_state.get("wizard_step", 1)
 # Home landing: show professional landing unless already in upload flow
 if _sel == "home" and _step == 1 and "last_analysis_jobs" not in st.session_state and not st.session_state.get("_home_show_upload") and "wizard_uploaded_file_data" not in st.session_state:
     def _go_to_upload():
+        # Used as a button on_click= callback: Streamlit guarantees this runs
+        # and commits to session_state BEFORE the automatic rerun it triggers,
+        # so no explicit st.rerun() is needed (or wanted) here.
         st.session_state["_home_show_upload"] = True
         st.session_state["_scroll_to_top_once"] = True
-        st.rerun()
     render_home_landing(on_get_started=_go_to_upload)
     try:
         render_session_restore_banner(_tma_cache)
@@ -1371,6 +1413,13 @@ if _step == 1:
         )
 
     wizard_progress(1)
+
+    # ── back to landing (only meaningful once a landing page exists to
+    #    return to — i.e. there's no analysis/upload in progress) ─────────────
+    if "last_analysis_jobs" not in st.session_state and "wizard_uploaded_file_data" not in st.session_state:
+        if st.button("← Back to Home", key="_step1_back_to_home"):
+            st.session_state.pop("_home_show_upload", None)
+            st.rerun()
 
     # ── compact header ────────────────────────────────────────────────────────
     page_header("📤", "Repository Intake", "Upload, review, and validate your Talend repository.")
@@ -1557,18 +1606,17 @@ if _step == 1:
             _governance = ComplianceAssessor().assess(_intake_jobs)
 
             _render_status_badge_row([
-                ("Migration Readiness", "GREEN" if _scoring['migration_readiness_score'] >= 70 else ("AMBER" if _scoring['migration_readiness_score'] >= 40 else "RED")),
-                ("Cloud Readiness", "GREEN" if _scoring['cloud_readiness_score'] >= 70 else ("AMBER" if _scoring['cloud_readiness_score'] >= 40 else "RED")),
-                ("Documentation", "GREEN" if _scoring['documentation_readiness_score'] >= 70 else ("AMBER" if _scoring['documentation_readiness_score'] >= 40 else "RED")),
-                ("Testing Readiness", "GREEN" if _scoring['testing_readiness_score'] >= 70 else ("AMBER" if _scoring['testing_readiness_score'] >= 40 else "RED")),
+                ("Migration Readiness", _score_to_rag(_scoring['migration_readiness_score'])),
+                ("Cloud Readiness", _score_to_rag(_scoring['cloud_readiness_score'])),
+                ("Documentation", _score_to_rag(_scoring['documentation_readiness_score'])),
+                ("Testing Readiness", _score_to_rag(_scoring['testing_readiness_score'])),
             ])
 
-            def _rag(score: float) -> str:
-                return "GREEN" if score >= 70 else ("AMBER" if score >= 40 else "RED")
-
+            # _score_to_rag is the canonical rag_from_score (>=80 GREEN / >=60 AMBER / <60 RED)
+            # imported from app.analyzers.health_score at the top of this module.
             with st.expander("🧮  Repository Complexity & Technical Debt", expanded=False):
                 _render_status_badge_row([
-                    ("Repository Complexity", _rag(_scoring["repository_complexity_score"])),
+                    ("Repository Complexity", _score_to_rag(_scoring["repository_complexity_score"])),
                     ("Technical Debt", "RED" if _debt["debt_score"] >= 60 else ("AMBER" if _debt["debt_score"] >= 30 else "GREEN")),
                 ])
                 _vc1, _vc2 = st.columns(2)
@@ -1617,7 +1665,7 @@ if _step == 1:
 
             with st.expander("🧪  Testing Readiness", expanded=False):
                 _render_status_badge_row([
-                    ("Testing Readiness", _rag(_testing["testing_readiness_score"])),
+                    ("Testing Readiness", _score_to_rag(_testing["testing_readiness_score"])),
                 ])
                 st.caption(f"Testing readiness score: {_testing['testing_readiness_score']:.0f}/100")
 
@@ -1860,7 +1908,8 @@ elif _step == 2:
                                                 prompt_template=DEFAULT_COMPONENT_RECOMMENDATION_PROMPT)
     deprecated_rows = build_deprecated_dashboard(all_jobs)
     readiness_score = calculate_readiness_score(all_jobs, custom_analysis, deprecated_rows)
-    effort_estimate = estimate_repository_effort(all_jobs, custom_analysis, deprecated_rows)
+    _effort_rates = st.session_state.get("assessment_config", ASSESSMENT_DEFAULT_CONFIG).get("effort", {})
+    effort_estimate = estimate_repository_effort(all_jobs, custom_analysis, deprecated_rows, rates=_effort_rates)
     auto_fix_recs   = generate_auto_fix_recommendations(all_jobs)
 
     # Exports
@@ -1892,6 +1941,15 @@ elif _step == 2:
         "wizard_target_version_val": target_version,
         "_analysis_complete": True,
     })
+
+    # Pre-warm the canonical Repository Health Score once so all consumers
+    # (Executive Dashboard, Home, reports) share the same cached result
+    # without recomputing it independently.
+    try:
+        from app.analyzers.health_score import get_health_score as _prewarm_hs
+        _prewarm_hs(force_refresh=True)
+    except Exception:
+        pass
 
     # Log this run for the "Recent Projects" section on the landing page.
     # Best-effort only — never blocks the (already-complete) analysis flow.
@@ -2150,6 +2208,9 @@ elif _step == 3:
         )
         _rr_cloud_status = _cloud_status_summary(_repo_report_jobs)
         _rr_readiness = readiness_score.get("overall", "RED")
+        _rr_hs = st.session_state.get("repository_health_score") or {}
+        _rr_overall_status = _rr_hs.get("overall_status") or _rr_hs.get("risk_level") or "—"
+        _rr_health_score = _rr_hs.get("overall_score") or _rr_hs.get("health_score") or "—"
         _rr_weeks = effort_estimate.get("estimated_weeks", "N/A") if effort_estimate else "N/A"
         _rr_hours = effort_estimate.get("estimated_hours", "N/A") if effort_estimate else "N/A"
         _rr_auto_pct = effort_estimate.get("auto_pct", 0) if effort_estimate else 0
@@ -2172,7 +2233,8 @@ elif _step == 3:
                 ("Total Jobs", _rr_total),
                 ("Total Components", _rr_components),
                 ("Migration Readiness", _rr_readiness),
-                ("Cloud Readiness Status", _rr_cloud_status),
+                ("Overall Status", _rr_overall_status),
+                ("Repository Health Score", f"{_rr_health_score}/100"),
                 ("High/Critical Risk Findings", _rr_high_risk),
                 ("Estimated Delivery", f"{_rr_weeks} weeks"),
                 ("Auto-Migratable", f"{_rr_auto_pct}%"),
@@ -2219,7 +2281,8 @@ EXECUTIVE SUMMARY
 Total Jobs: {_rr_total}
 Total Components: {_rr_components}
 Migration Readiness: {_rr_readiness}
-Cloud Readiness Status: {_rr_cloud_status}
+Overall Status: {_rr_overall_status}
+Repository Health Score: {_rr_health_score}/100
 High/Critical Risk Findings: {_rr_high_risk}
 Estimated Delivery: {_rr_weeks} weeks
 Auto-Migratable: {_rr_auto_pct}%
@@ -2443,10 +2506,4 @@ elif _step == 5:
             st.session_state["wizard_step"] = 3
             st.rerun()
     with _cb:
-        if st.button("🔄 Analyze New Repository", use_container_width=True):
-            for k in ["wizard_step","last_analysis_jobs","readiness_score","effort_estimate",
-                      "auto_fix_recs","wizard_report_file","wizard_patch_file",
-                      "wizard_uploaded_file_data","wizard_uploaded_file_name",
-                      "_analysis_complete"]:
-                st.session_state.pop(k, None)
-            st.rerun()
+        render_analyze_new_repo_button(key="wizard_step4_analyze_new", use_container_width=True)

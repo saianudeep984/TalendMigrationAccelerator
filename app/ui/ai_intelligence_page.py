@@ -16,7 +16,7 @@ import html
 import logging
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 
 logger = logging.getLogger(__name__)
 
@@ -788,10 +788,10 @@ def _render_doc_readiness_score(all_jobs: list):
     scores  = _doc_readiness_score(all_jobs, st.session_state)
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Documentation", "GREEN" if scores["doc"] >= 70 else ("AMBER" if scores["doc"] >= 40 else "RED"))
-    c2.metric("Testing", "GREEN" if scores["test"] >= 70 else ("AMBER" if scores["test"] >= 40 else "RED"))
-    c3.metric("Flowcharts", "GREEN" if scores.get("flowchart", 0) >= 70 else ("AMBER" if scores.get("flowchart", 0) >= 40 else "RED"))
-    c4.metric("Overall", "GREEN" if scores["overall"] >= 70 else ("AMBER" if scores["overall"] >= 40 else "RED"))
+    c1.metric("Documentation", _score_to_rag(scores["doc"]))
+    c2.metric("Testing",       _score_to_rag(scores["test"]))
+    c3.metric("Flowcharts",    _score_to_rag(scores.get("flowchart", 0)))
+    c4.metric("Overall",       _score_to_rag(scores["overall"]))
 
     st.markdown("---")
 

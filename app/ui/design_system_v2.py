@@ -1,3 +1,4 @@
+import inspect
 import uuid
 """
 TMA Design System v2 — PHASE 1 UI REFACTOR
@@ -1201,12 +1202,11 @@ _NAV_PAGES = [
     # ("tdd",              "Documentation"),  # merged into Job 360 > TDD tab
     # ("documentation_hub",   "Documentation"),  # merged into Job 360 > Docs Hub tab
     ("testing_architecture","Testing Architecture"),
-    ("migration_advisor",   "Migration Advisor"),
     ("settings",            "Settings"),
 ]
 
 # Pages hidden from nav by default; can be re-enabled via Settings
-_HIDDEN_PAGES_DEFAULT = {"version_converter", "portfolio", "migration_advisor"}
+_HIDDEN_PAGES_DEFAULT = {"version_converter", "portfolio"}
 
 
 
@@ -1222,7 +1222,6 @@ def render_topnav() -> str:
         ("repository_search",   "🔍 Search",             "Jobs · Tables · SQL · Contexts"),
         # ("documentation_hub",   "📄 Documentation",  # merged into Job 360
         ("testing_architecture","📋 Plan",               "Unit · SQL · Reconciliation"),
-        ("migration_advisor",   "🧭 Migration Advisor",  "Target · Workflow · Roadmap"),
         ("settings",            "⚙️ Settings",           "Config · AI · Templates"),
     ]]
     _max_idx = len(_ALL_LABEL_KEYS) - 1
@@ -1325,7 +1324,6 @@ def render_topnav() -> str:
         ("repository_search",   "🔍 Search",             "Jobs · Tables · SQL · Contexts"),
         # ("documentation_hub",   "📄 Documentation",  # merged into Job 360
         ("testing_architecture","📋 Plan",               "Unit · SQL · Reconciliation"),
-        ("migration_advisor",   "🧭 Migration Advisor",  "Target · Workflow · Roadmap"),
         ("settings",            "⚙️ Settings",           "Config · AI · Templates"),
     ]
 
@@ -1378,7 +1376,7 @@ def render_topnav() -> str:
         _NAV_GROUPS_MAP = {
             "home": "Home", "command_center": "Analyse", "executive_dashboard": "Analyse",
             "portfolio": "Analyse", "job_analysis": "Explore", "repository_search": "Explore",
-            "testing_architecture": "Plan", "migration_advisor": "Plan",
+            "testing_architecture": "Plan",
             "version_converter": "Plan", "settings": "Settings",
         }
         _prev_grp = None
@@ -1559,7 +1557,7 @@ def _settings_section_for_kpi(label: str) -> str:
 
 def _open_settings_section(label: str, key: str) -> None:
     if st.button("Open Settings", key=key, use_container_width=True):
-        _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8)
+        _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), len(_NAV_PAGES) - 1)
         st.session_state["settings_section"] = _settings_section_for_kpi(label)
         st.session_state["_nav_idx2"] = _si
         st.session_state["_advanced_page"] = None
@@ -1568,7 +1566,7 @@ def _open_settings_section(label: str, key: str) -> None:
 
 def _open_simulation(key: str) -> None:
     if st.button("Simulate Changes", key=key, use_container_width=True):
-        _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8)
+        _si = next((i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), len(_NAV_PAGES) - 1)
         st.session_state["settings_section"] = "Simulation Sandbox"
         st.session_state["_nav_idx2"] = _si
         st.session_state["_advanced_page"] = None
@@ -1674,7 +1672,7 @@ def _render_kpi_details(label: str, value, details: dict | None, key_prefix: str
 
     elif normalized == "readiness":
         rag_icon = {"GREEN": "🟢", "AMBER": "🟡", "RED": "🔴"}.get(str(value).upper(), "⚪")
-        st.markdown(f"**Overall Readiness:** {rag_icon} {value}")
+        st.markdown(f"**Overall Status:** {rag_icon} {value}")
         st.markdown(
             "Readiness is a composite score combining:\n"
             "- **Component compatibility** — how many components map cleanly to the target version\n"
@@ -1796,7 +1794,14 @@ def render_kpi_badge(label: str, value, caption: str = "", color: str = "blue",
         return
 
     help_text = f"{label}: click for breakdown, expandable details, and settings."
-    pop_key = key or f"kpi_popover_{normalized.replace(' ', '_')}_{uuid.uuid4().hex}"
+    # Use a stable key derived from the caller's source line so the popover
+    # retains its Streamlit identity across reruns (random uuid4() would
+    # change every rerun, preventing button clicks from ever registering).
+    if key:
+        pop_key = key
+    else:
+        caller_line = inspect.currentframe().f_back.f_lineno
+        pop_key = f"kpi_popover_{caller_line}_{normalized.replace(' ', '_')}"
     pop_label = f"{label}: {value}"
     with st.popover(pop_label, help=help_text, use_container_width=True):
         if caption:
@@ -1806,6 +1811,10 @@ def render_kpi_badge(label: str, value, caption: str = "", color: str = "blue",
 
 def render_kpi_row(items: list[dict]) -> None:
     """Render compact KPI tiles with native Streamlit metrics."""
+    # Capture the caller's source line once, before the loop, so keys are
+    # stable across reruns and unique per call site even when the same labels
+    # (e.g. "Complexity") appear in both the hero strip and the Overview tab.
+    _caller_line = inspect.currentframe().f_back.f_lineno
     visible_items = items[:4]
     if not visible_items:
         return
@@ -1821,7 +1830,7 @@ def render_kpi_row(items: list[dict]) -> None:
                     item.get("caption", ""),
                     item.get("color", "blue"),
                     item.get("details"),
-                    key=item.get("key") or f"kpi_row_{idx}_{str(label).lower().replace(' ', '_')}_{uuid.uuid4().hex}",
+                    key=item.get("key") or f"kpi_row_{_caller_line}_{idx}_{str(label).lower().replace(' ', '_')}",
                 )
             else:
                 st.metric(
@@ -2081,15 +2090,22 @@ def RepositoryOverviewCard(overview) -> None:
 def ExecutiveDashboardCard(dashboard, mrs: dict | None = None) -> str | None:
     """
     Render the Executive Dashboard's KPI strip (Total Jobs · Analyzed ·
-    Ready · Warning · High Risk · Failed · Status · Automation · Hours ·
-    Risk · Migration Readiness Score) bound to an ExecutiveDashboard model
-    and an optional MigrationReadinessScore dict (mrs).
+    Ready · Warning · High Risk · Failed · Automation · Hours · Risk)
+    bound to an ExecutiveDashboard model.
+
+    Overall Status and Migration Readiness Score are deliberately excluded
+    from this strip — both are full readiness/health indicators shown
+    elsewhere on the page (Top Summary, bottom banner, and the Migration
+    Readiness section respectively), so repeating either one here would be
+    a duplicated or conflicting KPI rather than new information.
 
     Parameters
     ----------
     dashboard : app.analyzers.models.ExecutiveDashboard (or dict with the
         same keys produced by ExecutiveDashboard.to_dict()).
     mrs : dict produced by MigrationReadinessScore.to_dict(), optional.
+        Unused by this strip (kept for call-site compatibility) — the
+        Migration Readiness Score is rendered in its own section instead.
 
     Returns
     -------
@@ -2097,7 +2113,6 @@ def ExecutiveDashboardCard(dashboard, mrs: dict | None = None) -> str | None:
     """
     data = dashboard.to_dict() if hasattr(dashboard, "to_dict") else dict(dashboard)
 
-    overall = data.get("cloudReadinessStatus", "RED")
     auto_pct = data.get("automationPct", 0)
     est_hours = data.get("estimatedHours", 0) or "—"
     est_weeks = data.get("estimatedWeeks", "—")
@@ -2106,7 +2121,16 @@ def ExecutiveDashboardCard(dashboard, mrs: dict | None = None) -> str | None:
     total = data.get("totalJobs", 0)
     total_comp = data.get("totalComponents", 0)
 
-    status_color = "#15803d" if overall == "GREEN" else ("#b45309" if overall == "AMBER" else "#be123c")
+    # NOTE: Overall Status and Migration Readiness Score are intentionally
+    # NOT shown in this strip. Overall Status already appears once in the
+    # page's Top Summary and once in the bottom banner (single source of
+    # truth: app.analyzers.health_score.get_health_score()); Migration
+    # Readiness Score is a separate scoring model (see the "Migration
+    # Readiness" section) that would otherwise read as a second, conflicting
+    # readiness figure next to it. Keeping both out of this strip removes
+    # the duplicated/conflicting KPIs without changing how either score is
+    # computed — both are still shown in full in their own dedicated
+    # section.
     risk_color = "#be123c" if high_risk else ("#b45309" if risk_label == "MEDIUM" else "#15803d")
 
     analyzed_jobs = data.get("analyzedJobs", 0)
@@ -2121,21 +2145,10 @@ def ExecutiveDashboardCard(dashboard, mrs: dict | None = None) -> str | None:
         {"label": "Warning Jobs", "value": str(warning_jobs), "caption": "needs review (AMBER)", "filter": "Warning Jobs", "color": "#b45309"},
         {"label": "High Risk Jobs", "value": str(high_risk), "caption": "HIGH/CRITICAL findings", "filter": "High Risk Jobs", "color": "#be123c"},
         {"label": "Failed Jobs", "value": str(failed_jobs), "caption": "blocked (RED)", "filter": "Failed Jobs", "color": "#7f1d1d"},
-        {"label": "Readiness Status", "value": overall, "caption": "GREEN Low Effort / AMBER Medium Effort / RED High Effort", "filter": "Status", "color": status_color},
         {"label": "Automation", "value": f"{auto_pct}%", "caption": "auto-migratable", "filter": "Automation", "color": "#0f766e"},
         {"label": "Hours", "value": str(est_hours), "caption": f"{est_weeks} wks", "filter": "Hours", "color": "#6d28d9"},
         {"label": "Risk", "value": risk_label, "caption": f"{high_risk} high/critical", "filter": "Risk", "color": risk_color},
     ]
-
-    if mrs:
-        mrs_score = mrs.get("overallScore", 0)
-        mrs_rag = mrs.get("overallRag", "RED")
-        mrs_status = mrs.get("status", "NO DATA")
-        mrs_color = "#15803d" if mrs_rag == "GREEN" else ("#b45309" if mrs_rag == "AMBER" else "#be123c")
-        kpi_items.append({
-            "label": "Migration Readiness Score", "value": f"{mrs_score}%",
-            "caption": mrs_status, "filter": "Migration Readiness Score", "color": mrs_color,
-        })
 
     return render_clickable_kpi_row(kpi_items, "kpi_filter", "exec_kpi")
 
@@ -2278,13 +2291,19 @@ def render_progress_metric(label: str, value: str, pct: int, caption: str = "", 
 
 def get_rag_status(score: int, metric_type: str = "readiness") -> tuple[str, str, str, str]:
     """
-    Convert a numeric score to RAG status.
+    Convert a numeric score to RAG status using canonical thresholds.
     Returns (label, bg_color, border_color, text_color).
-    metric_type: 'readiness' or 'cloud'
+
+    Canonical thresholds (single source of truth — do NOT override locally):
+        score >= 80  → GREEN
+        score >= 60  → AMBER
+        score <  60  → RED
     """
-    if score >= 75:
-        return ("🟢 Cloud Ready", "#f0fdf4", "#86efac", "#15803d")
-    elif score >= 50:
+    from app.analyzers.health_score import rag_from_score
+    rag = rag_from_score(score)
+    if rag == "GREEN":
+        return ("🟢 Healthy", "#f0fdf4", "#86efac", "#15803d")
+    elif rag == "AMBER":
         return ("🟡 Remediation Required", "#fffbeb", "#fcd34d", "#b45309")
     else:
         return ("🔴 Significant Rework", "#fff1f2", "#fda4af", "#be123c")

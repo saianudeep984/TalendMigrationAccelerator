@@ -83,12 +83,9 @@ def _rag_color(rag: str) -> str:
     return {"GREEN": "#15803d", "AMBER": "#b45309", "RED": "#be123c"}.get(rag, "#475569")
 
 
-def _score_to_rag(score: int) -> str:
-    if score >= 70:
-        return "GREEN"
-    if score >= 40:
-        return "AMBER"
-    return "RED"
+# Canonical RAG conversion — all score→status mappings must use this.
+# Thresholds: >=80 GREEN, >=60 AMBER, <60 RED.
+from app.analyzers.health_score import rag_from_score as _score_to_rag, effort_from_complexity_distribution as _effort_from_dist
 
 
 def _score_badge(score: int, rag: str | None = None) -> str:
@@ -103,14 +100,14 @@ def _score_badge(score: int, rag: str | None = None) -> str:
 
 
 def _effort_estimate(rs: dict) -> tuple[int, float]:
-    """Return (total_hours, weeks) from complexity distribution."""
-    manual_h = 8
-    auto_h = 2
-    manual_jobs = rs.get("complexity_high", 0) + rs.get("complexity_critical", 0)
-    auto_jobs    = rs.get("complexity_low",  0) + rs.get("complexity_medium",  0)
-    hours = manual_jobs * manual_h + auto_jobs * auto_h
-    weeks = round(hours / 40, 1)
-    return hours, weeks
+    """Return (total_hours, weeks) from complexity distribution — delegates to canonical engine."""
+    result = _effort_from_dist(
+        complexity_high=rs.get("complexity_high", 0),
+        complexity_critical=rs.get("complexity_critical", 0),
+        complexity_low=rs.get("complexity_low", 0),
+        complexity_medium=rs.get("complexity_medium", 0),
+    )
+    return result["total_hours"], result["total_weeks"]
 
 
 def _dependency_count(lineage: dict) -> int:
@@ -373,8 +370,10 @@ def _render_ai_summary(rs: dict, scores: list) -> None:
     hours, weeks   = _effort_estimate(rs)
 
     # Risk level
-    risk_level  = "LOW" if rs.get("risk_findings_score", 92) >= 85 else ("MEDIUM" if rs.get("risk_findings_score", 92) >= 60 else "HIGH")
-    risk_color  = {"LOW": "#15803d", "MEDIUM": "#b45309", "HIGH": "#be123c"}.get(risk_level, "#475569")
+    # Risk level — derived via canonical rag_from_score (>=80 GREEN / >=60 AMBER / <60 RED)
+    _risk_rag  = _score_to_rag(rs.get("risk_findings_score", 92))
+    risk_level = {"GREEN": "LOW", "AMBER": "MEDIUM", "RED": "HIGH"}.get(_risk_rag, "MEDIUM")
+    risk_color = {"LOW": "#15803d", "MEDIUM": "#b45309", "HIGH": "#be123c"}.get(risk_level, "#475569")
 
     # Purpose
     purpose = (

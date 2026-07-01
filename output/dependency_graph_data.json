@@ -1,6 +1,17 @@
 {
     "nodes": [
-        "SC_Landing_To_Staging_Full_Load_CDP_Consumption_MD"
+        "GA_Max_values",
+        "Plugin_Max_values",
+        "Update_mean_max"
     ],
-    "edges": []
+    "edges": [
+        {
+            "source": "Update_mean_max",
+            "target": "GA_Max_values"
+        },
+        {
+            "source": "Update_mean_max",
+            "target": "Plugin_Max_values"
+        }
+    ]
 }

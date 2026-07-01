@@ -6,14 +6,14 @@ import os
 import pandas as pd
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 
 
 def _goto_settings(section: str, key: str) -> None:
     if st.button(f"⚙️ Edit → {section}", key=key, use_container_width=True):
         from app.ui.design_system_v2 import _NAV_PAGES
         _settings_idx = next(
-            (i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), 8
+            (i for i, (k, _) in enumerate(_NAV_PAGES) if k == "settings"), len(_NAV_PAGES) - 1
         )
         st.session_state["settings_section"] = section
         st.session_state["_nav_idx2"] = _settings_idx
@@ -48,7 +48,7 @@ from app.reports.executive_pdf_generator import generate_executive_pdf
 def _css() -> None:
     st.markdown("""
     <style>
-    .block-container{padding-top:1rem!important;padding-bottom:.75rem!important}
+    .block-container{padding-bottom:.75rem!important}
     section[data-testid="stSidebar"] .block-container{padding-top:1rem!important}
 
     .kpi-strip{
@@ -155,8 +155,6 @@ def _render_job_portfolio(all_jobs, total, drill_filter, effort):
         job_df = job_df[job_df["Complexity"].isin(["HIGH", "CRITICAL"])]
     elif drill_filter == "Failed Jobs":
         job_df = job_df[job_df["Cloud Readiness"] == "RED"]
-    elif drill_filter == "Migration Readiness Score":
-        st.caption("Migration Readiness Score is a portfolio-level metric.")
     if drill_filter:
         st.caption(f"Filtered by KPI: **{drill_filter}** ({len(job_df)} of {total} jobs)")
     styled_dataframe(job_df, "executive_job_portfolio", use_container_width=True, hide_index=True)
@@ -187,19 +185,27 @@ def _render_portfolio_overview(total, auto_pct, effort):
 
 def _render_export_pdf(all_jobs, total, total_comp, analyzed_jobs, ready_jobs, warning_jobs,
                        high_risk, failed_jobs, overall, auto_pct, est_hours, est_weeks,
-                       risk_label, mrs_score, mrs_rag, mrs_status):
+                       risk_label):
+    # Overall Status must come from the canonical health score, not cloud readiness aggregate.
+    _hs = st.session_state.get("repository_health_score") or {}
+    overall_status = _hs.get("overall_status") or _hs.get("risk_level") or overall
+
+    # NOTE: Migration Readiness Score is intentionally not added as a row
+    # here — it's a separate scoring model from Overall Status (see the
+    # "Migration Readiness" section for its full breakdown), and showing
+    # both side-by-side in the same summary table read as two conflicting
+    # readiness figures rather than one clear KPI.
     kpi_summary_df = pd.DataFrame([
-        {"KPI": "Total Jobs",             "Value": str(total),         "Detail": f"{total_comp} components"},
-        {"KPI": "Analyzed Jobs",          "Value": str(analyzed_jobs), "Detail": f"of {total} jobs"},
-        {"KPI": "Ready Jobs",             "Value": str(ready_jobs),    "Detail": "cloud-ready (GREEN)"},
-        {"KPI": "Warning Jobs",           "Value": str(warning_jobs),  "Detail": "needs review (AMBER)"},
-        {"KPI": "High Risk Jobs",         "Value": str(high_risk),     "Detail": "HIGH/CRITICAL findings"},
-        {"KPI": "Failed Jobs",            "Value": str(failed_jobs),   "Detail": "blocked (RED)"},
-        {"KPI": "Cloud Readiness Status", "Value": overall,            "Detail": "GREEN/AMBER/RED"},
-        {"KPI": "Automation",             "Value": f"{auto_pct}%",     "Detail": "auto-migratable"},
-        {"KPI": "Hours",                  "Value": str(est_hours),     "Detail": f"{est_weeks} wks"},
-        {"KPI": "Risk",                   "Value": str(risk_label),    "Detail": f"{high_risk} high/critical"},
-        {"KPI": "Migration Readiness",    "Value": f"{mrs_score}%",    "Detail": f"{mrs_rag} — {mrs_status}"},
+        {"KPI": "Total Jobs",          "Value": str(total),         "Detail": f"{total_comp} components"},
+        {"KPI": "Analyzed Jobs",       "Value": str(analyzed_jobs), "Detail": f"of {total} jobs"},
+        {"KPI": "Ready Jobs",          "Value": str(ready_jobs),    "Detail": "cloud-ready (GREEN)"},
+        {"KPI": "Warning Jobs",        "Value": str(warning_jobs),  "Detail": "needs review (AMBER)"},
+        {"KPI": "High Risk Jobs",      "Value": str(high_risk),     "Detail": "HIGH/CRITICAL findings"},
+        {"KPI": "Failed Jobs",         "Value": str(failed_jobs),   "Detail": "blocked (RED)"},
+        {"KPI": "Overall Status",      "Value": overall_status,     "Detail": "≥80 Green · 60–79 Amber · <60 Red"},
+        {"KPI": "Automation",          "Value": f"{auto_pct}%",     "Detail": "auto-migratable"},
+        {"KPI": "Hours",               "Value": str(est_hours),     "Detail": f"{est_weeks} wks"},
+        {"KPI": "Risk",                "Value": str(risk_label),    "Detail": f"{high_risk} high/critical"},
     ])
     styled_dataframe(kpi_summary_df, "executive_kpi_summary", use_container_width=True, hide_index=True)
     risk_rows = [{
@@ -213,10 +219,11 @@ def _render_export_pdf(all_jobs, total, total_comp, analyzed_jobs, ready_jobs, w
     risk_df = pd.DataFrame(risk_rows)
     risk_df = risk_df[risk_df["Complexity"].isin(["HIGH", "CRITICAL"]) | (risk_df["High/Critical Findings"] > 0)]
     styled_dataframe(risk_df, "executive_risk_table", use_container_width=True, hide_index=True)
-    readiness_df = pd.DataFrame([{"Metric": "Cloud Readiness Status", "Value": overall}])
-    styled_dataframe(readiness_df, "executive_readiness_metrics", use_container_width=True, hide_index=True)
+    # NOTE: a standalone one-row "Overall Status" table used to be rendered
+    # here too — removed as a duplicate of the row already in kpi_summary_df
+    # above.
     pdf_download_button("Executive Summary",
-        [("KPI Summary", kpi_summary_df), ("Risk Table", risk_df), ("Readiness Metrics", readiness_df)],
+        [("KPI Summary", kpi_summary_df), ("Risk Table", risk_df)],
         "executive_summary", "Executive_Summary.pdf")
     st.markdown("---")
     st.markdown("**📄 Branded Executive PDF**")
@@ -248,30 +255,11 @@ def _render_java_risk(java_risk):
     _goto_settings("Migration Risk", "exec_java_risk_settings")
 
 
-def _render_business_flow():
-    from app.ui.preflight_dashboard import render_business_flow
-    render_business_flow()
-    _goto_settings("Migration Risk", "exec_business_flow_settings")
-
-
-def _render_migration_economics(auto_pct, effort, est_hours, est_weeks, high_risk, overall):
-    econ_df = pd.DataFrame([
-        {"Metric": "Auto-Migratable",        "Value": f"{auto_pct}%"},
-        {"Metric": "Manual Required",         "Value": f"{effort.get('manual_pct', 0) if effort else 0}%"},
-        {"Metric": "Estimated Hours",         "Value": str(est_hours)},
-        {"Metric": "Estimated Days",          "Value": str(effort.get("estimated_days", "—") if effort else "—")},
-        {"Metric": "Estimated Weeks",         "Value": str(est_weeks)},
-        {"Metric": "High/Critical Risk Jobs", "Value": str(high_risk)},
-        {"Metric": "Cloud Readiness Status",  "Value": overall},
-    ])
-    styled_dataframe(econ_df, "executive_migration_economics", use_container_width=True, hide_index=True)
-    c1, c2 = st.columns(2)
-    with c1: _goto_settings("Effort Estimation", "exec_econ_effort_settings")
-    with c2: _goto_settings("Simulation Sandbox", "exec_econ_sim_settings")
-
-
-def _render_readiness_score(mrs, mrs_score, mrs_rag, mrs_status):
-    st.caption(f"Overall: **{mrs_score}%** ({mrs_rag}) — {mrs_status}")
+def _render_readiness_and_economics(mrs, mrs_score, mrs_rag, mrs_status, auto_pct, effort, est_hours, est_weeks, high_risk):
+    """Merged Migration Readiness + Economics section (Executive view)."""
+    # ── Migration Readiness ─────────────────────────────────────────────────
+    st.markdown("#### Migration Readiness Score")
+    st.caption(f"Migration Readiness: **{mrs_score}%** ({mrs_rag}) — {mrs_status}")
     mrs_df = pd.DataFrame([
         {"Dimension": d["dimension"], "Score": f"{d['score']}%", "RAG": d["rag"],
          "Weight": f"{int(d['weight']*100)}%", "Detail": d["detail"]}
@@ -282,35 +270,81 @@ def _render_readiness_score(mrs, mrs_score, mrs_rag, mrs_status):
     with c1: _goto_settings("Assessment Rules", "exec_mrs_rules_settings")
     with c2: _goto_settings("Complexity Scoring", "exec_mrs_complexity_settings")
 
+    st.divider()
+
+    # ── Migration Economics ──────────────────────────────────────────────────
+    st.markdown("#### Migration Economics")
+
+    # Derive cost from real effort data using a configurable blended daily rate.
+    # Source of truth is the config FILE on disk, re-read fresh on every
+    # render — not any in-memory session_state key, which can lag behind
+    # what Simulation Sandbox actually persisted.
+    try:
+        from app.config.assessment_config_store import load_config as _load_econ_cfg
+        _econ_saved = _load_econ_cfg(st.session_state.get("last_repo_path")).get("economics", {})
+    except Exception:
+        _econ_saved = st.session_state.get("assessment_config", {}).get("economics", {})
+    if _econ_saved:
+        blended_daily_rate = int(_econ_saved.get("blended_daily_rate", 900))
+        ai_reduction_pct = int(_econ_saved.get("ai_reduction_pct", 30))
+    else:
+        blended_daily_rate = int(st.session_state.get("default_blended_rate", 900))
+        ai_reduction_pct = int(st.session_state.get("default_ai_reduction", 30))
+
+    _est_hours   = effort.get("estimated_hours", 0) if effort else 0
+    _est_days    = effort.get("estimated_days", 0)  if effort else 0
+    _manual_pct  = effort.get("manual_pct", 0)      if effort else 0
+
+    if _est_days and blended_daily_rate:
+        _base_cost      = round(_est_days * blended_daily_rate)
+        _ai_saving      = round(_base_cost * ai_reduction_pct / 100)
+        _net_cost       = _base_cost - _ai_saving
+        _cost_str       = f"${_net_cost:,}"
+        _base_cost_str  = f"${_base_cost:,}"
+        _saving_str     = f"${_ai_saving:,} ({ai_reduction_pct}% AI reduction)"
+    else:
+        _cost_str      = "Not Available"
+        _base_cost_str = "Not Available"
+        _saving_str    = "Not Available"
+
+    econ_df = pd.DataFrame([
+        {"Metric": "Auto-Migratable",        "Value": f"{auto_pct}%"},
+        {"Metric": "Manual Required",         "Value": f"{_manual_pct}%"},
+        {"Metric": "Estimated Hours",         "Value": str(_est_hours) if _est_hours else "Not Available"},
+        {"Metric": "Estimated Days",          "Value": str(_est_days) if _est_days else "Not Available"},
+        {"Metric": "Estimated Weeks",         "Value": str(est_weeks) if est_weeks not in (None, "N/A", "") else "Not Available"},
+        {"Metric": "Blended Daily Rate",      "Value": f"${blended_daily_rate:,}"},
+        {"Metric": "Baseline Cost (pre-AI)",  "Value": _base_cost_str},
+        {"Metric": "AI Cost Reduction",       "Value": _saving_str},
+        {"Metric": "Estimated Net Cost",      "Value": _cost_str},
+        {"Metric": "High/Critical Risk Jobs", "Value": str(high_risk)},
+    ])
+    styled_dataframe(econ_df, "executive_migration_economics", use_container_width=True, hide_index=True)
+
+    st.caption(
+        f"Cost formula: (Estimated Days × Blended Daily Rate) × (1 − AI Reduction %). "
+        f"Adjust the daily rate and AI reduction % in Settings → Effort Estimation."
+    )
+    c1, c2 = st.columns(2)
+    with c1: _goto_settings("Effort Estimation", "exec_econ_effort_settings")
+    with c2: _goto_settings("Simulation Sandbox", "exec_econ_sim_settings")
+
+
+# Stubs kept for any test imports — not rendered via SECTIONS anymore
+def _render_business_flow():
+    pass  # Removed — section eliminated per UX cleanup
+
+
+def _render_migration_economics(auto_pct, effort, est_hours, est_weeks, high_risk):
+    pass  # Merged into _render_readiness_and_economics
+
+
+def _render_readiness_score(mrs, mrs_score, mrs_rag, mrs_status):
+    pass  # Merged into _render_readiness_and_economics
+
 
 def _render_migration_advisor():
-    try:
-        from app.ui.migration_advisor_dashboard import build_migration_advisor_dashboard
-        from app.parser.project_classifier import ProjectType
-        _adv_source = st.session_state.get("wizard_source_version", "Unknown")
-        _adv_qlik   = st.session_state.get("wizard_qlik_mode", False)
-        _adv_studio = st.session_state.get("wizard_open_studio", False)
-        if _adv_qlik:
-            _adv_ptype = ProjectType.CLOUD
-        elif _adv_studio:
-            _adv_ptype = ProjectType.OPEN_STUDIO
-        else:
-            _adv_ptype = ProjectType.ENTERPRISE
-        _adv_data = build_migration_advisor_dashboard(project_type=_adv_ptype, source_version=_adv_source)
-        c1, c2, c3 = st.columns(3)
-        with c1: st.metric("Project Type", _adv_data["projectType"])
-        with c2: st.metric("Source",        _adv_data["sourceVersion"])
-        with c3: st.metric("Target",        _adv_data["targetVersion"] or "N/A")
-        _actions = _adv_data.get("recommendedActions", [])
-        if _actions:
-            st.caption("**Next steps**")
-            for _i, _step in enumerate(_actions[:2], 1):
-                st.markdown(f"{_i}. {_step}")
-        else:
-            st.caption(_adv_data.get("rationale", "Run analysis to generate recommendations."))
-    except Exception as _adv_err:
-        st.caption(f"Advisor unavailable — run analysis first. ({_adv_err})")
-    _goto_settings("Migration Risk", "exec_migration_advisor_settings")
+    pass  # Removed — Migration Advisor eliminated per UX cleanup
 
 
 def _render_routines(routines, joblets):
@@ -414,20 +448,30 @@ def _render_report_pack(all_jobs, effort):
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-def render_executive_dashboard():
+def render_executive_dashboard(show_header: bool = True):
     apply_wizard_theme()
     _css()
 
-    from app.ui.design_system_v2 import page_header
-    page_header("📊", "Executive Dashboard", "KPIs · RAG · Readiness · Migration Economics")
+    if show_header:
+        from app.ui.design_system_v2 import page_header
+        page_header("📊", "Executive Dashboard", "KPIs · RAG · Readiness · Migration Economics & Effort")
 
     if "last_analysis_jobs" not in st.session_state:
         empty_state_card("No repository loaded", "Upload your Talend ZIP on the Home page first.", "warning")
         return
 
+    # Ensure the canonical health score is populated in session state so all
+    # sub-widgets (KPI strip, PDF export, etc.) share the same result.
+    try:
+        from app.analyzers.health_score import get_health_score as _hs_fn
+        _hs_fn()  # no-op if already cached
+    except Exception:
+        pass
+
     all_jobs  = st.session_state["last_analysis_jobs"]
     readiness = st.session_state.get("readiness_score", {})
-    effort    = st.session_state.get("effort_estimate", {})
+    from app.analyzers.effort_estimator import live_repository_effort_estimate
+    effort    = live_repository_effort_estimate() or st.session_state.get("effort_estimate", {})
     java_risk = st.session_state.get("java_risk_analysis", {})
     routines  = st.session_state.get("routine_analysis", {})
     joblets   = st.session_state.get("joblet_analysis", {})
@@ -518,10 +562,7 @@ def render_executive_dashboard():
         ("📊 Portfolio Overview",     "📊 Portfolio Overview"),
         ("📄 Export PDF",             "📄 Export Executive Summary (PDF)"),
         ("☕ Java Risk",              "☕ Java Risk"),
-        ("🔀 Business Flow",          "🔀 Business Flow"),
-        ("💰 Migration Economics",    "💰 Migration Economics"),
-        ("🧭 Readiness Score",        "🧭 Migration Readiness Score"),
-        ("🧭 Migration Advisor",      "🧭 Migration Advisor"),
+        ("💰 Executive Summary",      "💰 Migration Readiness & Economics"),
         ("📦 Routines & Joblets",     "📦 Routines & Joblets"),
         ("⚠️ Unsupported Components", "⚠️ Unsupported Components"),
         ("🌳 Job Hierarchy",          "🌳 Job Hierarchy"),
@@ -559,17 +600,11 @@ def render_executive_dashboard():
             _render_export_pdf(
                 all_jobs, total, total_comp, analyzed_jobs, ready_jobs, warning_jobs,
                 high_risk, failed_jobs, overall, auto_pct, est_hours, est_weeks,
-                risk_label, mrs_score, mrs_rag, mrs_status)
+                risk_label)
         elif selected == "☕ Java Risk":
             _render_java_risk(java_risk)
-        elif selected == "🔀 Business Flow":
-            _render_business_flow()
-        elif selected == "💰 Migration Economics":
-            _render_migration_economics(auto_pct, effort, est_hours, est_weeks, high_risk, overall)
-        elif selected == "🧭 Readiness Score":
-            _render_readiness_score(mrs, mrs_score, mrs_rag, mrs_status)
-        elif selected == "🧭 Migration Advisor":
-            _render_migration_advisor()
+        elif selected == "💰 Executive Summary":
+            _render_readiness_and_economics(mrs, mrs_score, mrs_rag, mrs_status, auto_pct, effort, est_hours, est_weeks, high_risk)
         elif selected == "📦 Routines & Joblets":
             _render_routines(routines, joblets)
         elif selected == "⚠️ Unsupported Components":

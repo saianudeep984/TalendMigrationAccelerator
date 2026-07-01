@@ -12,7 +12,7 @@ import zipfile
 
 import streamlit as st
 
-from app.analyzers.readiness_scorer import score_to_rag as _score_to_rag
+from app.analyzers.health_score import rag_from_score as _score_to_rag
 from app.utils.zip_extractor import safe_extract
 
 # ── Design System v2 ──────────────────────────────────────────────────────────

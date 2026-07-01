@@ -1,0 +1,3 @@
+%~d0
+cd %~dp0
+java -Xms256M -Xmx1024M -cp .;../lib/routines.jar;../lib/log4j-1.2.16.jar;../lib/commons-collections-3.2.jar;../lib/log4j-1.2.15.jar;../lib/pluginclassificationdata_1_0.jar;../lib/trove.jar;../lib/gaclassificationdata_1_0.jar;../lib/gaclassificationinput_1_0.jar;../lib/topattributega_1_0.jar;../lib/topattributeplugin_1_0.jar;../lib/advancedPersistentLookupLib-1.0.jar;../lib/dom4j-1.6.1.jar;../lib/jboss-serialization.jar;../lib/mysql-connector-java-5.1.30-bin.jar;update_mean_max_0_1.jar;ga_max_values_1_0.jar;plugin_max_values_1_0.jar; sriyamlxigaapi.update_mean_max_0_1.Update_mean_max --context=Default %* 

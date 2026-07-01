@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "active_profile": "Custom",
   "profiles": [
     "Conservative",
@@ -9,13 +9,13 @@
     "Custom"
   ],
   "complexity": {
-    "component_weight": 30,
-    "sql_weight": 40,
-    "dependency_weight": 15,
-    "custom_code_weight": 20,
+    "component_weight": 10,
+    "sql_weight": 10,
+    "dependency_weight": 10,
+    "custom_code_weight": 10,
     "risk_weight": 10,
     "thresholds": {
-      "low": 40,
+      "low": 75,
       "medium": 80,
       "high": 120
     }
@@ -37,10 +37,10 @@
     "flag_context": true
   },
   "effort": {
-    "hours_per_component": 0.5,
-    "hours_per_sql_query": 0.5,
-    "hours_per_dependency": 0.5,
-    "hours_per_custom_code": 2.0
+    "hours_per_component": 0.2,
+    "hours_per_sql_query": 0.1,
+    "hours_per_dependency": 0.1,
+    "hours_per_custom_code": 0.5
   },
   "cloud": {
     "custom_java_usage": true,
@@ -52,5 +52,9 @@
       "partially_ready": 50
     }
   },
-  "updated_at": "2026-06-28T09:54:35Z"
+  "economics": {
+    "blended_daily_rate": 200,
+    "ai_reduction_pct": 5
+  },
+  "updated_at": "2026-06-30T13:56:22Z"
 }

@@ -169,6 +169,54 @@ def _top_issues(dimension_scores: list[dict]) -> list[dict]:
     return issues
 
 
+# ── Canonical helpers (single source of truth for ALL callers) ────────────────
+
+def rag_from_score(score: int, *, low: int = 60, high: int = 80) -> str:
+    """Convert a 0-100 numeric score to RED / AMBER / GREEN.
+
+    Canonical thresholds (configurable, default canonical):
+        score >= 80  → GREEN
+        score >= 60  → AMBER
+        score <  60  → RED
+
+    All UI pages, reports, and export writers MUST call this function
+    instead of defining their own inline rag/threshold logic.
+    """
+    try:
+        s = int(score)
+    except (TypeError, ValueError):
+        return "AMBER"
+    if s >= high:
+        return "GREEN"
+    if s >= low:
+        return "AMBER"
+    return "RED"
+
+
+def effort_from_complexity_distribution(
+    complexity_high: int = 0,
+    complexity_critical: int = 0,
+    complexity_low: int = 0,
+    complexity_medium: int = 0,
+    *,
+    manual_hours_per_job: int = 8,
+    auto_hours_per_job: int = 2,
+) -> dict:
+    """Derive effort estimate from complexity distribution counts.
+
+    Returns:
+        { "total_hours": int, "total_weeks": float }
+
+    All callers that need effort-from-complexity MUST use this function
+    rather than computing hours/weeks inline.
+    """
+    manual_jobs = complexity_high + complexity_critical
+    auto_jobs = complexity_low + complexity_medium
+    hours = manual_jobs * manual_hours_per_job + auto_jobs * auto_hours_per_job
+    weeks = round(hours / 40, 1)
+    return {"total_hours": hours, "total_weeks": weeks}
+
+
 # ── Public API ─────────────────────────────────────────────────────────────────
 
 def calculate_health_score(
